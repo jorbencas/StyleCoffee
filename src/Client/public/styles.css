@@ -1,0 +1,452 @@
+* Styles go here */
+
+/*------------------------------------*\
+    $CONTINGUT del html 
+\*------------------------------------*/
+/*
+ *Contingut del html 
+    * Header.....Part del principi,lo relacionat amb el titol,la icona etc.....
+    * Body.......La part intermitja, Tot lo relacionat amb la tabla del get ranking,la tabla, els punts ,les activitat etc...
+    * Footer.....La part final del html, tot lo relacionat amb la firma del creador, l`hora etc....
+    * Grid.......Es la part de la ConfiguraciÃ³ de grid 
+    * Menu..Es la part on estan els elements pertinents referents al menu de navegacio
+    * Media......Es la part on estan les medides per als diferents dispositius i les respectives accions 
+ */
+
+ *{
+    margin: 0;
+    padding: 0;
+}
+                                
+                                    /*-----------*\
+                                        $Grid 
+                                    \*-----------*/
+
+.grid {
+	display:grid;
+    grid-template-areas: "header"
+						 "main"
+                         "footer";
+        background-repeat: no-repeat;
+        background-size: cover;
+        background: url(http://www.franquicias.libreriasnobel.es/blog/wp-content/uploads/2015/12/2_Caf%C3%A9-y-libros.jpg);
+  }
+  
+                                    /*-----------*\
+                                        $Header
+                                    \*-----------*/
+  .grid-header { 
+    /*grid-area:header;*/
+    display: flex;
+	display:-webkit-flex; 
+	display:-ms-flexbox;
+	justify-content: space-between;
+    width: 100%;
+    background: dimgray!important;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+ }
+
+.grid-header-logo {
+	color:#000000cc;
+	float: left;
+	font-size:30px;
+}
+
+                                    /*-----------*\
+                                        $Menu 
+                                    \*-----------*/
+
+.menu-listado { list-style: none; }
+
+.listado-item { display: inline-block; }
+
+.listado-item a, .grid-header-logo a {
+	color:#000000cc;
+	text-decoration: none;
+	display: block;
+    font-size:18px;
+    font-family: 'Orbitron', sans-serif;
+	padding:0 20px;
+	line-height:80px;
+}
+
+.listado-item:hover,.grid-header-logo a:hover{
+	background:#ffffffcc;
+	border-bottom: inset 5px solid #fff;
+}
+
+.listado-item a:hover,.grid-header-logo a:hover {
+	color:rgb(0, 0, 0);
+}
+
+ h1 {
+     padding: 0!important;
+     margin: 0 !important;
+    color: white;
+}
+
+#search-zone{
+    border-radius: 5%;
+    padding-top: 3%;
+    padding-bottom: 5%;
+}
+
+.header-title{
+    color: red;
+}
+.checkbox {
+    display: inline-block;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin: 2%;
+    width: 20%;
+    color: red;
+    background-color: rgb(126, 126, 126);
+    font-size: 20px;
+    padding: 1%;
+}
+
+input[type="checkbox"]:checked{
+    color: red;
+    background-color: #757575fd;
+}
+
+#search {
+   text-align: center;
+   background: dimgray!important;
+   color: white !important;
+   width: 65%;
+   height: 45px;
+   border-radius:10px;
+   text-shadow: none;
+   box-shadow: none;
+   font-size: 12px;
+   font-family: 'Nanum Pen Script', cursive;
+   overflow: hidden;
+}
+
+#search::placeholder{
+    color: white;
+    font-size: 16px;
+}
+
+@font-face{
+    font-family: myFirstFont;
+    src: url(./assets/nougatine.ttf);
+}
+.categoris{
+    margin-top: 10%;
+    background:#969696b3;
+    overflow: hidden;
+    border-radius: 5px;
+    text-align: center;
+}
+/*
+.listbatido{
+    padding-top: 5%;
+    padding-bottom: 5%;
+    list-style: none;
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-image: url(http://cafeconlibrosmalaga.com/wp-content/themes/cafe_libros/img/parallax_02.jpg)
+}*/
+#list{
+    display: grid;
+    grid-template-columns: auto auto auto;  
+    text-align: center;
+    list-style: none;
+    text-anchor: none;
+    width: 90%;
+}
+
+.item {
+    font-size: 22px;
+    font-family: 'Nanum Pen Script', cursive;
+    text-align: center;
+    margin: 5%;  
+   color: white !important;
+}
+.item:hover{
+    transform: scale(1.1);
+}
+
+                                        /*----------*\
+                                            $Body  
+                                        \*---------*/
+.grid-main { 
+    /*grid-area:main;*/
+    margin-top: 5%;
+    padding-top: 5px; 
+    background:#969696b3;
+    overflow: hidden;
+    border-radius: 5px;
+    text-align: center; 
+}
+
+label {
+    font-size: 22px;
+    font-family: 'Cutive Mono', monospace;
+}
+ 
+ #us, #ds, #xp {
+     color: #000000;
+     text-shadow: 2px 2px 1px rgb(226, 226, 226);
+     text-decoration: none;
+     border-radius: 5px;
+     padding: 10%;
+ }
+ 
+ #us { background-color: #ffbb46; }
+ 
+ #ds { background-color: #ff4747; }
+ 
+ #xp { background-color: #00aeee; }
+
+/*Ocultar div's*/
+#addStudent{position: absolute; top: -35;}
+#addGTask{position: absolute; top: -35;}
+ 
+ #us:hover { background-color: #ffa600; }
+ 
+ #ds:hover { background-color: #ff0404; }
+ 
+ #xp:hover { background-color: #00b7ff; }
+ 
+
+
+ a{
+    list-style: none;
+    text-decoration: none;
+ }
+
+ 
+  h3, h2{
+      font-size: 30px;
+     text-shadow: 2px 2px .2px #a7a7a7;
+  }
+ 
+ #newStudent, #newGradedTask{
+     padding-top: 15px;
+     padding-bottom: 15px;
+ }
+ 
+ .save:hover{
+     background-color: #a1e42f;
+ }
+
+ .save {
+    background-color: #bceb6f;
+    border-radius: 8px;
+    font-family: Arial !important;
+    font-family: sans-serif;
+    font-weight: bold;
+    color: #000000;
+    padding-left: .5em;
+    padding-right: .5em;
+    box-shadow: 2px 3px 5px #000000;
+}
+/*
+input {
+    text-align: center;
+    height: 20px;
+    font-size: 16px;
+    border-radius: 7px;
+    border-style: dotted;
+    border-bottom-color: yellowgreen;
+}
+
+
+input[type="number"]{
+    height: 18px;
+    transform: skewX(20deg);
+}
+
+
+
+input[type="text"]:focus{
+    background-color: #92e0ff;
+    border-color: #ff0505;
+}
+
+input[type="number"]:focus{
+    color: #06b2f7;
+    box-shadow: 5px;
+}
+*/
+                                        /*-----------*\
+                                             $Footer 
+                                        \*-----------*/   
+.grid-footer { 
+    /*grid-area:footer;*/
+    margin-top: 5%;
+    background: #177fd4; 
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.grid-footer-details {
+    margin: .5%;
+	background:#ffffffb3;
+	overflow: hidden;
+	border-radius: 5px;
+    text-align: center;
+    width:99% !important;
+}
+/*
+.grid-footer {
+    animation: fondo 5S infinite;
+}*/
+
+@keyframes fly-in-out {
+    0%   {border-color: wheat;}
+    10%  {border-color:#87adee;}
+    20%  {border-color: #50FD89;}
+    30%  {border-color: #ffff6d ;}
+    40%  {border-color:#ffb95d;}
+    50%  {border-color: #fd8150;}
+    60%  {border-color: #fd5050;}
+    70%  {border-color: #ffff6d ;}
+    80%  {border-color: #50FD89;}
+    90%  {border-color:#87adee;}
+    100% {border-color: wheat;} 
+}
+
+@keyframes fondo {
+    0%   {background-color: wheat;}
+    10%  {background-color:#87adee;}
+    20%  {background-color: #50FD89;}
+    30%  {background-color: #ffff6d ;}
+    40%  {background-color:#ffb95d;}
+    50%  {background-color: #fd8150;}
+    60%  {background-color: #fd5050;}
+    70%  {background-color: #ffff6d ;}
+    80%  {background-color: #50FD89;}
+    90%  {background-color:#87adee;}
+    100% {background-color: wheat;} 
+}
+    
+/*
+@media screen and ( max-width: 840px ) {
+    .grid-header { 
+        grid-area:header;
+        display: block;
+        width: auto;
+     }
+
+     .listado-item a, .grid-header-logo a {
+        display: inline-block;
+        font-size:16px;
+    }
+
+    .grid-header-logo {
+        display: block;
+        font-size: 22px;
+        text-align: center;
+        float: center;
+        margin: auto;
+    }
+}
+
+@media screen and ( max-width: 752px ) {
+
+     .listado-item, .grid-header-logo {
+        display: flex;
+        justify-content: space-between;
+        font-size:14px;
+    }
+
+    .grid-header-logo {
+        display: block;
+        font-size: 20px;
+        float: none;
+        margin: auto;
+        padding: auto;
+    }
+
+    .table{
+        display: block;
+        overflow-x: auto;
+    }
+
+    h3, h2{
+        font-size: 20px;
+    }
+   
+   #newStudent, #newGradedTask{
+       padding-top: 10px;
+       padding-bottom: 10px;
+   }
+  
+  input {
+      height: 20px;
+      font-size: 16px;
+  }
+
+    input[type="number"]{
+        height: 18px;
+    }
+
+    .grid-footer { 
+        grid-area:footer;
+        position:fixed;
+        left: 0px;
+        bottom: 0px;
+        height: 10%;
+        width:100% !important;
+    }
+
+}
+
+@media screen and ( max-width: 470px ) {
+    .listado-item a {
+        font-size:11px;
+        text-align: center;
+        width: auto;
+        float: none;
+    }
+    
+    .grid-header nav ul{
+        display: flex;
+        justify-content: space-between;
+        flex-flow: row;
+    }
+
+    .grid-header-logo a {
+        display: block;
+        font-size: 14px;
+    }
+
+    h3, h2{
+        font-size: 18px;
+    }
+   
+   #newStudent, #newGradedTask{
+       padding-top: 5px;
+       padding-bottom: 5px;
+   }
+  
+  input {
+      height: 18px;
+      font-size: 14px;
+  }
+
+    input[type="number"]{
+        height: 14px;
+    }
+
+    .grid-footer { 
+        grid-area:footer;
+        position:absolute;
+        left: 0px;
+        bottom: 0px;
+        height: 10%;
+        width:100% !important;
+    }
+}
+*/
