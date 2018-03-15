@@ -1,6 +1,10 @@
 import React from 'react';
 import Menu from './Menu';
-import reactDOM from 'react-dom';
+//import reactDOM from 'react-dom';
+import Home from './Home';
+import Categoris from './Categoris';
+
+import {Router, Route, IndexRoute, Link, browserHistory } from 'react-router';
 
 class Header extends React.Component {
     constructor(props){
@@ -38,10 +42,45 @@ class Header extends React.Component {
               </h1>
             </a> 
           <nav id="menu" className="header-menu" role="menu">
+            <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/users">Users</Link></li>
+            <li><Link to="/widgets">Widgets</Link></li>
+          </ul>
           </nav>
         </div>
         );
     }
+
+
+    
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export default Header;

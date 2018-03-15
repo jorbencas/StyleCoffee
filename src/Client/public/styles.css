@@ -87,6 +87,99 @@
     color: white;
 }
 
+.Contact{
+    text-align: center;
+    padding: 3%;
+}
+
+.contact_tittle{
+    text-align: center;
+    padding: 5%;
+    font-size: 35px;
+}
+
+.contact_item{
+    color: white;
+    padding: .5%;
+}
+
+.Contact label {
+    color: white;
+    text-align: left;
+    font-family: 'Nanum Pen Script';
+}
+
+.Contact select{
+    width: 65%;
+    height: 55px;
+    border-radius:10px;
+    padding:15px;
+    background: dimgray;
+    border-radius: 2px;
+    color: #ffffff; 
+    font-size: 18px;
+    font-family: 'Nanum Pen Script', cursive;
+    overflow: hidden;
+}
+
+.Contact select option {
+    width: 65%;
+    height: 55px;
+    border-radius:10px;
+    padding: 15px;
+    background: dimgray;
+    border-radius: 2px;
+    color: #ffffff; 
+    font-size: 12px;
+    font-family: 'Nanum Pen Script', cursive;
+    overflow: hidden;
+}
+
+.Contact .contact_Item:hover{
+    background: rgb(233, 77, 77)!important;
+    cursor: pointer;
+    font-size: 18px;
+    padding: .10%;
+}
+
+.Contact textarea{
+    width: 60%;
+    height: 18%;
+    border-radius:10px;
+    padding: 15px;
+    background: dimgray;
+    border-radius: 2px;
+    color: #ffffff; 
+    font-size: 18px;
+    font-family: 'Nanum Pen Script', cursive;
+    overflow: hidden;
+}
+
+.Contact textarea::placeholder{
+    color: white;
+    text-align: center;
+}
+
+.Contact input{
+    text-align: center;
+    background: dimgray!important;
+    color: white !important;
+    width: 65%;
+    height: 45px;
+    border-radius:10px;
+    text-shadow: none;
+    box-shadow: none;
+    font-size: 18px;
+    font-family: 'Nanum Pen Script', cursive;
+    overflow: hidden;
+ }
+ 
+ .Contact input::placeholder{
+     color: white;
+     font-size: 16px;
+     text-align: center;
+ }
+
 #search-zone{
     border-radius: 5%;
     padding-top: 3%;

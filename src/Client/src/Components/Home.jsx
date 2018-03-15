@@ -28,7 +28,7 @@ class Home extends React.Component {
             <div id="home">
                 <section id="search-zone" className="search-zone">
                 <section className="section">
-                        <article className="checkbox" > <input type="radio" name="radio" id=""/>Books</article>
+                        <article className="checkbox" > <input type="radio" name="radio" id="" />Books</article>
                         <article className="checkbox" > <input type="radio" name="radio" id=""/> Coffes</article>
                     </section>
                     <input id="search" placeholder="Search everything that you find" type="search"/><a>Search</a>

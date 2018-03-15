@@ -29,22 +29,24 @@
   </head>
  
   <body id="body" role="grid" class="grid">
-    <header role="header" class="grid-header">
+    <header id="header" role="header" class="grid-header">
           <div class="grid-header-logo">
             <div id="rankinglist"></div>
             <a title="App Ranking List" role="link" href="#rankinglist" aria-valuetext="Ranking List">
-              <!--<h1> 
+              <h1> 
                  <picture>
                     <source media="(min-width: 960px)"  srcset="./a.svg">
                     <source media="(min-width: 768px)"  srcset="./a.svg">
                     <source media="(min-width: 380px)"  srcset="./a.svg">
-                </picture> -->
+                </picture> 
                 <img role="img" src="./assets/logo.png" width="50px"  alt="Logo del Ranking Students">
                 <span class="header-title">StyleCoffee</span>
-              <!--</h1>-->
+              </h1>
             </a> 
           </div>
           <nav id="menu" class="header-menu" role="menu"></nav>
+          <script src="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+          <link href="http://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet" >
     </header>
     
     <section role="main" id="content" class="grid-main"> </section>

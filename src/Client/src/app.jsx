@@ -1,29 +1,34 @@
 import reactDOM from 'react-dom';
-//import { Provider } from 'react-redux';
 import React from 'react';
-//import { Route, Switch } from 'react-router-dom';
-//import { ConnectedRouter } from 'react-router-redux';
-import App from './Components/Contact';
-import Menu from './Components/Menu';
+//const store = configureStore();
+//const syncedHistory = syncHistoryWithStore(browserHistory, store);
+import Contact from './Components/Contact';
+import Header from './Components/Header';
 import Home from './Components/Home';
 import Categoris from './Components/Categoris';
+//import { createStore } from 'redux'
+//import todoApp from './reducers'
+//import MainLayout from  './Components/Prueba';
+//let store = createStore(todoApp)
+
 
  $(document).ready(function(){
-  reactDOM.render(<Menu/>, document.getElementById('menu'));
-    reactDOM.unmountComponentAtNode(document.getElementById('content')); //umount react component
-    reactDOM.render(<Home/>, document.getElementById('content'));
-    reactDOM.render(<Categoris/>, document.getElementById('categoris'));
+    //reactDOM.render(<Menu/>, document.getElementById('menu'));
+    reactDOM.unmountComponentAtNode(document.getElementById('body')); //umount react component
+    reactDOM.render(<Contact/>, document.getElementById('content'));
+   /* reactDOM.render(<Header/>, document.getElementById('content'));
+    reactDOM.render(<Categoris/>, document.getElementById('categoris'));*/
     console.log('Hola');
-    
-/*    
-    reactDOM.render((
-      <Provider>
-        <ConnectedRouter>
-          <Switch>
-            <Route path="/" component={App} />
-          </Switch>
-        </ConnectedRouter>
-      </Provider>
-    
-    ), document.getElementById('content'));*/
+   
+    //reactDOM.render(<MainLayout/>, document.getElementById('header'));
+  /*
+    reactDOM.render((  
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        <Route path="/:(filter)" component={Home} />
+        <Route path="/:(filter)" component={Contact} />
+      </Router>
+  </Provider>
+
+    ), document.getElementById('context'));*/
  });

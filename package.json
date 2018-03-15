@@ -1,5 +1,5 @@
 {
-  "name": "StyleCoffee",
+  "name": "package",
   "version": "1.0.0",
   "description": "Server of the project ",
   "main": "app",
@@ -15,37 +15,51 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/jorbencas/StyleCoffee.git"
+    "url": "git+https://gitlab.com/jorbencas/StyleBooks.git"
   },
   "author": "jorge Beneyto Castelló",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/jorbencas/StyleCoffee/issues"
+    "url": "https://gitlab.com/jorbencas/StyleBooks/issues"
   },
-  "homepage": "https://gitlab.com/jorbencas/StyleCoffee#README",
+  "homepage": "https://gitlab.com/jorbencas/StyleBooks#README",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.8.2",
     "child_process": "^1.0.2",
     "dotenv": "^5.0.1",
+    "errorhandler": "^1.5.0",
     "express": "^4.9.3",
     "express-session": "*",
     "font-awesome": "^4.7.0",
     "fs": "0.0.1-security",
+    "http": "0.0.0",
     "install": "^0.10.2",
     "jquery": "^3.2.1",
     "lowdb": "^1.0.0",
+    "methods": "^1.1.2",
+    "mongoose": "^5.0.10",
+    "mongoose-unique-validator": "1.0.2",
     "morgan": "^1.1.1",
     "node-sass": "^4.7.2",
     "nodemon": "^1.17.1",
     "npm": "^5.6.0",
+    "path": "^0.12.7",
+    "popper.js": "^1.12.9",
     "react": "^16.2.0",
+    "react-bootstrap4-modal": "^1.2.2",
     "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.8",
+    "react-hot-loader": "^4.0.0",
+    "react-redux": "^5.0.7",
+    "react-router": "^4.2.0",
+    "react-router-dom": "^4.2.2",
+    "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",
-    "toastr": "^2.1.2"
+    "toastr": "^2.1.4"
   },
   "devDependencies": {
+    "@sendgrid/mail": "^6.2.1",
     "babel-cli": "^6.8.0",
     "babel-core": "6.8.0",
     "babel-loader": "6.2.4",
@@ -57,7 +71,6 @@
     "babel-register": "6.8.0",
     "cheerio": "^1.0.0-rc.2",
     "colors": "1.1.2",
-    "css-loader": "0.23.1",
     "event-source-polyfill": "0.0.12",
     "extract-text-webpack-plugin": "1.0.1",
     "mkdirp": "^0.5.1",
