@@ -227,7 +227,7 @@ input[type="checkbox"]:checked{
 
 @font-face{
     font-family: myFirstFont;
-    src: url(./assets/nougatine.ttf);
+    src: url(./assets/fonts/nougatine.ttf);
 }
 .categoris{
     margin-top: 10%;

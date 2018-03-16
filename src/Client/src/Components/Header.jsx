@@ -1,5 +1,5 @@
 import React from 'react';
-import Menu from './Menu';
+//import Menu from './Menu';
 //import reactDOM from 'react-dom';
 import Home from './Home';
 import Categoris from './Categoris';

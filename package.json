@@ -4,7 +4,7 @@
   "description": "Server of the project ",
   "main": "app",
   "scripts": {
-    "serve": "node ./src/Server/app.js",
+    "start": "node ./src/Server/app.js",
     "build:html": "babel-node ./tools/buildHTML.js",
     "build:css": "babel-node ./tools/buildCSS.js",
     "clean-dist": "npm run remove-dist && mkdir dist",
