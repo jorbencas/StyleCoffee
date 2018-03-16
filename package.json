@@ -15,14 +15,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/jorbencas/StyleBooks.git"
+    "url": "git+https://gitlab.com/jorbencas/StyleCoffee.git"
   },
   "author": "jorge Beneyto Castelló",
   "license": "ISC",
   "bugs": {
-    "url": "https://gitlab.com/jorbencas/StyleBooks/issues"
+    "url": "https://gitlab.com/jorbencas/StyleCoffe/issues"
   },
-  "homepage": "https://gitlab.com/jorbencas/StyleBooks#README",
+  "homepage": "https://gitlab.com/jorbencas/StyleCoffee#README",
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.8.2",
