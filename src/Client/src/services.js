@@ -4,7 +4,7 @@ import toastr from 'toastr';
         console.log(contact);
         debugger;
         $.ajax({
-            url: 'http://localhost:3001/api' ,
+            url: 'http://localhost:3001/api/contact',
             type: 'POST',
             data: contact,
             error: function() {
