@@ -1,11 +1,12 @@
 var router = require('express').Router();
 
+
 console.log('Contact');
 // return a list of tags
 router.post('/', function(req, res) {
     console.log('Dentro');
 
-  const sgMail = require('@sendgrid/mail');
+    const sgMail = require('@sendgrid/mail');
 	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 	const msg = {
 	  to: req.body.email,
@@ -24,11 +25,13 @@ router.post('/', function(req, res) {
           res.status('200').json({
             success: true
           });
-
-          return res.json({contact: req.body.email})
         }
       });
     
 });
+
+router.get('/',function(req,res,next){
+  res.send("Hola Contact");
+})
 
 module.exports = router;

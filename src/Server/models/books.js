@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var uniqueValidator = require('mongoose-unique-validator');
-/*var crypto = require('crypto');
+var crypto = require('crypto');
 var jwt = require('jsonwebtoken');
 var secret = require('../config').secret;
-var passport = require('passport');*/
+var passport = require('passport');
 
 var BooksSchema = new mongoose.Schema({
   id: Number,
@@ -25,7 +25,7 @@ BooksSchema.methods.toProfileJSONFor = function(user){
     image: this.image || '../../../dist/assets/photos/libro.png', 
     genere: this.genere,
     description: this.description,
-    yearpublication,: this.yearpublication,
+    yearpublication: this.yearpublication,
     author: this.author,
     title: this.title,
     price: this.price,
@@ -33,6 +33,4 @@ BooksSchema.methods.toProfileJSONFor = function(user){
   };
 };
 
-
-
-mongoose.model('Books',BooksSchema);
+module.exports = mongoose.model('Books',BooksSchema);

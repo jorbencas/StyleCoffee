@@ -9,7 +9,7 @@ var http = require('http'),
     errorhandler = require('errorhandler'),
     mongoose = require('mongoose');
     dotenv= require('dotenv').config();
-
+    const open = require('open');
 var isProduction = process.env.NODE_ENV === 'production';
 
 // Create global app object
@@ -23,9 +23,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(require('method-override')());
-app.use(express.static(__dirname + '/public'));
-
-app.use(session({ secret: 'conduit', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
+//app.use(express.static(__dirname + '/public'));
+app.use(express.static('./dist'));
+app.use(express.static('./'));
+//app.use(session({ secret: 'conduit', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
 
 if (!isProduction) {
   app.use(errorhandler());
@@ -34,15 +35,15 @@ if (!isProduction) {
 if(isProduction){
   mongoose.connect(process.env.MONGODB_URI);
 } else {
-  mongoose.connect('mongodb://localhost/computers');
+  mongoose.connect('mongodb://localhost/stylecoffee');
   mongoose.set('debug', true);
 }
 
-require('./models/User');
+require('./models/Books');
 // require('./models/Article');
-require('./models/Computer');
+require('./models/Coffee');
 // require('./models/Comment');
-require('./config/passport');
+//require('./config/passport');
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -84,7 +85,7 @@ app.use(function(err, req, res, next) {
 });
 
 // finally, let's start our server...
-var server = app.listen( process.env.PORT || 8080, function(){
-  console.log('Listening on port ' + server.address().port);
-  console.log('Hola Pepito');
+app.listen(process.env.port, () => {
+  console.log(`Servidor corriendo por http://localhost/:${port}`);
+  open(`http://localhost:${port}`);
 });

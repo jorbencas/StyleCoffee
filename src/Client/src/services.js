@@ -18,4 +18,20 @@ import toastr from 'toastr';
             
          });
     }
-export{ contactService };
+
+  function CoffeeService(){
+    $.ajax({
+      url: 'http://localhost:3001/api/coffe',
+      type: 'GET',
+      error: function() {
+        toastr.error('No se ha envio un email a correctamente','Email');
+        console.log('El correo no se ha enviado correctamente');
+      },
+      success: function(data) {
+        console.log(data);
+       return data;
+      }
+      
+   });
+  }  
+export{ contactService, CoffeeService };

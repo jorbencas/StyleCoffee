@@ -6,6 +6,7 @@ import Contact from './Components/Contact';
 import Header from './Components/Header';
 import Home from './Components/Home';
 import Categoris from './Components/Categoris';
+import  CoffeeListPage from './Components/CoffeeListPage';
 //import { createStore } from 'redux'
 //import todoApp from './reducers'
 //import MainLayout from  './Components/Prueba';
@@ -15,7 +16,7 @@ import Categoris from './Components/Categoris';
  $(document).ready(function(){
     //reactDOM.render(<Menu/>, document.getElementById('menu'));
     reactDOM.unmountComponentAtNode(document.getElementById('body')); //umount react component
-    reactDOM.render(<Contact/>, document.getElementById('content'));
+    reactDOM.render(<CoffeeListPage/>, document.getElementById('content'));
    /* reactDOM.render(<Header/>, document.getElementById('content'));
     reactDOM.render(<Categoris/>, document.getElementById('categoris'));*/
     console.log('Hola');
