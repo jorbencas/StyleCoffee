@@ -23,4 +23,4 @@ CoffeeSchema.methods.toProfileJSONFor = function(user){
   };
 };
 
-module.exports = mongoose.model('Coffee',CoffeeSchema);
+module.exports = mongoose.model('coffee',CoffeeSchema);

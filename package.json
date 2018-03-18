@@ -4,14 +4,14 @@
   "description": "Server of the project ",
   "main": "app",
   "scripts": {
-    "start": "node ./src/Server/app.js",
+    "start": "nodemon ./src/Server/app.js",
     "build:html": "babel-node ./tools/buildHTML.js",
     "build:css": "babel-node ./tools/buildCSS.js",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "prebuild": " npm-run-all clean-dist build:html build:css",
     "build": " babel-node tools/build.js",
-    "postbuild": "nodemon ./src/Server/app.js"
+    "postbuild": "node ./src/Server/app.js"
   },
   "repository": {
     "type": "git",
@@ -58,7 +58,7 @@
     "react-dropzone": "^4.2.8",
     "react-hot-loader": "^4.0.0",
     "react-redux": "^5.0.7",
-    "react-router": "^4.2.0",
+    "react-router": "3.0.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^4.0.8",
     "redux": "^3.7.2",

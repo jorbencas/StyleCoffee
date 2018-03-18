@@ -44,15 +44,12 @@ handleInputChange(event) {
 
 handleSubmit(event) {
     event.preventDefault();
-    //const contactService = new contactService();
     contactService(this.state);
-    debugger;
-   
 }
 
     render() {               
         return (
-            <div>
+            <div className="grid-main">
                 <div className="Contact">
                     <form id="contact_form" name="contact_form" className="form-contact">
                         <h1 className="contact_item">Contacto</h1>

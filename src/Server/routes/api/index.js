@@ -6,6 +6,7 @@ var router = require('express').Router();
 // router.use('/tags', require('./tags'));
 router.use('/contact', require('./contact'));
 router.use('/coffee', require('./coffee'));
+router.use('/books', require('./books'));
 
 router.use(function(err, req, res, next){
   if(err.name === 'ValidationError'){

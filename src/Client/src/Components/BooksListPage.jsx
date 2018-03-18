@@ -2,41 +2,51 @@ import React from 'react';
 
 class BooksListPage extends React.Component {
     constructor(props){
-        super(props);
-        //T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 });        
-       // T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
-       /* this.state = {                
-          motto:T.translate("motto")    
-        }; */      
+        super(props);   
+        this.state = {                
+            components: [],
+          };      
+          
+          this.UserList = this.UserList.bind(this);   
     }    
-   /* componenliidMount() {
-        this.subscription = events.subscribe('settings/change',(obj) => {  
-            //T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 })
-            T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
-            this.setState({
-                motto:T.translate("motto")     
-            });               
-        });      
-    }
 
-    componentWillUnmount() {
-        this.subscription.remove();
-    }
-*/
+    componentDidMount() {
+        this.UserList();
+      }
+    
+      UserList(event) {
+        var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:3001/api/books";
+        let that=this;
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var myArr = JSON.parse(this.responseText);
+                console.log(myArr);
+                that.setState({
+                    components: myArr.Book
+                  });
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.setRequestHeader('Content-Type', 'text/plain');
+        xmlhttp.send();
+      }
+
+
     render() {               
-        return (
-            <div id="listbooks">
-                <section id="search-zone" className="search-zone">
-                <section className="section">
-                        <article className="checkbox" > <input type="radio" name="radio" id="" />Books</article>
-                        <article className="checkbox" > <input type="radio" name="radio" id=""/> Coffes</article>
-                    </section>
-                    <input id="search" placeholder="Search everything that you find" type="search"/><a>Search</a>
-                </section>
-                
-                <div id="Section"></div>
+        const component = this.state.components.map((item) => (
+            <div>
+              <p>{ item.name }</p>
             </div>
-        );
+          ));
+          return (
+            <div>
+              <div className="grid-main">
+                <div>Home</div>
+                <div>{ component }</div>
+              </div>
+            </div>
+          );
     }
 }
 

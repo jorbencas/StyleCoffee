@@ -43,7 +43,7 @@ if(isProduction){
 
   app.listen(port, () => {
     console.log(`Servidor corriendo por http://localhost/:${port}`);
-    open(`http://localhost:${port}`);
+    open(`http://localhost:${port}/`);
   });
   
 }

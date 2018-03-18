@@ -19,19 +19,19 @@ import toastr from 'toastr';
          });
     }
 
-  function CoffeeService(){
-    $.ajax({
-      url: 'http://localhost:3001/api/coffe',
-      type: 'GET',
-      error: function() {
-        toastr.error('No se ha envio un email a correctamente','Email');
-        console.log('El correo no se ha enviado correctamente');
-      },
-      success: function(data) {
-        console.log(data);
-       return data;
-      }
-      
-   });
+  function CoffeeService(event){
+    console.log('Hola Estoy cargando los cafes');
+    var xmlhttp = new XMLHttpRequest();
+        var url = "http://localhost:3001/api/coffee";
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var myArr = JSON.parse(this.responseText);
+                console.log(myArr);
+                return myArr.Coffee;
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.setRequestHeader('Content-Type', 'text/plain');
+        xmlhttp.send();
   }  
 export{ contactService, CoffeeService };
