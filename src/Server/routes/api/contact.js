@@ -25,6 +25,7 @@ router.post('/', function(req, res) {
           res.status('200').json({
             success: true
           });
+          return res.json({contact: req.body.email})
         }
       });
     

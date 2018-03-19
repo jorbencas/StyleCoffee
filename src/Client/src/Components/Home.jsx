@@ -3,12 +3,38 @@ import React from 'react';
 class Home extends React.Component {
     constructor(props){
         super(props);
-        //T.setTexts(Settings.getTraductedText(), { MDFlavor: 0 });        
-       // T.setTexts(require('../lib/i18n/' + Settings.getLanguage() + '.json'))
-       /* this.state = {                
-          motto:T.translate("motto")    
-        }; */      
-    }    
+        this.state = {
+            subject:''
+        }; 
+        this.handleInputChange = this.handleInputChange.bind(this); 
+        this.handleSubmit = this.handleSubmit.bind(this);     
+    }   
+    
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+       
+        this.setState({
+          [name]: value
+        });
+    
+        console.log(this.state);
+    }
+    
+    handleSubmit(event) {
+        event.preventDefault();
+        if (condition) {
+            
+        }else if (){
+
+        }
+        SearchService(this.state);
+    }
+
+    savestate(){
+        
+    }
   
     render() {
         return(
@@ -18,7 +44,8 @@ class Home extends React.Component {
                         <article className="checkbox" > <input type="radio" name="radio" id="" />Books</article>
                         <article className="checkbox" > <input type="radio" name="radio" id=""/> Coffes</article>
                     </section>
-                    <input id="search" placeholder="Search everything that you find" type="search"/><a>Search</a>
+                    <input id="search" placeholder="Search everything that you find" onKeyUp={this.handleInputChange()} type="text"/>
+                    <input type="submit" onSubmit={this.handleSubmit()}>Search</input>
                 </section>
 
             <h1>Tenga el placer de probar toda clase de cafés</h1>

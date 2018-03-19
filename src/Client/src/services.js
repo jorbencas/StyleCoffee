@@ -2,7 +2,6 @@ import toastr from 'toastr';
 
  function contactService (contact){
         console.log(contact);
-        debugger;
         $.ajax({
             url: 'http://localhost:3001/api/contact',
             type: 'POST',
@@ -33,5 +32,24 @@ import toastr from 'toastr';
         xmlhttp.open("GET", url, true);
         xmlhttp.setRequestHeader('Content-Type', 'text/plain');
         xmlhttp.send();
-  }  
-export{ contactService, CoffeeService };
+  }
+  
+  function BooksDetailsService(id){
+    console.log(id);
+    debugger;
+    $.ajax({
+        url: 'http://localhost:3001/api/books/:id',
+        type: 'POST',
+        error: function() {
+          toastr.error('No se ha envio un email a correctamente','Email');
+          console.log('El correo no se ha enviado correctamente');
+        },
+        success: function(data) {
+          console.log(data);
+          return data;
+        }
+        
+     });
+  }
+
+export{ contactService, CoffeeService, BooksDetailsService };

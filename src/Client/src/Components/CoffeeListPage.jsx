@@ -1,5 +1,7 @@
 import React from 'react';
 import { CoffeeService } from '../services';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ReactDOM  from 'react-dom';
 
 class  CoffeeListPage extends React.Component {
     constructor(props){
@@ -7,7 +9,6 @@ class  CoffeeListPage extends React.Component {
         this.state = {                
           components: [],
         };      
-        
         this.UserList = this.UserList.bind(this);
       } 
     
@@ -32,14 +33,23 @@ class  CoffeeListPage extends React.Component {
         xmlhttp.setRequestHeader('Content-Type', 'text/plain');
         xmlhttp.send();
       }
+
+      componentWillUnmount(){
+        console.log('Unmount');
+        //ReactDOM.unmountComponentAtNode(document.getElementById('content'));
+        //$('#listcoffee').remove();
+      }
+
       render() {
         const component = this.state.components.map((item) => (
           <div>
             <p>{ item.name }</p>
+            <Link to={'/Coffees/Coffee/' + item.id}>details</Link>  
           </div>
         ));
+
         return (
-          <div>
+          <div id="listcoffee">
             <div className="grid-main">
               <div>Home</div>
               <div>{ component }</div>
@@ -50,3 +60,7 @@ class  CoffeeListPage extends React.Component {
 }
 
 export default CoffeeListPage;
+
+
+
+//             

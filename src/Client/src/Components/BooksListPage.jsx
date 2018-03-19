@@ -1,4 +1,7 @@
 import React from 'react';
+import BooksDetailPage from './BooksDetailPage';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ReactDOM  from 'react-dom';
 
 class BooksListPage extends React.Component {
     constructor(props){
@@ -9,6 +12,10 @@ class BooksListPage extends React.Component {
           
           this.UserList = this.UserList.bind(this);   
     }    
+
+    componentWillMount(){
+      console.log('Mount');
+    }
 
     componentDidMount() {
         this.UserList();
@@ -23,7 +30,7 @@ class BooksListPage extends React.Component {
                 var myArr = JSON.parse(this.responseText);
                 console.log(myArr);
                 that.setState({
-                    components: myArr.Book
+                    components: myArr.books
                   });
             }
         };
@@ -32,15 +39,20 @@ class BooksListPage extends React.Component {
         xmlhttp.send();
       }
 
+     /* componentWillUnmount(){
+        console.log('Unmount');
+      }*/
 
     render() {               
         const component = this.state.components.map((item) => (
             <div>
-              <p>{ item.name }</p>
+                <img src={item.image} width="130px" height="180px" alt=""/>
+                <p>{ item.title }</p>
+                <Link to={'/Books/Book/'+item.id}>details</Link>
             </div>
           ));
           return (
-            <div>
+            <div id="listbooks">
               <div className="grid-main">
                 <div>Home</div>
                 <div>{ component }</div>
