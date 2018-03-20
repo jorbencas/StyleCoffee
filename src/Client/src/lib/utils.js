@@ -109,4 +109,4 @@ function hashcode(str) {
     return matchResults[0];
   }
   
-  export {updateObject,formatDate,hashcode,deleteCookie,setCookie,getCookie,loadTemplate,getIdFromURL};
+  export {formatDate,hashcode,deleteCookie,setCookie,getCookie,loadTemplate,getIdFromURL};

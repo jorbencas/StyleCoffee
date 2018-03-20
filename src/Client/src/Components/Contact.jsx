@@ -79,7 +79,7 @@ handleSubmit(event) {
                             <textarea required className="contact_item" id="recomendation" name="message" placeholder="Introduzca aqui su mensaje *" onChange={this.handleInputChange}></textarea>
                         </div>
                         <div className="contact_item">
-                            <input className="contact_" type="submit" name="submit" id="submit" value="Enviar"  onClick={this.handleSubmit}/>
+                            <input className="contact_Item" type="submit" name="submit" id="submit" value="Enviar"  onClick={this.handleSubmit}/>
                         </div>
                     </form>
                 </div> 

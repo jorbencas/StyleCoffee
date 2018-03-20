@@ -20,12 +20,12 @@ router.post('/:id', function(req, res, next) {
       return res.json({computer: computer});
   }).catch(next);
 });
-
-router.get('/:type', function(req, res, next) {
+*/
+router.get('/:search', function(req, res, next) {
   console.log('hola');
-  Computer.find({ type: req.params.type}).then(function (computer) {
-      return res.json({computer: computer});
-  }).catch(next);
-});*/
+  /*coffee.find({ type: req.params.search}).then(function (coffee) {
+    return res.json({Coffee: Coffee});
+  }).catch(next);*/
+});
 
 module.exports = router;

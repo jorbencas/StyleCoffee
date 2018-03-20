@@ -189,6 +189,7 @@
 .header-title{
     color: red;
 }
+
 .checkbox {
     display: inline-block;
     margin-left: 10px;
@@ -199,11 +200,22 @@
     background-color: rgb(126, 126, 126);
     font-size: 20px;
     padding: 1%;
-}
 
-input[type="checkbox"]:checked{
-    color: red;
-    background-color: #757575fd;
+    padding: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.checkbox input[type=radio]{
+    display: inline-block;
+    padding: 5px 20px;
+}
+.checkbox:hover{
+    color: #757575fd;
+    background-color: rgb(255, 104, 104);
+}
+.cheked {
+    color: #757575fd;
+    background-color: rgb(255, 104, 104);
 }
 
 #search {
@@ -236,7 +248,7 @@ input[type="checkbox"]:checked{
     border-radius: 5px;
     text-align: center;
 }
-/*
+
 .listbatido{
     padding-top: 5%;
     padding-bottom: 5%;
@@ -244,7 +256,7 @@ input[type="checkbox"]:checked{
     background-size: cover; 
     background-repeat: no-repeat;
     background-image: url(http://cafeconlibrosmalaga.com/wp-content/themes/cafe_libros/img/parallax_02.jpg)
-}*/
+}
 #list{
     display: grid;
     grid-template-columns: auto auto auto;  

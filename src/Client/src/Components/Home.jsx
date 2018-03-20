@@ -1,5 +1,6 @@
 import React from 'react';
-
+import { getCookie, setCookie } from '../lib/utils.js';
+import {  Search  } from '../services.js'
 class Home extends React.Component {
     constructor(props){
         super(props);
@@ -7,88 +8,96 @@ class Home extends React.Component {
             subject:''
         }; 
         this.handleInputChange = this.handleInputChange.bind(this); 
-        this.handleSubmit = this.handleSubmit.bind(this);     
+        this.handleSubmit = this.handleSubmit.bind(this); 
+        this.handleClick = this.handleClick.bind(this);    
     }   
     
+    componentDidMount(){
+        $('#books').attr('checked', true);
+        $('#rdb1').addClass('cheked');
+        setCookie('kindsearch','false',12);
+    }
+
     handleInputChange(event) {
         const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const value = target.value;
         const name = target.name;
        
         this.setState({
-          [name]: value
+            subject: value
         });
-    
         console.log(this.state);
     }
-    
+
+    handleClick(event){
+        
+        $('#books').on('click', function(){
+            if (getCookie('kindsearch') == 'false'){
+                console.log(getCookie('kindsearch'));
+                $('#rdb1').addClass('cheked');
+                $('#rdb2').removeClass('cheked');
+                setCookie('kindsearch','true',12);  
+            }
+        });
+           
+        $('#coffees').on('click', function() {
+            if (getCookie('kindsearch') == 'true') {
+                console.log(getCookie('kindsearch'));
+                $('#rdb2').addClass('cheked');
+                $('#rdb1').removeClass('cheked');
+                setCookie('kindsearch','false',12); 
+            }
+        });
+    }
     handleSubmit(event) {
         event.preventDefault();
-        if (condition) {
-            
-        }else if (){
-
-        }
-        SearchService(this.state);
-    }
-
-    savestate(){
-        
+        Search(this.state.subject);
     }
   
     render() {
         return(
             <div className="grid-main" id="home">
                 <section id="search-zone" className="search-zone">
-                <section className="section">
-                        <article className="checkbox" > <input type="radio" name="radio" id="" />Books</article>
-                        <article className="checkbox" > <input type="radio" name="radio" id=""/> Coffes</article>
+                    <section className="section">
+                        <article id="rdb1" className="checkbox " > <input type="radio" name="radio" onClick={this.handleClick} id="books" />Books</article>
+                        <article id="rdb2" className="checkbox " > <input type="radio" name="radio" onClick={this.handleClick} id="coffees"/> Coffes</article>
                     </section>
-                    <input id="search" placeholder="Search everything that you find" onKeyUp={this.handleInputChange()} type="text"/>
-                    <input type="submit" onSubmit={this.handleSubmit()}>Search</input>
+                    <input id="search" placeholder="Search everything that you find" onKeyPress={this.handleInputChange} type="text"/>
+                    <input type="submit" className="contact_Item" value="Search" onClick={this.handleSubmit}/>
                 </section>
 
             <h1>Tenga el placer de probar toda clase de cafés</h1>
                 <ul id="list">
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>
-                    Capuchino</li>
+                    <br/>Capuchino</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>
-                    Bombon</li>
+                    <br/> Bombon</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
                     <br/>Descafeinado</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>
-                    Cortado</li>
+                    <br/> Cortado</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>
-                    Café solo</li>
+                    <br/>Café solo</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>
-                    Cafe con leche</li>
+                    <br/>Cafe con leche</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>
-                    Acción</li>
+                    <br/> Acción</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>
-                    Romance</li>
+                    <br/> Romance</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>
-                    Drama</li>
+                    <br/> Drama</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>
-                    Novela Negra</li>
+                    <br/> Novela Negra</li>
                 </ul> 
                 <h1>Disfrute de sus generos favoritos</h1>
                 <ul id="list">

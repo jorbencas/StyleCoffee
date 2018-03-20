@@ -1,4 +1,5 @@
 import toastr from 'toastr';
+import { getCookie, setCookie } from './lib/utils.js';
 
  function contactService (contact){
         console.log(contact);
@@ -33,23 +34,38 @@ import toastr from 'toastr';
         xmlhttp.setRequestHeader('Content-Type', 'text/plain');
         xmlhttp.send();
   }
-  
-  function BooksDetailsService(id){
-    console.log(id);
-    debugger;
-    $.ajax({
-        url: 'http://localhost:3001/api/books/:id',
-        type: 'POST',
-        error: function() {
-          toastr.error('No se ha envio un email a correctamente','Email');
-          console.log('El correo no se ha enviado correctamente');
-        },
-        success: function(data) {
-          console.log(data);
-          return data;
-        }
-        
-     });
+
+  function BooksDetailsService(){
+
   }
 
-export{ contactService, CoffeeService, BooksDetailsService };
+  function Search(search){
+    console.log(search);
+    if (getCookie('kindsearch') == 'false'){
+      $.ajax({
+        url: 'http://localhost:3001/api/coffee/' + search,
+        type: 'GET',
+        error: function() {
+          console.log('Error cafee');
+        },
+        success: function(search) {
+          console.log(search);
+        }
+     });
+
+    }else if(getCookie('kindsearch') == 'true'){
+      $.ajax({
+        url: 'http://localhost:3001/api/books/' + search,
+        type: 'GET',
+        error: function() {
+          console.log('error libro');
+        },
+        success: function(data) {
+          console.log(search);
+        }
+     });
+
+    }
+  };
+
+export{ contactService, CoffeeService, BooksDetailsService, Search };
