@@ -2,14 +2,15 @@ import React from 'react';
 import BooksDetailPage from './BooksDetailPage';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ReactDOM  from 'react-dom';
+import axios from 'axios';
 
 class BooksListPage extends React.Component {
     constructor(props){
         super(props);   
         this.state = {                
             components: [],
+            params: this.props.params
           };      
-          
           this.UserList = this.UserList.bind(this);   
     }    
 
@@ -22,21 +23,14 @@ class BooksListPage extends React.Component {
       }
     
       UserList(event) {
-        var xmlhttp = new XMLHttpRequest();
-        var url = "http://localhost:3001/api/books";
-        let that=this;
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var myArr = JSON.parse(this.responseText);
-                console.log(myArr);
-                that.setState({
-                    components: myArr.books
-                  });
-            }
-        };
-        xmlhttp.open("GET", url, true);
-        xmlhttp.setRequestHeader('Content-Type', 'text/plain');
-        xmlhttp.send();
+      const kind = this.state.params;
+        if (this.state.params && getCookie('kindsearch') == 'false') {
+          axios.get('http://localhost:3001/api/books/'+ kind)
+          .then(response => this.setState({components: response.data.books}));
+        }else{
+          axios.get('http://localhost:3001/api/books')
+          .then(response => this.setState({components: response.data.books}));
+        }
       }
 
      /* componentWillUnmount(){

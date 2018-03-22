@@ -13,19 +13,19 @@ router.get('/', function(req, res, next) {
 });
 
 
-/*
+
 router.post('/:id', function(req, res, next) {
   console.log('Getid' + req.params.id);
-  Computer.find({ _id: req.params.id}).then(function (computer) {
-      return res.json({computer: computer});
+  coffee.find({ _id: req.params.id}).then(function (coffee) {
+      return res.json({Coffee: coffee});
   }).catch(next);
 });
-*/
+
 router.get('/:search', function(req, res, next) {
-  console.log('hola');
-  /*coffee.find({ type: req.params.search}).then(function (coffee) {
-    return res.json({Coffee: Coffee});
-  }).catch(next);*/
+  console.log('hola' + req.params.search);
+  coffee.find({ kind: req.params.search}).then(function (coffee) {
+    return res.json({Coffee: coffee});
+  }).catch(next);
 });
 
 module.exports = router;

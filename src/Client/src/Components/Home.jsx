@@ -1,6 +1,10 @@
 import React from 'react';
 import { getCookie, setCookie } from '../lib/utils.js';
-import {  Search  } from '../services.js'
+import {  Search  } from '../services.js';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import CoffeeListPage from './CoffeeListPage';
+import Menu from './Menu';
+
 class Home extends React.Component {
     constructor(props){
         super(props);
@@ -8,8 +12,7 @@ class Home extends React.Component {
             subject:''
         }; 
         this.handleInputChange = this.handleInputChange.bind(this); 
-        this.handleSubmit = this.handleSubmit.bind(this); 
-        this.handleClick = this.handleClick.bind(this);    
+        this.handleClick = this.handleClick.bind(this);  
     }   
     
     componentDidMount(){
@@ -34,8 +37,8 @@ class Home extends React.Component {
         $('#books').on('click', function(){
             if (getCookie('kindsearch') == 'false'){
                 console.log(getCookie('kindsearch'));
-                $('#rdb1').addClass('cheked');
                 $('#rdb2').removeClass('cheked');
+                $('#rdb1').addClass('cheked');
                 setCookie('kindsearch','true',12);  
             }
         });
@@ -43,17 +46,14 @@ class Home extends React.Component {
         $('#coffees').on('click', function() {
             if (getCookie('kindsearch') == 'true') {
                 console.log(getCookie('kindsearch'));
-                $('#rdb2').addClass('cheked');
                 $('#rdb1').removeClass('cheked');
+                $('#rdb2').addClass('cheked');
                 setCookie('kindsearch','false',12); 
             }
         });
     }
-    handleSubmit(event) {
-        event.preventDefault();
-        Search(this.state.subject);
-    }
   
+
     render() {
         return(
             <div className="grid-main" id="home">
@@ -63,14 +63,14 @@ class Home extends React.Component {
                         <article id="rdb2" className="checkbox " > <input type="radio" name="radio" onClick={this.handleClick} id="coffees"/> Coffes</article>
                     </section>
                     <input id="search" placeholder="Search everything that you find" onKeyPress={this.handleInputChange} type="text"/>
-                    <input type="submit" className="contact_Item" value="Search" onClick={this.handleSubmit}/>
+                    <Link to={'/Coffee/:' + this.state.subject} >Search</Link>
                 </section>
 
             <h1>Tenga el placer de probar toda clase de cafés</h1>
                 <ul id="list">
-                    <li className="item">
+                    <li className="item"><Link to={'/Coffee/:capuchino'}>
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/>Capuchino</li>
+                    <br/>Capuchino</Link></li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
                     <br/> Bombon</li>

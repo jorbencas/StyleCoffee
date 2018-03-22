@@ -1,6 +1,10 @@
+import React from "react";
 import toastr from 'toastr';
 import { getCookie, setCookie } from './lib/utils.js';
-
+import ReactDOM  from 'react-dom';
+import BooksListPage from './Components/BooksListPage';
+import CoffeeListPage from './Components/CoffeeListPage';
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
  function contactService (contact){
         console.log(contact);
         $.ajax({
@@ -50,6 +54,8 @@ import { getCookie, setCookie } from './lib/utils.js';
         },
         success: function(search) {
           console.log(search);
+          //<Link to={'/Coffee/:' + search} ></Link>
+          ReactDOM.render(<CoffeeListPage props={search}/>, document.getElementById('content'));
         }
      });
 
@@ -60,8 +66,10 @@ import { getCookie, setCookie } from './lib/utils.js';
         error: function() {
           console.log('error libro');
         },
-        success: function(data) {
+        success: function(search) {
           console.log(search);
+          <Link to={'/Books/:' + search} ></Link>
+          //ReactDOM.render(<BooksListPage props={search}/>, document.getElementById('content'));
         }
      });
 
