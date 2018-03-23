@@ -7,29 +7,14 @@ import CoffeeListPage from './CoffeeListPage';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import BooksDetailPage from './BooksDetailPage';
 import CoffeeDetailsPage from './CoffeeDetailPage';
+import Footer from './Footer';
+import Login from './Login';
+import AbouteUs from './AbouteUs';
 
-const Menu = () => (
+const App = () => (
   <Router>
-    <div>
-      <header id="header" role="header" className="grid-header">
-        <div className="grid-header-logo">
-          <div id="rankinglist"></div>
-          <Link title="App StyleCoffee" role="link" aria-valuetext="Ranking List" to="/">
-            <h1> 
-              <img role="img" src="./assets/photos/logo.png" width="50px"  alt="Logo del Ranking Students"/>
-              <span className="header-title">StyleCoffee</span>
-            </h1>
-          </Link>  
-        </div>
-        <nav id="menu" className="header-menu" role="menu">
-            <ul>
-              <li className="listado-item"><Link to="/Contact">Contact</Link></li>
-              <li className="listado-item"><Link to="/Coffee">Categoris</Link></li>
-              <li className="listado-item"><Link to="/Books">Books</Link></li>
-            </ul>
-        </nav>
-      </header>
-      <div id="content">
+    <div id="content">
+     <Header/>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route path="/Contact" component={Contact} />
@@ -39,10 +24,12 @@ const Menu = () => (
         <Route path={"/Books/:kind"} component={BooksListPage} />
         <Route path={'/Books/Book/:id'} component={BooksDetailPage}/>
         <Route path={"/Coffees/Coffee/:id"} component={CoffeeDetailsPage} />
+        <Route path="/login" component={Login} />
+        <Route path='/abouteus' component={AbouteUs} />
       </Switch>
-      </div>
+      <Footer/>
     </div>
   </Router>
 );
 
-export default Menu;
+export default App;

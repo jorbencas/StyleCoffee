@@ -1,8 +1,8 @@
 import React from 'react';
 import { CoffeeService } from '../services';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ReactDOM  from 'react-dom';
-import Menu from './Menu.jsx';
+import App from './App.jsx';
 import { getCookie } from '../lib/utils';
 import axios from 'axios';
 
@@ -18,16 +18,14 @@ class  CoffeeListPage extends React.Component {
       } 
     
       componentDidMount() {
-        //if (this.state.components === {} ) {
           this.UserList();
-        //}
       }
     
       UserList(event) {
         const params = this.state.params;
         console.log(params);
         if (params && getCookie('kindsearch') == 'true'){
-          aixos.get('http://localhost:3001/api/coffee/:' + params )
+          aixos.get('http://localhost:3001/api/coffee/' + params )
           .then(
             response => this.setState({components: response.data.Coffee})
           );
@@ -37,12 +35,6 @@ class  CoffeeListPage extends React.Component {
             response => this.setState({components: response.data.Coffee})
             )
         }
-      }
-
-      componentWillUnmount(){
-        console.log('Unmount');
-        //ReactDOM.unmountComponentAtNode(document.getElementById('content'));
-        //$('#listcoffee').remove();
       }
 
       render() {
@@ -67,7 +59,3 @@ class  CoffeeListPage extends React.Component {
 }
 
 export default CoffeeListPage;
-
-
-
-//             

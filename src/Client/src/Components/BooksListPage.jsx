@@ -3,6 +3,7 @@ import BooksDetailPage from './BooksDetailPage';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ReactDOM  from 'react-dom';
 import axios from 'axios';
+import App from './App.jsx';
 
 class BooksListPage extends React.Component {
     constructor(props){

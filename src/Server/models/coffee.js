@@ -9,7 +9,7 @@ var CoffeeSchema = new mongoose.Schema({
   id: Number,
   name: String,
   image: String,
-  king:String,
+  kind:String,
   price: {type: Number, default: 0}
 }, {timestamps: true});
 

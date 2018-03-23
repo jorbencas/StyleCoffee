@@ -1,9 +1,9 @@
 import React from 'react';
 import { getCookie, setCookie } from '../lib/utils.js';
-import {  Search  } from '../services.js';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { Search  } from '../services.js';
+import { Link } from "react-router-dom";
 import CoffeeListPage from './CoffeeListPage';
-import Menu from './Menu';
+import App from './App.jsx';
 
 class Home extends React.Component {
     constructor(props){
@@ -18,7 +18,7 @@ class Home extends React.Component {
     componentDidMount(){
         $('#books').attr('checked', true);
         $('#rdb1').addClass('cheked');
-        setCookie('kindsearch','false',12);
+        setCookie('kindsearch','true',12);
     }
 
     handleInputChange(event) {
@@ -33,7 +33,10 @@ class Home extends React.Component {
     }
 
     handleClick(event){
-        
+        if ($('#rdb1').hasClass('checked') && (getCookie('kindsearch') == 'false')) {
+            $('#rdb1').removeClass('cheked');
+        }
+
         $('#books').on('click', function(){
             if (getCookie('kindsearch') == 'false'){
                 console.log(getCookie('kindsearch'));
@@ -57,13 +60,13 @@ class Home extends React.Component {
     render() {
         return(
             <div className="grid-main" id="home">
-                <section id="search-zone" className="search-zone">
+                <section id="search-zone" className=" search-zone">
                     <section className="section">
                         <article id="rdb1" className="checkbox " > <input type="radio" name="radio" onClick={this.handleClick} id="books" />Books</article>
                         <article id="rdb2" className="checkbox " > <input type="radio" name="radio" onClick={this.handleClick} id="coffees"/> Coffes</article>
                     </section>
                     <input id="search" placeholder="Search everything that you find" onKeyPress={this.handleInputChange} type="text"/>
-                    <Link to={'/Coffee/:' + this.state.subject} >Search</Link>
+                    <Link className="btn-search" to={'/Coffee/:' + this.state.subject} >Search</Link>
                 </section>
 
             <h1>Tenga el placer de probar toda clase de cafés</h1>

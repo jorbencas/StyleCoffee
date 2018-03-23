@@ -63,7 +63,7 @@
 .listado-item { display: inline-block; }
 
 .listado-item a, .grid-header-logo a {
-	color:#000000cc;
+	color:#ffffff;
 	text-decoration: none;
 	display: block;
     font-size:18px;
@@ -73,12 +73,12 @@
 }
 
 .listado-item:hover,.grid-header-logo a:hover{
-	background:#ffffffcc;
-	border-bottom: inset 5px solid #fff;
+    background-color: rgb(255, 104, 104);
+    color:  white;    
 }
 
-.listado-item a:hover,.grid-header-logo a:hover {
-	color:rgb(0, 0, 0);
+.header-title:hover{
+    color:  white;
 }
 
  h1 {
@@ -120,6 +120,24 @@
     font-size: 18px;
     font-family: 'Nanum Pen Script', cursive;
     overflow: hidden;
+}
+
+.btn-search{
+    color: rgb(255, 255, 255);
+    background-color: rgb(126, 126, 126);
+    cursor: pointer;
+    font-size: 18px;
+    padding: 20px;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: 2%;
+}
+
+.btn-search:hover{
+    color: #757575fd;
+    background-color: rgb(255, 104, 104);
+    cursor: pointer;
+    font-size: 18px;
 }
 
 .Contact select option {
@@ -210,12 +228,16 @@
     padding: 5px 20px;
 }
 .checkbox:hover{
-    color: #757575fd;
-    background-color: rgb(255, 104, 104);
+    color: #ff0000fd;
+    border: 1px solid rgb(255, 104, 104);
+    border-radius: 5px;
 }
 .cheked {
     color: #757575fd;
     background-color: rgb(255, 104, 104);
+}
+.checked > input[type="radio"]:checked{
+    display: none;
 }
 
 #search {
@@ -288,6 +310,7 @@
     overflow: hidden;
     border-radius: 5px;
     text-align: center; 
+    color: white;
 }
 
 label {

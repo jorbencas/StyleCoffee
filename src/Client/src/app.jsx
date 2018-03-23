@@ -1,7 +1,7 @@
 import React from 'react';
 import reactDOM  from 'react-dom';
-import Menu from './Components/Menu';
+import App from './Components/App';
 
  $(document).ready(function(){
-    reactDOM.render(<Menu/>, document.getElementById('body'));
+    reactDOM.render(<App/>, document.getElementById('body'));
  });
