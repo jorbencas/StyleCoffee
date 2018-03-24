@@ -1,5 +1,5 @@
 import React from 'react';
-import { getCookie, setCookie } from '../lib/utils.js';
+import { getCookie, setCookie, deleteCookie } from '../lib/utils.js';
 import { Search  } from '../services.js';
 import { Link } from "react-router-dom";
 import CoffeeListPage from './CoffeeListPage';
@@ -11,6 +11,7 @@ class Home extends React.Component {
         this.state = {
             subject:''
         }; 
+        console.log(this.state);
         this.handleInputChange = this.handleInputChange.bind(this); 
         this.handleClick = this.handleClick.bind(this);  
     }   
@@ -19,6 +20,9 @@ class Home extends React.Component {
         $('#books').attr('checked', true);
         $('#rdb1').addClass('cheked');
         setCookie('kindsearch','true',12);
+    }
+    componentWillUnmount(){
+        deleteCookie('kindsearch');
     }
 
     handleInputChange(event) {
@@ -58,6 +62,8 @@ class Home extends React.Component {
   
 
     render() {
+        const id = this.state.subject;
+        console.log(id);
         return(
             <div className="grid-main" id="home">
                 <section id="search-zone" className=" search-zone">
@@ -66,12 +72,12 @@ class Home extends React.Component {
                         <article id="rdb2" className="checkbox " > <input type="radio" name="radio" onClick={this.handleClick} id="coffees"/> Coffes</article>
                     </section>
                     <input id="search" placeholder="Search everything that you find" onKeyPress={this.handleInputChange} type="text"/>
-                    <Link className="btn-search" to={'/Coffee/:' + this.state.subject} >Search</Link>
+                    <Link className="btn-search" to={'/Books/' + this.state.subject} >Search</Link>
                 </section>
 
             <h1>Tenga el placer de probar toda clase de cafés</h1>
                 <ul id="list">
-                    <li className="item"><Link to={'/Coffee/:capuchino'}>
+                    <li className="item"><Link to={'/Coffee/capuchino'}>
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
                     <br/>Capuchino</Link></li>
                     <li className="item">

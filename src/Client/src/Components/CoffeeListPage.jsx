@@ -12,7 +12,7 @@ class  CoffeeListPage extends React.Component {
         console.log(props);
         this.state = {                
           components: [], 
-          params : props.match.params.kind
+          params : props.match.params.subject
         };     
         this.UserList = this.UserList.bind(this);
       } 
@@ -24,7 +24,7 @@ class  CoffeeListPage extends React.Component {
       UserList(event) {
         const params = this.state.params;
         console.log(params);
-        if (params && getCookie('kindsearch') == 'true'){
+        if (params){
           aixos.get('http://localhost:3001/api/coffee/' + params )
           .then(
             response => this.setState({components: response.data.Coffee})

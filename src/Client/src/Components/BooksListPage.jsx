@@ -7,31 +7,33 @@ import App from './App.jsx';
 
 class BooksListPage extends React.Component {
     constructor(props){
-        super(props);   
+        super(props); 
+        console.log(props);  
         this.state = {                
             components: [],
-            params: this.props.params
+            params: this.props.match.params
           };      
           this.UserList = this.UserList.bind(this);   
     }    
 
     componentWillMount(){
-      console.log('Mount');
+      console.log(this.state.params);
+      this.UserList();
     }
 
-    componentDidMount() {
+    /*componentDidMount() {
         this.UserList();
-      }
+      }*/
     
       UserList(event) {
-      const kind = this.state.params;
-        if (this.state.params && getCookie('kindsearch') == 'false') {
-          axios.get('http://localhost:3001/api/books/'+ kind)
+      /*const genere = this.state.params;
+        if (genere) {
+          axios.get('http://localhost:3001/api/books/'+ genere)
           .then(response => this.setState({components: response.data.books}));
-        }else{
+        }else{*/
           axios.get('http://localhost:3001/api/books')
           .then(response => this.setState({components: response.data.books}));
-        }
+        /*}*/
       }
 
      /* componentWillUnmount(){
@@ -43,7 +45,7 @@ class BooksListPage extends React.Component {
             <div>
                 <img src={item.image} width="130px" height="180px" alt=""/>
                 <p>{ item.title }</p>
-                <Link to={'/Books/Book/'+item.id}>details</Link>
+                <Link to={'/Books/Book/:'+item.id}>details</Link>
             </div>
           ));
           return (
