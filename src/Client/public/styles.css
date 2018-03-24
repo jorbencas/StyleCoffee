@@ -126,8 +126,11 @@
     color: rgb(255, 255, 255);
     background-color: rgb(126, 126, 126);
     cursor: pointer;
-    font-size: 18px;
-    padding: 20px;
+    font-size: 20px;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 1%;
+    padding-bottom: 1%;
     border-radius: 10px;
     overflow: hidden;
     margin-left: 2%;
@@ -137,7 +140,7 @@
     color: #757575fd;
     background-color: rgb(255, 104, 104);
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
 }
 
 .Contact select option {
@@ -270,6 +273,27 @@
     border-radius: 5px;
     text-align: center;
 }
+.abouteus{
+    background:#969696b3;
+    overflow: hidden;
+    margin: auto;
+    width: 85%;
+    text-align: justify;
+    font-size: 18px;
+}
+.maps{
+    border-radius: 8px;
+    text-align: center;
+    margin: auto;
+    width: 75%;
+    border: 3px solid red;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+#bye{
+    text-align: center;
+}
 
 .listbatido{
     padding-top: 5%;
@@ -285,7 +309,7 @@
     text-align: center;
     list-style: none;
     text-anchor: none;
-    width: 90%;
+    width: 100%;
 }
 
 .item {

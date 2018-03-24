@@ -60,6 +60,7 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-dropzone": "^4.2.8",
+    "react-gmaps": "^1.9.0",
     "react-hot-loader": "^4.0.0",
     "react-modal": "^3.3.2",
     "react-redux": "^5.0.7",
