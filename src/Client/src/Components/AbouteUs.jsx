@@ -55,25 +55,25 @@ class AbouteUs extends React.Component {
           <div>
               <h1>Donde puedes encontrarnos</h1>
               <div className="maps">
-        <Gmaps
-        width={'100%'}
-        height={'360px'}
-        zoom={15}
-        lat={'38.8220593'}
-        lng={'-0.6063927'}
-        params={params}
-        loadingMessage={'Be happy'}
-       onMapCreated={this.onMapCreated}>
-        <Marker
-        lat={'38.8569173'}
-        lng={'0.5729404'}
-          draggable={true}
-          onDragEnd={this.onDragEnd} />
-        <InfoWindow
-          content={'StyleCoffee'}
-          onCloseClick={this.onCloseClick} />
-      </Gmaps>
-      </div>
+                <Gmaps
+                    width={'100%'}
+                    height={'360px'}
+                    zoom={15}
+                    lat={'38.8220593'}
+                    lng={'-0.6063927'}
+                    params={params}
+                    loadingMessage={'Be happy'}
+                    onMapCreated={this.onMapCreated}>
+                    <Marker
+                        lat={'38.8569173'}
+                        lng={'0.5729404'}
+                        draggable={true}
+                        onDragEnd={this.onDragEnd} />
+                    <InfoWindow
+                        content={'StyleCoffee'}
+                        onCloseClick={this.onCloseClick} />
+                </Gmaps>
+            </div>
 
           </div>
         

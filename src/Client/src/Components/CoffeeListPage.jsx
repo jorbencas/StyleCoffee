@@ -1,5 +1,5 @@
 import React from 'react';
-import { CoffeeService } from '../services';
+import { CoffeeService } from '../services/services';
 import { Link } from "react-router-dom";
 import ReactDOM  from 'react-dom';
 import App from './App.jsx';

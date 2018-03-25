@@ -1,5 +1,5 @@
 import React from 'react';
-import { contactService } from '../services';
+import { contactService } from '../services/services';
 
 class Contact extends React.Component {
     constructor(props){

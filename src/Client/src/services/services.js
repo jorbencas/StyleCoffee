@@ -1,11 +1,13 @@
 import React from "react";
 import toastr from 'toastr';
-import { getCookie, setCookie } from './lib/utils.js';
+import { getCookie, setCookie } from '../lib/utils.js';
 import ReactDOM  from 'react-dom';
-import BooksListPage from './Components/BooksListPage';
-import CoffeeListPage from './Components/CoffeeListPage';
+import BooksListPage from '../Components/BooksListPage';
+import CoffeeListPage from '../Components/CoffeeListPage';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
- function contactService (contact){
+import axios from 'axios'; 
+
+  function contactService (contact){
         console.log(contact);
         $.ajax({
             url: 'http://localhost:3001/api/contact',
@@ -55,7 +57,7 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
         success: function(search) {
           console.log(search);
           //<Link to={'/Coffee/:' + search} ></Link>
-          ReactDOM.render(<CoffeeListPage props={search}/>, document.getElementById('content'));
+          //ReactDOM.render(<CoffeeListPage props={search}/>, document.getElementById('content'));
         }
      });
 
@@ -76,4 +78,24 @@ import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
     }
   };
 
-export{ contactService, CoffeeService, BooksDetailsService, Search };
+
+
+const currentUser = null;
+
+
+  function LoginService(user){
+    console.log(user);
+    axios.post('http://localhost:3001/api/users',{user})
+    .then(
+      response => {
+        this._JWT.save(response.data.user.token);
+        currentUser = response.data.user;
+        console.log(this.current);
+        toastr.success('Se le  envio un email a' +response.data.user.username + ' correctamente','Bienvenido')
+        //return res;
+      } ,
+      err => toastr.error('Error al registrar-se','Error')
+    );
+  }
+
+export{ contactService, CoffeeService, BooksDetailsService, Search, LoginService, currentUser };

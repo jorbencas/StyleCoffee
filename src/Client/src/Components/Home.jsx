@@ -1,6 +1,6 @@
 import React from 'react';
 import { getCookie, setCookie, deleteCookie } from '../lib/utils.js';
-import { Search  } from '../services.js';
+import { Search  } from '../services/services';
 import { Link } from "react-router-dom";
 import CoffeeListPage from './CoffeeListPage';
 import App from './App.jsx';

@@ -52,7 +52,19 @@ require('./models/Books');
 // require('./models/Article');
 require('./models/Coffee');
 // require('./models/Comment');
-//require('./config/passport');
+require('./config/passport');
+require('./models/Users');
+
+/*
+app.get('/api/users', function(req, res, next){
+  res.send('Hola Users');
+  /*User.findById(req.payload.id).then(function(user){
+    if(!user){ return res.sendStatus(401); }
+
+    return res.json({user: user.toAuthJSON()});
+  }).catch(next);
+});
+*/
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -92,6 +104,3 @@ app.use(function(err, req, res, next) {
     error: {}
   }});
 });
-
-// finally, let's start our server...
-
