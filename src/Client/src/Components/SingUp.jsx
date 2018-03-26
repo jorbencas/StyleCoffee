@@ -3,14 +3,14 @@ import React from 'react';
 import Modal from 'react-modal';
 import { Link } from 'react-router-dom';
 import Home from './Home';
-import { LoginService, logOut } from '../services/services';
+import { SingUp, logOut } from '../services/services';
 
 const MODAL_A = 'modal_a';
 const MODAL_B = 'modal_b';
 
 const DEFAULT_TITLE = 'Default title';
 
-class Login extends React.Component {
+class singup extends React.Component {
     constructor(props) {
         super(props);
 
@@ -50,7 +50,7 @@ class Login extends React.Component {
     
     handleSubmit(event) {
         event.preventDefault();
-        LoginService(this.state);
+        SingUp(this.state);
     }
 
     componentWillUnmount(){
@@ -72,21 +72,24 @@ class Login extends React.Component {
           <h1 id="heading">Forms!</h1>
             <p>Iniciar Sesión</p>
             <form>
-              <div className="contact_item">
+             <div className="contact_item">
                 <label htmlFor="username">name</label><br/>
                 <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} required/>
               </div>
-             
+              <div className="contact_item">
+                <label htmlFor="email">Email</label><br/>
+                <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} required/>
+              </div>
               <div className="contact_item">
                 <label htmlFor="password">Password</label><br/>
                 <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
               </div>
-                <Link to="/" onClick={this.handleSubmit}>Registrate</Link>
-                <Link to="/">Iniciar Sesión</Link>
+                <Link to="/" onClick={this.handleSubmit}>Iniciar Sesión</Link>
+                <Link to="/">Logout</Link>
             </form>
         </Modal>
       );
     }
 }
 
-export default Login;
+export default singup;

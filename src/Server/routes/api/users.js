@@ -52,7 +52,7 @@ router.put('/user', auth.required, function(req, res, next){
     });
   }).catch(next);
 });
-
+/*
 router.post('/users', function(req, res, next){
   
   let memorystore = req.sessionStore;
@@ -72,10 +72,13 @@ router.post('/users', function(req, res, next){
       return res.status(422).json('fail');
     }
 })
+*/;
 
 router.post('/users/login', function(req, res, next){
-  if(!req.body.user.email){
-    return res.status(422).json({errors: {email: "can't be blank"}});
+console.log(req.body.user.username + " " + req.body.user.password);
+  
+  if(!req.body.user.username){
+    return res.status(422).json({errors: {Username: "can't be blank"}});
   }
 
   if(!req.body.user.password){
@@ -83,6 +86,12 @@ router.post('/users/login', function(req, res, next){
   }
 
   passport.authenticate('local', {session: false}, function(err, user, info){
+    var user = new User();
+    
+    user.username = req.body.user.username;
+    user.setPassword(req.body.user.password);
+    console.log(user);
+
     if(err){ return next(err); }
 
     if(user){

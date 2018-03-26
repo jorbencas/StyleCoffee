@@ -58,20 +58,23 @@ class AbouteUs extends React.Component {
                 <Gmaps
                     width={'100%'}
                     height={'360px'}
-                    zoom={15}
+                    zoom={12}
                     lat={'38.8220593'}
                     lng={'-0.6063927'}
                     params={params}
                     loadingMessage={'Be happy'}
                     onMapCreated={this.onMapCreated}>
                     <Marker
-                        lat={'38.8569173'}
-                        lng={'0.5729404'}
+                        lat={'38.8220593'}
+                        lng={'-0.6063927'}
                         draggable={true}
                         onDragEnd={this.onDragEnd} />
                     <InfoWindow
+                        lat={'38.8220593'}
+                        lng={'-0.6063927'}
                         content={'StyleCoffee'}
-                        onCloseClick={this.onCloseClick} />
+                        onClick={this.onCloseClick} />
+                    
                 </Gmaps>
             </div>
 

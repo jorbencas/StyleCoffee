@@ -5,16 +5,17 @@
     this._AppConstants = AppConstants;
     this._$window = $window;
   }
-
-  save(token) {
-    this._$window.localStorage[this._AppConstants.jwtKey] = token;
+*/
+  function save(token) {
+    window.localStorage[this._AppConstants.jwtKey] = token;
   }
 
-  get() {
+  function get() {
     return this._$window.localStorage[this._AppConstants.jwtKey];
   }
 
-  destroy() {
+  function destroy() {
     this._$window.localStorage.removeItem(this._AppConstants.jwtKey);
-  }
+  }/*
 }*/
+export {save,get,destroy};

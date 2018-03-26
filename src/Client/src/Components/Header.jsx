@@ -1,22 +1,37 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import App from './App.jsx';
-import { currentUser } from '/services/services';
+import { logOut } from '../services/services';
 
 class Header extends React.Component {
     constructor(props){
-        super(props);   
+        super(props);  
+        this.menulogin = this.menulogin.bind(this); 
     }    
 
-    menulogout(){
-
-    }
-
     menulogin(){
-      if(currentUser){
-        this.render(
-          
-        )
+      if(localStorage.getItem('token')){
+          return(
+            <ul>
+              <li className="listado-item"><Link to="/Contact">Contact</Link></li>
+              <li className="listado-item"><Link to="/Coffee">Cafes</Link></li>
+              <li className="listado-item"><Link to="/Books">Books</Link></li>
+              <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
+              <li className="listado-item"><Link to="/login">{localStorage.getItem('username')}</Link></li>
+              <li className="listado-item"><Link to="/" onClick={logOut}>Logout</Link></li>
+            </ul>
+          );
+      }else{
+        return(
+          <ul>
+            <li className="listado-item"><Link to="/Contact">Contact</Link></li>
+            <li className="listado-item"><Link to="/Coffee">Cafes</Link></li>
+            <li className="listado-item"><Link to="/Books">Books</Link></li>
+            <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
+            <li className="listado-item"><Link to="/SingUp">Iniciar Sesión</Link></li>
+            <li className="listado-item"><Link to="/login">Registrarse</Link></li>
+          </ul>
+        );
       }
     }
 
@@ -34,15 +49,7 @@ class Header extends React.Component {
           </Link>  
         </div>
         <nav id="menu" className="header-menu" role="menu">
-            <ul>
-              <li className="listado-item"><Link to="/Contact">Contact</Link></li>
-              <li className7="listado-item"><Link to="/Coffee">Cafes</Link></li>
-              <li className="listado-item"><Link to="/Books">Books</Link></li>
-              <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
-              <li className="listado-item"><Link to="/login">Iniciar Sesión</Link></li>
-              <li className="listado-item"><Link to="/Books">Registrarse</Link></li>
-            </ul>
-            {this.props.children}
+              {this.menulogin()}
         </nav>
       </header>
         </div>

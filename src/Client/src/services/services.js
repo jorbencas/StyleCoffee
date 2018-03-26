@@ -6,6 +6,7 @@ import BooksListPage from '../Components/BooksListPage';
 import CoffeeListPage from '../Components/CoffeeListPage';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import axios from 'axios'; 
+import {save, destroy, get} from './jwt.service';
 
   function contactService (contact){
         console.log(contact);
@@ -78,24 +79,34 @@ import axios from 'axios';
     }
   };
 
-
-
-const currentUser = null;
-
-
   function LoginService(user){
     console.log(user);
-    axios.post('http://localhost:3001/api/users',{user})
+    axios.post('http://localhost:3001/api/users/login',{user})
     .then(
       response => {
-        this._JWT.save(response.data.user.token);
-        currentUser = response.data.user;
-        console.log(this.current);
-        toastr.success('Se le  envio un email a' +response.data.user.username + ' correctamente','Bienvenido')
-        //return res;
+        localStorage.setItem('token',response.data.user.token);
+        localStorage.setItem('username',response.data.user.username);
+        toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       } ,
       err => toastr.error('Error al registrar-se','Error')
     );
   }
 
-export{ contactService, CoffeeService, BooksDetailsService, Search, LoginService, currentUser };
+  function SingUp(user){
+    console.log(user);
+    axios.post('http://localhost:3001/api/users',{user})
+    .then(
+      response => {
+        localStorage.setItem('token',response.data.user.token);
+        localStorage.setItem('username',response.data.user.username);
+        toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
+      } ,
+      err => toastr.error('Error al registrar-se','Error')
+    );
+  }
+  function logOut(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+  }
+
+export{ contactService, CoffeeService, BooksDetailsService, Search, LoginService, logOut, SingUp };
