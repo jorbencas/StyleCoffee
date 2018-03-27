@@ -101,7 +101,7 @@ import {save, destroy, get} from './jwt.service';
         localStorage.setItem('username',response.data.user.username);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       } ,
-      err => toastr.error('Error al registrar-se','Error')
+      err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
     );
   }
   function logOut(){

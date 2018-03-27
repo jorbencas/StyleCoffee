@@ -85,22 +85,31 @@ console.log(req.body.user.username + " " + req.body.user.password);
     return res.status(422).json({errors: {password: "can't be blank"}});
   }
 
-  passport.authenticate('local', {session: false}, function(err, user, info){
-    var user = new User();
-    
-    user.username = req.body.user.username;
-    user.setPassword(req.body.user.password);
+  User.find({password: req.body.user.password}).then(function(user){
     console.log(user);
-
-    if(err){ return next(err); }
-
-    if(user){
-      user.token = user.generateJWT();
-      return res.json({user: user.toAuthJSON()});
-    } else {
-      return res.status(422).json(info);
+    if(!user){ 
+      return res.sendStatus(401); 
+    }else{
+      passport.authenticate('local', {session: false}, function(err, user, info){
+        var user = new User();
+        
+        user.username = req.body.user.username;
+        user.setPassword(req.body.user.password);
+        console.log(user);
+    
+        if(err){ return next(err); }
+    
+        if(user){
+          user.token = user.generateJWT();
+          return res.json({user: user.toAuthJSON()});
+        } else {
+          return res.status(422).json(info);
+        }
+      })(req, res, next);
     }
-  })(req, res, next);
+  }).catch(next);
+
+  
 });
 
 router.post('/users', function(req, res, next){

@@ -49,7 +49,6 @@ class Login extends React.Component {
     }
     
     handleSubmit(event) {
-        event.preventDefault();
         LoginService(this.state);
     }
 
@@ -81,8 +80,7 @@ class Login extends React.Component {
                 <label htmlFor="password">Password</label><br/>
                 <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
               </div>
-                <Link to="/" onClick={this.handleSubmit}>Registrate</Link>
-                <Link to="/">Iniciar Sesión</Link>
+                <Link to="/" onClick={this.handleSubmit}>Iniciar Sesion</Link>
             </form>
         </Modal>
       );

@@ -49,7 +49,6 @@ class singup extends React.Component {
     }
     
     handleSubmit(event) {
-        event.preventDefault();
         SingUp(this.state);
     }
 
@@ -84,8 +83,7 @@ class singup extends React.Component {
                 <label htmlFor="password">Password</label><br/>
                 <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
               </div>
-                <Link to="/" onClick={this.handleSubmit}>Iniciar Sesión</Link>
-                <Link to="/">Logout</Link>
+                <Link to="/" onClick={this.handleSubmit}>Resgistrarse</Link>
             </form>
         </Modal>
       );

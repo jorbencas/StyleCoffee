@@ -45,7 +45,8 @@ class BooksListPage extends React.Component {
             <div>
                 <img src={item.image} width="130px" height="180px" alt=""/>
                 <p>{ item.title }</p>
-                <Link to={'/Books/Book/:'+item.id}>details</Link>
+                <Link to={'/Books/Book/'+item.id}>details</Link>
+                <Link to={'/Coffees/Coffee/' + item.id}>details</Link> 
             </div>
           ));
           return (
