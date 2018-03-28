@@ -310,7 +310,7 @@
     text-align: center;
     list-style: none;
     text-anchor: none;
-    width: 100%;
+    /*width: 100%;*/
 }
 
 .item {
@@ -353,7 +353,11 @@ label {
  
  #us { background-color: #ffbb46; }
  
- #ds { background-color: #ff4747; }
+ .price {
+     max-width: 12%;
+     border-radius: 5%; 
+     background-color: #ff4747;
+     }
  
  #xp { background-color: #00aeee; }
 
@@ -363,7 +367,7 @@ label {
  
  #us:hover { background-color: #ffa600; }
  
- #ds:hover { background-color: #ff0404; }
+ .price:hover { background-color: #ff0404; }
  
  #xp:hover { background-color: #00b7ff; }
  

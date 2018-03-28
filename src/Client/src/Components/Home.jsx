@@ -9,7 +9,8 @@ class Home extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            subject:''
+            subject:'',
+            path:''
         }; 
         console.log(this.state);
         this.handleInputChange = this.handleInputChange.bind(this); 
@@ -47,23 +48,32 @@ class Home extends React.Component {
                 $('#rdb2').removeClass('cheked');
                 $('#rdb1').addClass('cheked');
                 setCookie('kindsearch','true',12);  
+                setCookie('path','/book/',12);
             }
+            
         });
-           
+    
         $('#coffees').on('click', function() {
             if (getCookie('kindsearch') == 'true') {
                 console.log(getCookie('kindsearch'));
                 $('#rdb1').removeClass('cheked');
                 $('#rdb2').addClass('cheked');
                 setCookie('kindsearch','false',12); 
+                setCookie('path','/coffees/',12);
             }
+           
         });
+        this.setState({path:getCookie('path')});
+
+
+        console.log(this.state);
+
     }
   
 
     render() {
-        const id = this.state.subject;
-        console.log(id);
+        const param = this.state.path + this.state.subject;
+        console.log(param);
         return(
             <div className="grid-main" id="home">
                 <section id="search-zone" className=" search-zone">
@@ -72,12 +82,12 @@ class Home extends React.Component {
                         <article id="rdb2" className="checkbox " > <input type="radio" name="radio" onClick={this.handleClick} id="coffees"/> Coffes</article>
                     </section>
                     <input id="search" placeholder="Search everything that you find" onKeyPress={this.handleInputChange} type="text"/>
-                    <Link className="btn-search" to={'/Books/' + this.state.subject} >Search</Link>
+                    <Link className="btn-search" to={param} >Search</Link>
                 </section>
 
             <h1>Tenga el placer de probar toda clase de cafés</h1>
                 <ul id="list">
-                    <li className="item"><Link to={'/Coffee/capuchino'}>
+                    <li className="item"><Link to={'/coffees/capuchino'}>
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
                     <br/>Capuchino</Link></li>
                     <li className="item">

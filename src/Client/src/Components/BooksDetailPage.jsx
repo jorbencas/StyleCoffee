@@ -16,20 +16,26 @@ class BooksDetailPage extends React.Component {
     }
 
     getdata(event){
-      const params = this.state.params;
-      if (params){
-        axios.post('http://localhost:3001/api/books/' + params)
+      const id = this.state.params;
+      if (id){
+        axios.post('http://localhost:3001/api/books/' + id)
         .then(
-          response => this.setState({components: response.data.Coffee})
+          response => this.setState({components: response.data.books})
         );
       }
     }
-    render() {               
-       
+    render() {   
+      console.log(this.state.components);            
+          const component = this.state.components.map((item) =>
+            <div>
+                <p>{item.title}</p>
+              </div>
+          )
           return (
             <div>
               <div className="grid-main">
                 <div>Home</div>
+                <div>{component}</div>
               </div>
             </div>
           );

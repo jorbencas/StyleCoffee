@@ -12,7 +12,7 @@ class  CoffeeListPage extends React.Component {
         console.log(props);
         this.state = {                
           components: [], 
-          params : props.match.params.subject
+          params : props.match.params.param
         };     
         this.UserList = this.UserList.bind(this);
       } 
@@ -25,7 +25,7 @@ class  CoffeeListPage extends React.Component {
         const params = this.state.params;
         console.log(params);
         if (params){
-          aixos.get('http://localhost:3001/api/coffee/' + params )
+          axios.get('http://localhost:3001/api/coffee/' + params )
           .then(
             response => this.setState({components: response.data.Coffee})
           );
@@ -39,18 +39,18 @@ class  CoffeeListPage extends React.Component {
 
       render() {
         const component = this.state.components.map((item) => (
-          <div>
-            <p>{ item.name }</p>
+          <div className="item">
+            <h1>{ item.name }</h1>
+            <img src='./assets/photos/cafe.png' width="130px" height="180px" alt="./assets/photos/cafe.png"/>
             <p>{ item.kind }</p>
-            <p>{ item.price }</p>
-            <Link to={'/Coffees/Coffee/' + item.id}>details</Link>  
+            <p className="price">{ item.price } €</p>
+            <Link className="btn-search" to={'/CoffeeList/Coffee/' + item.id}>details</Link>  
           </div>
         ));
 
         return (
           <div id="listcoffee">
             <div className="grid-main">
-              <div>Home</div>
               <div>{ component }</div>
             </div>
           </div>

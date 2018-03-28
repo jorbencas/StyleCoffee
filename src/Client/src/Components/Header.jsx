@@ -14,8 +14,8 @@ class Header extends React.Component {
           return(
             <ul>
               <li className="listado-item"><Link to="/Contact">Contact</Link></li>
-              <li className="listado-item"><Link to="/Coffee">Cafes</Link></li>
-              <li className="listado-item"><Link to="/Books">Books</Link></li>
+              <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
+              <li className="listado-item"><Link to="/BooksList">Books</Link></li>
               <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
               <li className="listado-item"><Link to="/login">{localStorage.getItem('username')}</Link></li>
               <li className="listado-item"><Link to="/" onClick={logOut}>Logout</Link></li>
@@ -25,8 +25,8 @@ class Header extends React.Component {
         return(
           <ul>
             <li className="listado-item"><Link to="/Contact">Contact</Link></li>
-            <li className="listado-item"><Link to="/Coffee">Cafes</Link></li>
-            <li className="listado-item"><Link to="/Books">Books</Link></li>
+            <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
+            <li className="listado-item"><Link to="/BooksList">Books</Link></li>
             <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
             <li className="listado-item"><Link to="/SingUp">Iniciar Sesión</Link></li>
             <li className="listado-item"><Link to="/login">Registrarse</Link></li>

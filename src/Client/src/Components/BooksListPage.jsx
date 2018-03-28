@@ -11,7 +11,7 @@ class BooksListPage extends React.Component {
         console.log(props);  
         this.state = {                
             components: [],
-            params: this.props.match.params
+            params: this.props.match.params.param
           };      
           this.UserList = this.UserList.bind(this);   
     }    
@@ -21,19 +21,20 @@ class BooksListPage extends React.Component {
       this.UserList();
     }
 
-    /*componentDidMount() {
+    componentDidMount() {
         this.UserList();
-      }*/
+      }
     
       UserList(event) {
-      /*const genere = this.state.params;
-        if (genere) {
-          axios.get('http://localhost:3001/api/books/'+ genere)
+      const params = this.state.params;
+      console.log(params);
+        if (params) {
+          axios.get('http://localhost:3001/api/books/'+ params)
           .then(response => this.setState({components: response.data.books}));
-        }else{*/
+        }else{
           axios.get('http://localhost:3001/api/books')
           .then(response => this.setState({components: response.data.books}));
-        /*}*/
+        }
       }
 
      /* componentWillUnmount(){
@@ -42,11 +43,10 @@ class BooksListPage extends React.Component {
 
     render() {               
         const component = this.state.components.map((item) => (
-            <div>
-                <img src={item.image} width="130px" height="180px" alt=""/>
+            <div className="item">
+                <img src='./assets/photos/libro.png' width="130px" height="180px" alt="./assets/photos/libro.png"/>
                 <p>{ item.title }</p>
-                <Link to={'/Books/Book/'+item.id}>details</Link>
-                <Link to={'/Coffees/Coffee/' + item.id}>details</Link> 
+                <Link className="btn-search" to={'/BooksList/Book/'+item.id}>details</Link>
             </div>
           ));
           return (

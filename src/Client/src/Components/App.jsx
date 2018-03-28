@@ -17,14 +17,14 @@ const App = () => (
      <Header/>
       <Switch>
         <Route exact path="/" component={Home}/>
-        <Route path="/Home" component={Home}/>
-        <Route path="/Contact" component={Contact} />
-        <Route path="/Coffee" component={CoffeeListPage} />
-        <Route path="/Coffee/:subject" component={CoffeeListPage} />
-        <Route path="/Books" component={BooksListPage} />
-        <Route path="/Books/:kind" component={BooksListPage} />
-        <Route path='/Books/Book/:id' component={BooksDetailPage}/>
-        <Route path='/Coffees/Coffee/:id' component={CoffeeDetailsPage} />
+        <Route exact path="/Home" component={Home}/>
+        <Route exact path="/Contact" component={Contact} />
+        <Route exact path="/CoffeeList" component={CoffeeListPage} />
+        <Route path="/coffees/:param" component={CoffeeListPage} />
+        <Route exact path="/BooksList" component={BooksListPage} />
+        <Route path="/book/:param" component={BooksListPage} />
+        <Route path='/BooksList/Book/:id' component={BooksDetailPage}/>
+        <Route path='/CoffeeList/Coffee/:id' component={CoffeeDetailsPage} />
         <Route path="/login" component={Login} />
         <Route path="/SingUp" component={singup} />
         <Route path='/abouteus' component={AbouteUs} />

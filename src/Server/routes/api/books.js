@@ -19,9 +19,9 @@ router.post('/:id', function(req, res, next) {
   }).catch(next);
 });
 
-router.get('/:genere', function(req, res, next) {
+router.get('/:param', function(req, res, next) {
   console.log('hola');
-  Books.find({ genere: req.params.search}).then(function (books) {
+  Books.find({ genere: req.params.param}).then(function (books) {
       return res.json({books: books});
   }).catch(next);
 });
