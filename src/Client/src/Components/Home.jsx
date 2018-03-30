@@ -10,7 +10,7 @@ class Home extends React.Component {
         super(props);
         this.state = {
             subject:'',
-            path:''
+            path:'/book/'
         }; 
         console.log(this.state);
         this.handleInputChange = this.handleInputChange.bind(this); 
@@ -22,6 +22,7 @@ class Home extends React.Component {
         $('#rdb1').addClass('cheked');
         setCookie('kindsearch','true',12);
     }
+
     componentWillUnmount(){
         deleteCookie('kindsearch');
     }
@@ -41,16 +42,15 @@ class Home extends React.Component {
         if ($('#rdb1').hasClass('checked') && (getCookie('kindsearch') == 'false')) {
             $('#rdb1').removeClass('cheked');
         }
-
+        let that = this;
         $('#books').on('click', function(){
             if (getCookie('kindsearch') == 'false'){
                 console.log(getCookie('kindsearch'));
                 $('#rdb2').removeClass('cheked');
                 $('#rdb1').addClass('cheked');
                 setCookie('kindsearch','true',12);  
-                setCookie('path','/book/',12);
+                that.setState({path:'/book/'});
             }
-            
         });
     
         $('#coffees').on('click', function() {
@@ -59,15 +59,10 @@ class Home extends React.Component {
                 $('#rdb1').removeClass('cheked');
                 $('#rdb2').addClass('cheked');
                 setCookie('kindsearch','false',12); 
-                setCookie('path','/coffees/',12);
+                that.setState({path:'/coffees/'});
             }
-           
         });
-        this.setState({path:getCookie('path')});
-
-
         console.log(this.state);
-
     }
   
 
@@ -92,13 +87,13 @@ class Home extends React.Component {
                     <br/>Capuchino</Link></li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/> Bombon</li>
+                    <br/> Bombón</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
                     <br/>Descafeinado</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/> Cortado</li>
+                    <br/>Cortado</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
                     <br/>Café solo</li>
@@ -107,43 +102,43 @@ class Home extends React.Component {
                     <br/>Cafe con leche</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/> Acción</li>
+                    <br/> Expreso Doble</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/> Romance</li>
+                    <br/> Café Jamaicano</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/> Drama</li>
+                    <br/> Làgrima</li>
                     <li className="item">
                     <img src="./assets/photos/cafe.png" width="140px" height="190px" alt=""/>
-                    <br/> Novela Negra</li>
+                    <br/>Instantaneo</li>
                 </ul> 
                 <h1>Disfrute de sus generos favoritos</h1>
                 <ul id="list">
                     <li className="item">
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/>
-                    Capuchino</li>
+                    Novela Contemporania</li>
                     <li className="item">
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/>
-                    Bombon</li>
+                    Libros de Auto ayuda</li>
                     <li className="item">
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/>
-                    Descafeinado</li>
+                    Infantil</li>
                     <li className="item">
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/>
-                    Cortado</li>
+                    Novela Juvenil</li>
                     <li className="item">
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/>
-                    Café solo</li>
+                    Comedia</li>
                     <li className="item">
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/>
-                    Cafe con leche</li>
+                    Thriller</li>
                     <li className="item">
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/>
@@ -161,16 +156,6 @@ class Home extends React.Component {
                     <br/>
                     Novela Negra</li>
                 </ul> 
-                <section className="listbatido">
-                <h1>Disponemos de gran variedad de batidos pensados especialmente para ti:</h1>
-                <ul id="list">
-                <li className="item"><img src="http://cafeconlibrosmalaga.com/wp-content/themes/cafe_libros/img/batido.png" width="100px" height="170px" alt=""/></li>
-                    <li className="item"><img src="http://cafeconlibrosmalaga.com/wp-content/themes/cafe_libros/img/batido.png" width="100px" height="170px" alt=""/></li>
-                    <li className="item"><img src="http://cafeconlibrosmalaga.com/wp-content/themes/cafe_libros/img/batido.png" width="100px" height="170px" alt=""/></li>
-                    <li className="item"><img src="http://cafeconlibrosmalaga.com/wp-content/themes/cafe_libros/img/batido.png" width="100px" height="170px" alt=""/></li>
-                    <li className="item"><img src="http://cafeconlibrosmalaga.com/wp-content/themes/cafe_libros/img/batido.png" width="100px" height="170px"  alt=""/></li>
-                </ul>
-                </section>
         </div>
         );
     }

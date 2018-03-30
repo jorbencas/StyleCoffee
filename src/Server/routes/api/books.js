@@ -26,4 +26,31 @@ router.get('/:param', function(req, res, next) {
   }).catch(next);
 });
 
+router.post('/', function(req,res,next){
+  console.log('Saveing book' + req.body.title);
+
+  var book = new Books();
+  
+  book.id = req.body.id;
+  book.title = req.body.title;
+  book.image = req.body.image;
+  book.genere = req.body.genere;
+  book.description = req.body.description;
+  book.yearpublication = req.body.yearpublication;
+  book.author = req.body.author;
+  book.price = req.body.price;
+  book.edition = req.body.edition;
+  book.languaje = req.body.languaje;
+  book.numpags = req.body.numpags,
+  book.state = req.body.state,
+  book.format = req.body.format,
+  book.isbn = req.body.isbn,
+  book.encuadernation=req.body.encuadernation
+
+  book.save((err, bookStored) => {
+    if(err) res.status(500).send(`Ha ocurrido un error al registrar el libro en la base de datos. $(err)`);
+    res.status(200).send(bookStored);
+  });
+});
+
 module.exports = router;

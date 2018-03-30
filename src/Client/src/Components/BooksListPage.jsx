@@ -43,18 +43,25 @@ class BooksListPage extends React.Component {
 
     render() {               
         const component = this.state.components.map((item) => (
-            <div className="item">
-                <img src='./assets/photos/libro.png' width="130px" height="180px" alt="./assets/photos/libro.png"/>
-                <p>{ item.title }</p>
-                <Link className="btn-search" to={'/BooksList/Book/'+item.id}>details</Link>
-            </div>
+            <section className="itembook">
+                <article className="bookfoto">
+                  <div className="state"><p>{item.state}</p></div>
+                  <img src={item.image} width="140px" height="215px" alt="./assets/photos/libro.png"/>
+                </article>
+                <article className="bookinfo">
+                  <p>{ item.title }</p>
+                  <p>{item.author}</p>
+                  <p>{item.edition}</p>
+                  <h2>{item.price}€</h2>
+                  <section className="buttons">
+                    <Link className="button" to={'/BooksList/Book/'+item.id}>Leer Más</Link>
+                  </section>
+                </article>
+            </section>
           ));
           return (
-            <div id="listbooks">
-              <div className="grid-main">
-                <div>Home</div>
-                <div>{ component }</div>
-              </div>
+            <div className="grid-main" id="listbooks">
+              <div  id="list" >{ component }</div>
             </div>
           );
     }

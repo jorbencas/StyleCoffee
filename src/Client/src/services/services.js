@@ -6,7 +6,6 @@ import BooksListPage from '../Components/BooksListPage';
 import CoffeeListPage from '../Components/CoffeeListPage';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import axios from 'axios'; 
-import {save, destroy, get} from './jwt.service';
 
   function contactService (contact){
         console.log(contact);
