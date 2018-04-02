@@ -7,7 +7,7 @@ class BooksDetailPage extends React.Component {
         super(props);   
         this.state = {                
             components: [],
-            params: props.match.params.id
+            params: this.props.params.id
           };
           console.log('Hola' +  this.state.params);
     }    

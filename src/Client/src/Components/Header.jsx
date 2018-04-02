@@ -2,8 +2,6 @@ import React from 'react';
 import { Link } from "react-router";
 import App from './App.jsx';
 import { logOut } from '../services/services';
-import * as actionCreators from '../actions/index';
-import {connect} from 'react-redux'
 
 class Header extends React.Component {
     constructor(props){
@@ -61,8 +59,4 @@ class Header extends React.Component {
 
 }
 
-const mapStateToProps=(state)=>{
-  return state;
-}
-
-export default connect (mapStateToProps, actionCreators)(Header);
+export default Header;

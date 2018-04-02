@@ -1,13 +1,11 @@
 import React from "react";
 import Home from './Home';
-import Header from './Header';
 import Contact from './Contact';
 import BooksListPage from './BooksListPage';
 import CoffeeListPage from './CoffeeListPage';
 import { Route, Switch } from "react-router-dom";
 import BooksDetailPage from './BooksDetailPage';
 import CoffeeDetailsPage from './CoffeeDetailPage';
-import Footer from './Footer';
 import Login from './Login';
 import AbouteUs from './AbouteUs';
 import singup from './SingUp';
@@ -18,6 +16,7 @@ import { createStore,applyMiddleware } from 'redux';
 import rootReducer from '../reducers/index';
 import thunk from 'redux-thunk';
 import { loadOffer, loadList } from '../actions';
+import Main from './Main';
 
 const store = createStore(rootReducer, applyMiddleware(thunk)); 
 store.dispatch(loadOffer());
@@ -32,7 +31,7 @@ class App extends React.Component{
     <Provider store={store}>
      <Router history={browserHistory}>
     <div id="content">
-     <Route component={Header}>
+    <Route component={Main}>
       <Switch>
         <Route exact path="/" component={Home}/>
         <Route exact path="/Home" component={Home}/>
@@ -48,7 +47,6 @@ class App extends React.Component{
         <Route path='/abouteus' component={AbouteUs} />
       </Switch>
       </Route>
-      <Footer/>
     </div>
   </Router>
   </Provider>

@@ -8,10 +8,10 @@ import App from './App.jsx';
 class BooksListPage extends React.Component {
     constructor(props){
         super(props); 
-        console.log(props);  
+        console.log(this.props);  
         this.state = {                
             components: [],
-            params: this.props.match.params.param
+            params: this.props.params.param
           };      
           this.UserList = this.UserList.bind(this);   
     }    

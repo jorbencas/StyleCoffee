@@ -5,10 +5,10 @@ import axios from 'axios';
 class CoffeeDetailPage extends React.Component {
     constructor(props){
         super(props);
-        console.log(props.match.params.id);
+        console.log(this.props.params.id);
         this.state = {                
             components: [],
-            params: props.match.params.id
+            params: this.props.params.id
           };
           console.log(this.state);
           this.getdata = this.getdata.bind(this);

@@ -27,9 +27,10 @@
     grid-template-areas: "header"
 						 "main"
                          "footer";
-        background-repeat: no-repeat;
+        background: url(./assets/photos/f3.jpg) no-repeat;
+        background-attachment: fixed;
         background-size: cover;
-        background: url(http://www.franquicias.libreriasnobel.es/blog/wp-content/uploads/2015/12/2_Caf%C3%A9-y-libros.jpg);
+        /*background: url(http://www.franquicias.libreriasnobel.es/blog/wp-content/uploads/2015/12/2_Caf%C3%A9-y-libros.jpg);*/
   }
   
                                     /*-----------*\
