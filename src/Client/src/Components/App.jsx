@@ -4,19 +4,33 @@ import Header from './Header';
 import Contact from './Contact';
 import BooksListPage from './BooksListPage';
 import CoffeeListPage from './CoffeeListPage';
-import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, Switch, browserHistory,IndexRoute } from "react-router-dom";
 import BooksDetailPage from './BooksDetailPage';
 import CoffeeDetailsPage from './CoffeeDetailPage';
 import Footer from './Footer';
 import Login from './Login';
 import AbouteUs from './AbouteUs';
 import singup from './SingUp';
-const App = () => (
-  <Router>
-    <div id="content">
-     <Header/>
-      <Switch>
-        <Route exact path="/" component={Home}/>
+
+import { Provider } from 'react-redux'
+import { createStore,applyMiddleware } from 'redux'
+import rootReducer from '../reducers/index'
+import thunk from 'redux-thunk';
+const store = createStore(rootReducer, applyMiddleware(thunk)); 
+import { loadOffer, loadList } from '../../actions';
+store.dispatch(loadOffer());
+store.dispatch(loadList());
+
+
+class App extends React.Component{
+  
+  render() {
+    
+    return (
+  <Provider store={store}>
+  <Router history={browserHistory}>
+     <Route path="/" component={Header}>
+        <IndexRoute component={Home}/>
         <Route path="/Home" component={Home}/>
         <Route path="/Contact" component={Contact} />
         <Route path="/Coffee" component={CoffeeListPage} />
@@ -28,10 +42,11 @@ const App = () => (
         <Route path="/login" component={Login} />
         <Route path="/SingUp" component={singup} />
         <Route path='/abouteus' component={AbouteUs} />
-      </Switch>
-      <Footer/>
-    </div>
+      </Route>
   </Router>
-);
+  </Provider>
+    );
+  }
+  };
 
 export default App;
