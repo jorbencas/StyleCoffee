@@ -1,7 +1,9 @@
 import React from 'react';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import App from './App.jsx';
 import { logOut } from '../services/services';
+import * as actionCreators from '../actions/index';
+import {connect} from 'react-redux'
 
 class Header extends React.Component {
     constructor(props){
@@ -50,41 +52,17 @@ class Header extends React.Component {
         </div>
         <nav id="menu" className="header-menu" role="menu">
               {this.menulogin()}
+              {this.props.children}
         </nav>
       </header>
         </div>
         );
     }
 
-
-    
-
-
-
-
-
-
-
-
-
-
 }
 
+const mapStateToProps=(state)=>{
+  return state;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-export default Header;
+export default connect (mapStateToProps, actionCreators)(Header);

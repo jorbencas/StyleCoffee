@@ -1,7 +1,7 @@
 import App from './App.jsx';
 import React from 'react';
 import Modal from 'react-modal';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import Home from './Home';
 import { LoginService, logOut } from '../services/services';
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { getCookie, setCookie, deleteCookie } from '../lib/utils.js';
 import { Search  } from '../services/services';
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import CoffeeListPage from './CoffeeListPage';
 import App from './App.jsx';
 
