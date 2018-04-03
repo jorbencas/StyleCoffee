@@ -9,15 +9,19 @@ import axios from 'axios';
 class  CoffeeListPage extends React.Component {
     constructor(props){
         super(props);
-        console.log(this.props);
         this.state = {                
-          components: [], 
-          params : this.props.params.param
-        };     
-        this.UserList = this.UserList.bind(this);
+          components:this.props.list.Coffee
+        };         
       } 
     
-      componentDidMount() {
+      componentWillReceiveProps(nextProps){
+        this.setState({
+          components:nextProps.list,
+          componentsOriginal:nextProps.list,
+        })
+      }
+
+      /*componentDidMount() {
           this.UserList();
       }
     
@@ -35,7 +39,7 @@ class  CoffeeListPage extends React.Component {
             response => this.setState({components: response.data.Coffee})
             )
         }
-      }
+      }*/
 
       render() {
         const component = this.state.components.map((item) => (

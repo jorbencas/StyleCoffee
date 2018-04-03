@@ -17,6 +17,8 @@ import rootReducer from '../reducers/index';
 import thunk from 'redux-thunk';
 import { loadOffer, loadList } from '../actions';
 import Main from './Main';
+import listcoffee from './contauiner/listcoffee';
+import listbooks from './contauiner/listbooks';
 
 const store = createStore(rootReducer, applyMiddleware(thunk)); 
 store.dispatch(loadOffer());
@@ -36,10 +38,10 @@ class App extends React.Component{
         <Route exact path="/" component={Home}/>
         <Route exact path="/Home" component={Home}/>
         <Route exact path="/Contact" component={Contact} />
-        <Route exact path="/CoffeeList" component={CoffeeListPage} />
-        <Route path="/coffees/:param" component={CoffeeListPage} />
-        <Route exact path="/BooksList" component={BooksListPage} />
-        <Route path="/book/:param" component={BooksListPage} />
+        <Route exact path="/CoffeeList" component={listcoffee} />
+        <Route path="/coffees/:param" component={listcoffee} />
+        <Route exact path="/BooksList" component={listbooks} />
+        <Route path="/book/:param" component={listbooks} />
         <Route path='/BooksList/Book/:id' component={BooksDetailPage}/>
         <Route path='/CoffeeList/Coffee/:id' component={CoffeeDetailsPage} />
         <Route path="/login" component={Login} />

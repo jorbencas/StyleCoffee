@@ -8,14 +8,11 @@ import App from './App.jsx';
 class BooksListPage extends React.Component {
     constructor(props){
         super(props); 
-        console.log(this.props);  
         this.state = {                
-            components: [],
-            params: this.props.params.param
-          };      
-          this.UserList = this.UserList.bind(this);   
-    }    
-
+            components: this.props.list.books
+          };           
+    }
+/*
     componentWillMount(){
       console.log(this.state.params);
       this.UserList();
@@ -24,7 +21,15 @@ class BooksListPage extends React.Component {
     componentDidMount() {
         this.UserList();
       }
-    
+    */
+      componentWillReceiveProps(nextProps){
+        this.setState({
+          components:nextProps.list,
+          componentsOriginal:nextProps.list,
+        })
+        console.log(this.state);
+    }
+/*
       UserList(event) {
       const params = this.state.params;
       console.log(params);
@@ -36,7 +41,7 @@ class BooksListPage extends React.Component {
           .then(response => this.setState({components: response.data.books}));
         }
       }
-
+*/
      /* componentWillUnmount(){
         console.log('Unmount');
       }*/
