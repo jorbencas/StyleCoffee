@@ -1,18 +1,22 @@
 import axios from 'axios';
 
-
-const server="localhost"
-//const server="145.239.199.9"
-
 export function loadOffer(){
  return(dispatch)=>{
-   return   axios.get(`http://`+server+`:3001/api/coffee`)
+   return   axios.get(`http://localhost:3001/api/coffee`)
    .then(res => {
      dispatch(changeOffert(res.data));
    })
  }
 }
 
+export function login(){
+  return(dispatch)=>{
+    return   axios.get(`http://localhost:3001/api/user/login`)
+    .then(res => {
+      dispatch(changeOffert(res.data));
+    })
+  }
+}
 
 export function changeOffert(res){
   return{
@@ -24,7 +28,7 @@ export function changeOffert(res){
 
 export function loadList(){
   return(dispatch)=>{
-    return   axios.get(`http://`+server+`:3001/api/books`)
+    return   axios.get(`http://localhost:3001/api/books`)
     .then(res => {
       dispatch(changeList(res.data));
     })

@@ -1,10 +1,10 @@
 import React from 'react';
-import { CoffeeService } from '../services/services';
+//import { CoffeeService } from '../services/services';
 import { Link } from "react-router";
-import ReactDOM  from 'react-dom';
-import App from './App.jsx';
+//import ReactDOM  from 'react-dom';
+//import App from './App.jsx';
 import { getCookie } from '../lib/utils';
-import axios from 'axios';
+//import axios from 'axios';
 
 class  CoffeeListPage extends React.Component {
     constructor(props){

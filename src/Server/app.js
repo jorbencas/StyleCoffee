@@ -12,6 +12,7 @@ var http = require('http'),
     const open = require('open');
 var isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT;
+var colors = require('colors');
 // Create global app object
 var app = express();
 
@@ -37,12 +38,12 @@ if(isProduction){
 } else {
   mongoose.connect('mongodb://localhost/stylecoffee', (err, res) => {
     if (err) throw err
-    console.log('Conectado a la Base de datos styleCoffee')
+    console.log('Conectado a la Base de datos styleCoffee'.cyan)
   });
   mongoose.set('debug', true);
 
   app.listen(port, () => {
-    console.log(`Servidor corriendo por http://localhost/:${port}`);
+    console.log(`Servidor corriendo por http://localhost/:${port}`.green);
     open(`http://localhost:${port}/`);
   });
   
@@ -55,16 +56,7 @@ require('./models/Coffee');
 require('./config/passport');
 require('./models/Users');
 
-/*
-app.get('/api/users', function(req, res, next){
-  res.send('Hola Users');
-  /*User.findById(req.payload.id).then(function(user){
-    if(!user){ return res.sendStatus(401); }
 
-    return res.json({user: user.toAuthJSON()});
-  }).catch(next);
-});
-*/
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -72,11 +64,11 @@ app.use(passport.session());
 app.use(require('./routes'));
 
 /// catch 404 and forward to error handler
-/*app.use(function(req, res, next) {
+app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
-});*/
+});
 
 /// error handlers
 

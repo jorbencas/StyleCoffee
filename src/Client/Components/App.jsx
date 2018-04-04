@@ -1,8 +1,6 @@
 import React from "react";
 import Home from './Home';
 import Contact from './Contact';
-import BooksListPage from './BooksListPage';
-import CoffeeListPage from './CoffeeListPage';
 import { Route, Switch } from "react-router-dom";
 import BooksDetailPage from './BooksDetailPage';
 import CoffeeDetailsPage from './CoffeeDetailPage';
@@ -17,8 +15,8 @@ import rootReducer from '../reducers/index';
 import thunk from 'redux-thunk';
 import { loadOffer, loadList } from '../actions';
 import Main from './Main';
-import listcoffee from './contauiner/listcoffee';
-import listbooks from './contauiner/listbooks';
+import listcoffee from './containers/listcoffee';
+import listbooks from './containers/listbooks';
 
 const store = createStore(rootReducer, applyMiddleware(thunk)); 
 store.dispatch(loadOffer());

@@ -1,9 +1,9 @@
 import React from 'react';
-import BooksDetailPage from './BooksDetailPage';
+//import BooksDetailPage from './BooksDetailPage';
 import { Link } from "react-router";
-import ReactDOM  from 'react-dom';
-import axios from 'axios';
-import App from './App.jsx';
+//import ReactDOM  from 'react-dom';
+//import axios from 'axios';
+//import App from './App.jsx';
 
 class BooksListPage extends React.Component {
     constructor(props){

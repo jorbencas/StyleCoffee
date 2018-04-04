@@ -4,8 +4,8 @@ import App from './App.jsx';
 import { logOut } from '../services/services';
 import * as actionCreators from '../actions/index';
 import {connect} from 'react-redux'
-import Header from './Header';
-import Footer from './Footer';
+import Header from './common/Header';
+import Footer from './common/Footer';
 
 class Main extends React.Component {
     constructor(props){
