@@ -9,12 +9,25 @@ export function loadOffer(){
  }
 }
 
-export function login(){
+export function login({email,password}){
   return(dispatch)=>{
-    return   axios.get(`http://localhost:3001/api/user/login`)
+    return axios.get(`http://localhost:3001/api/user/login`, {email,password})
     .then(res => {
-      dispatch(changeOffert(res.data));
-    })
+                        // if request is good...
+                        // - update state to indicate user is authenticated
+                        dispatch(user());
+        
+                        // - save the jwt token
+                        localStorage.setItem('token', res.data.user.token);
+        
+                        // - redirect to the route '/feature'
+                        History.push('/');
+        
+                    }).catch(() => {
+                        // if request is bad...
+                        // - show an error to the user
+                        dispatch(authError('Bad Login Info'));
+                    });
   }
 }
 
@@ -25,7 +38,12 @@ export function changeOffert(res){
   }
 }
 
-
+export function user(){
+  return{
+    type:"AUTH_USER",
+    user:[]
+  }
+}
 export function loadList(){
   return(dispatch)=>{
     return   axios.get(`http://localhost:3001/api/books`)

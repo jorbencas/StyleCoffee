@@ -9,7 +9,9 @@ var BooksSchema = new mongoose.Schema({
   id: Number,
   title: String,
   image: String,
-  genere:[],
+  genere:{
+    type:[String]
+  },
   description: String,
   yearpublication: String,
   author: String,

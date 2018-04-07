@@ -4,6 +4,8 @@ import Modal from 'react-modal';
 import { Link } from 'react-router';
 import Home from './Home';
 import { SingUp, logOut } from '../services/services';
+import * as actions from '../actions';
+import { connect } from 'react-redux';
 
 const MODAL_A = 'modal_a';
 const MODAL_B = 'modal_b';
