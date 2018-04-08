@@ -85,7 +85,12 @@ class singup extends React.Component {
                 <label htmlFor="password">Password</label><br/>
                 <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
               </div>
-                <Link to="/" onClick={this.handleSubmit}>Resgistrarse</Link>
+              <hr/>
+              <div>
+                <a href="http://localhost:3001/api/SigUpGoogle">Sing Up with Google</a>
+                <a href="">Sing Up with Twitter</a>
+              </div>
+              <Link to="/" onClick={this.handleSubmit}>Resgistrarse</Link>
             </form>
         </Modal>
       );

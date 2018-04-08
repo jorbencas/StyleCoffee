@@ -21,14 +21,14 @@ import listbooks from './containers/listbooks';
 const store = createStore(rootReducer, applyMiddleware(thunk)); 
 store.dispatch(loadOffer());
 store.dispatch(loadList());
-
+/*
 const token = localStorage.getItem('token');
 // if we have a token, consiger the user to be signed in
 if (token) {
     // we need to update application state
     store.dispatch({ type: AUTH_USER });
 }
-
+*/
 
 class App extends React.Component{
   

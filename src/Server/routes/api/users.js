@@ -126,6 +126,19 @@ router.post('/users', function(req, res, next){
   }).catch(next);
 });
 
+/*----GOOGLE------*/
+router.get('/SigUpGoogle',
+   passport.authenticate('google', { 
+     scope: ['profile','email']
+    }));//passport.authenticate('google'));
+ 
+router.get('/auth/google/callback',
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    console.log('Google login ' + JSON.stringify(req.user));
+    res.redirect('/');
+  });
+
 /*----FACEBOOK----*/
 /*
 router.get('/facebook', passport.authenticate('facebook', {scope: ['email', 'public_profile']}));
@@ -134,12 +147,12 @@ router.get('/auth/facebook/callback',
     { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
 */
 /*----TWITTER----*/
-/*
+
 router.get('/api/twitter', passport.authenticate('twitter'));
 router.get('/api/auth/twitter/callback',
     passport.authenticate('twitter',
     { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
-*/
+
 /*----ROUTE TO RETURN SOCIAL LOGGED USER----*/
 //router.get('/api/auth/success', usersController.success);
 /*
