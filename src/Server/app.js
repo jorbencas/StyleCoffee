@@ -13,6 +13,7 @@ var http = require('http'),
 var isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT;
 var colors = require('colors');
+
 // Create global app object
 var app = express();
 
@@ -49,14 +50,10 @@ if(isProduction){
   
 }
 
-require('./models/Books');
-// require('./models/Article');
-require('./models/Coffee');
-// require('./models/Comment');
+require('./models/books');
+require('./models/coffee');
+require('./models/User');
 require('./config/passport');
-require('./models/Users');
-
-
 
 app.use(passport.initialize());
 app.use(passport.session());

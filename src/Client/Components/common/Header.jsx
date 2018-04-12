@@ -10,7 +10,7 @@ class Header extends React.Component {
     }    
 
     menulogin(){
-      if(localStorage.getItem('token')){
+      if( window.location.href  === "Jorge" || localStorage.getItem('token')){
           return(
             <ul>
               <li className="listado-item"><Link to="/Contact">Contact</Link></li>

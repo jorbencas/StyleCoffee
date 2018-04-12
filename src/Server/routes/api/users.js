@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var router = require('express').Router();
 var passport = require('passport');
-var User = mongoose.model('Users');
+var User = mongoose.model('User');
 var auth = require('../auth');
 var stripe = require("stripe")('APY-KEY');
 console.log('Users');
@@ -127,16 +127,14 @@ router.post('/users', function(req, res, next){
 });
 
 /*----GOOGLE------*/
-router.get('/SigUpGoogle',
-   passport.authenticate('google', { 
-     scope: ['profile','email']
-    }));//passport.authenticate('google'));
- 
+router.get('/SigUpGoogle',passport.authenticate('google',{scope: 'profile'}));//passport.authenticate('google'));
 router.get('/auth/google/callback',
-  passport.authenticate('google', { failureRedirect: '/login' }),
-  function(req, res) {
+  passport.authenticate('google'),
+   function(req, res) {
     console.log('Google login ' + JSON.stringify(req.user));
-    res.redirect('/');
+    //localStorage.setItem('token',req.user.token);
+    //localStorage.setItem('username',res.user.username);
+    return res.redirect('/:' + req.user.username);
   });
 
 /*----FACEBOOK----*/
@@ -146,10 +144,10 @@ router.get('/auth/facebook/callback',
     passport.authenticate('facebook',
     { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
 */
-/*----TWITTER----*/
 
+/*----TWITTER----*/
 router.get('/api/twitter', passport.authenticate('twitter'));
-router.get('/api/auth/twitter/callback',
+router.get('/auth/twitter/callback',
     passport.authenticate('twitter',
     { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
 

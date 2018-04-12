@@ -88,7 +88,7 @@ class singup extends React.Component {
               <hr/>
               <div>
                 <a href="http://localhost:3001/api/SigUpGoogle">Sing Up with Google</a>
-                <a href="">Sing Up with Twitter</a>
+                <a href="http://localhost:3001/api/twitter">Sing Up with Twitter</a>
               </div>
               <Link to="/" onClick={this.handleSubmit}>Resgistrarse</Link>
             </form>
