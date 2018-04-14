@@ -9,7 +9,7 @@ var http = require('http'),
     errorhandler = require('errorhandler'),
     mongoose = require('mongoose');
     dotenv= require('dotenv').config();
-    const open = require('open');
+const open = require('open');
 var isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT;
 var colors = require('colors');
@@ -35,19 +35,16 @@ if (!isProduction) {
 }
 
 if(isProduction){
-  mongoose.connect(process.env.MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI, (err, res) => {
+    if (err) throw err
+    console.log('Conectado a la Base de datos styleCoffee'.cyan)
+  });
 } else {
   mongoose.connect('mongodb://localhost/stylecoffee', (err, res) => {
     if (err) throw err
     console.log('Conectado a la Base de datos styleCoffee'.cyan)
   });
   mongoose.set('debug', true);
-
-  app.listen(port, () => {
-    console.log(`Servidor corriendo por http://localhost/:${port}`.green);
-    open(`http://localhost:${port}/`);
-  });
-  
 }
 
 require('./models/books');
@@ -85,4 +82,10 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   }});
+});
+
+
+app.listen(port, () => {
+  console.log(`Servidor corriendo por http://localhost/:${port}`.green);
+  open(`http://localhost:${port}/`);
 });

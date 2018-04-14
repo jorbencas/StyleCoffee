@@ -3,7 +3,7 @@ var router = require('express').Router();
 var passport = require('passport');
 var User = mongoose.model('User');
 var auth = require('../auth');
-var stripe = require("stripe")('APY-KEY');
+var stripe = require("stripe")('sk_test_sje4TJ42Scf9KdKuqcJsPp7Z');
 console.log('Users');
 
 router.get('/users',auth.required, function(req, res, next){
@@ -151,9 +151,7 @@ router.get('/auth/twitter/callback',
     passport.authenticate('twitter',
     { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
 
-/*----ROUTE TO RETURN SOCIAL LOGGED USER----*/
-//router.get('/api/auth/success', usersController.success);
-/*
+
 router.post("/charge" , (req, res) => {
   
     console.log(req.body.payment);
@@ -182,6 +180,6 @@ router.post("/charge" , (req, res) => {
     // , res.send(toastr.success('Sucuenta se ha creado correctemente.','Bienvenido'))
       );
   });
-*/
+
 
 module.exports = router;
