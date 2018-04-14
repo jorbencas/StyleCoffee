@@ -9,13 +9,20 @@ var BooksSchema = new mongoose.Schema({
   id: Number,
   title: String,
   image: String,
-  genere:[],
+  genere:{
+    type:[String]
+  },
   description: String,
   yearpublication: String,
   author: String,
-  price: String,
+  price: {type: Number, default: 0},
   edition: String,
   languaje: String,
+  numpags:{type: Number, default: 0},
+  state:String,
+  format:String,
+  isbn:String,
+  encuadernation:String
 }, {timestamps: true});
 
 BooksSchema.methods.toProfileJSONFor = function(user){
@@ -27,10 +34,15 @@ BooksSchema.methods.toProfileJSONFor = function(user){
     description: this.description,
     yearpublication: this.yearpublication,
     author: this.author,
-    title: this.title,
+    edition: this.edition,
     price: this.price,
     languaje: this.languaje,
+    numpags:this.numpags,
+    state:this.state,
+    format:this.format,
+    isbn:this.isbn,
+    encuadernation:this.encuadernation
   };
 };
 
-module.exports = mongoose.model('Books',BooksSchema);
+mongoose.model('Books',BooksSchema);

@@ -3,11 +3,11 @@ import path from 'path';
 
 module.exports = {
   resolve: {
-    extensions: ['', '.js', '.jsx']
+    extensions: ['', '.js', '.jsx', '.css', '.json']
   },
   context: __dirname,
   entry: {
-    app: ['./src/Client/src/app.jsx']
+    app: ['../src/Client/app.jsx']
   },
   output: {
     path: './dist',
@@ -32,7 +32,7 @@ module.exports = {
       { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"},
       { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
       { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
-      { test: /(\.js|.jsx)$/, loader: 'babel', query: { presets: ['es2015', 'react']}}
+      { test: /(\.js|.jsx)$/, loader: 'babel-loader', query: { presets: ['es2015', 'react']},  exclude: /node_modules/}
     ]
   }
 }

@@ -1,9 +1,11 @@
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var mongoose = require('mongoose');
-//var User = mongoose.model('Users');
+var User = mongoose.model('User');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var TwitterStrategy = require('passport-twitter').Strategy;
+var GoogleStrategy = require('passport-google-oauth2').Strategy;
+var dotenv = require('dotenv').config();
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -26,7 +28,7 @@ passport.use(new LocalStrategy({
   }).catch(done);
 }));
 
-/* 
+
 
 passport.use(new FacebookStrategy({
   clientID: 'ID',
@@ -39,8 +41,8 @@ function(req, accessToken, refreshToken, profile, done) {
     if(user){
       return done(null, user);
     }else{
-      nUser=new User();
-      nUser.username=profile.displayName;
+      var nUser= new User();
+      nUser.username=profile.name;
       nUser.email= profile.id;
       console.log(nUser);
       nUser.save().then(function(){
@@ -50,5 +52,30 @@ function(req, accessToken, refreshToken, profile, done) {
   }).catch(done);
 }
 ));
-*/
 
+
+
+
+passport.use(new GoogleStrategy({
+  clientID: '296386067636-kgpu5ue9u5f2glckvod86aratd8rp07s.apps.googleusercontent.com',
+  clientSecret: 'Vlkt0kBRM4Q8GevKHgMkLDb-',
+  callbackURL:'http://localhost:3001/api/auth/google/callback'
+},
+function(req, accessToken, refreshToken, profile, done) {
+  console.log(profile);
+  User.findOne({email: profile.id}).then(function(user){
+    console.log(user);
+    if(user){
+      return done(null, user);
+    }else{
+      var nUser=new User();
+      nUser.username=profile.name.givenName;
+      nUser.email= profile.id;
+      console.log(nUser);
+      nUser.save().then(function(){
+        return done(null, user);
+      }).catch(done);
+    }
+  }).catch(done);
+}
+));

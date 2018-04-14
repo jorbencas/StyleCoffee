@@ -1,9 +1,16 @@
 import React from 'react';
+<<<<<<< HEAD:src/Client/src/Components/Header.jsx
 import { Link } from "react-router-dom";
 //import App from './App.jsx';
 import { logOut } from '../services/services';
 import * as actionCreators from '../../actions/index';
 import {connect} from 'react-redux'
+=======
+import { Link } from "react-router";
+//import App from '../App.jsx';
+import { logOut } from '../../services/services';
+
+>>>>>>> development:src/Client/Components/common/Header.jsx
 class Header extends React.Component {
     constructor(props){
         super(props);  
@@ -11,12 +18,12 @@ class Header extends React.Component {
     }    
 
     menulogin(){
-      if(localStorage.getItem('token')){
+      if( window.location.href  === "Jorge" || localStorage.getItem('token')){
           return(
             <ul>
               <li className="listado-item"><Link to="/Contact">Contact</Link></li>
-              <li className="listado-item"><Link to="/Coffee">Cafes</Link></li>
-              <li className="listado-item"><Link to="/Books">Books</Link></li>
+              <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
+              <li className="listado-item"><Link to="/BooksList">Books</Link></li>
               <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
               <li className="listado-item"><Link to="/login">{localStorage.getItem('username')}</Link></li>
               <li className="listado-item"><Link to="/" onClick={logOut}>Logout</Link></li>
@@ -26,8 +33,8 @@ class Header extends React.Component {
         return(
           <ul>
             <li className="listado-item"><Link to="/Contact">Contact</Link></li>
-            <li className="listado-item"><Link to="/Coffee">Cafes</Link></li>
-            <li className="listado-item"><Link to="/Books">Books</Link></li>
+            <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
+            <li className="listado-item"><Link to="/BooksList">Books</Link></li>
             <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
             <li className="listado-item"><Link to="/SingUp">Iniciar Sesión</Link></li>
             <li className="listado-item"><Link to="/login">Registrarse</Link></li>
@@ -56,6 +63,7 @@ class Header extends React.Component {
       </header>
         </div>
         );
+<<<<<<< HEAD:src/Client/src/Components/Header.jsx
     } 
 }
 
@@ -65,3 +73,10 @@ const mapStateToProps=(state)=>{
 
 export default connect (mapStateToProps, actionCreators)(Header);
 
+=======
+    }
+
+}
+
+export default Header;
+>>>>>>> development:src/Client/Components/common/Header.jsx

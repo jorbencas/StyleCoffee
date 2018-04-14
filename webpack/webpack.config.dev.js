@@ -3,7 +3,7 @@ import path from 'path';
 
 export default {
   entry: [
-    './src/client/src/app'
+    '../src/client/app.jsx'
   ],
   target: 'web',
   output: {

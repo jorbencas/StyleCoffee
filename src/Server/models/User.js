@@ -5,7 +5,7 @@ var jwt = require('jsonwebtoken');
 var secret = require('../config').secret;
 var passport = require('passport');
 
-var UsersSchema = new mongoose.Schema({
+var UserSchema = new mongoose.Schema({
   username: String,
   email: String,
   image: String,
@@ -17,31 +17,31 @@ var UsersSchema = new mongoose.Schema({
   salt: String
 }, {timestamps: true});
 
-UsersSchema.plugin(uniqueValidator, {message: 'is already taken.'});
+UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
 
-UsersSchema.methods.validPassword = function(password) {
+UserSchema.methods.validPassword = function(password) {
   var hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
   return this.hash === hash;
 };
 
-UsersSchema.methods.setPassword = function(password){
+UserSchema.methods.setPassword = function(password){
   this.salt = crypto.randomBytes(16).toString('hex');
   this.hash = crypto.pbkdf2Sync(password, this.salt, 10000, 512, 'sha512').toString('hex');
 };
 
-UsersSchema.methods.generateJWT = function() {
+UserSchema.methods.generateJWT = function() {
   var today = new Date();
   var exp = new Date(today);
   exp.setDate(today.getDate() + 60);
 
   return jwt.sign({
-    id: this.id,
+    id: this._id,
     username: this.username,
     exp: parseInt(exp.getTime() / 1000),
   }, secret);
 };
 
-UsersSchema.methods.toAuthJSON = function(){
+UserSchema.methods.toAuthJSON = function(){
   return {
     username: this.username,
     email: this.email,
@@ -54,7 +54,7 @@ UsersSchema.methods.toAuthJSON = function(){
   };
 };
 
-UsersSchema.methods.toProfileJSONFor = function(user){
+UserSchema.methods.toProfileJSONFor = function(user){
   return {
     username: this.username,
     image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
@@ -67,4 +67,4 @@ UsersSchema.methods.toProfileJSONFor = function(user){
 
 
 
-mongoose.model('Users', UsersSchema);
+mongoose.model('User', UserSchema);

@@ -1,9 +1,9 @@
 var mongoose = require('mongoose');
 var router = require('express').Router();
 var passport = require('passport');
-var User = mongoose.model('Users');
+var User = mongoose.model('User');
 var auth = require('../auth');
-var stripe = require("stripe")('APY-KEY');
+var stripe = require("stripe")('sk_test_sje4TJ42Scf9KdKuqcJsPp7Z');
 console.log('Users');
 
 router.get('/users',auth.required, function(req, res, next){
@@ -126,6 +126,17 @@ router.post('/users', function(req, res, next){
   }).catch(next);
 });
 
+/*----GOOGLE------*/
+router.get('/SigUpGoogle',passport.authenticate('google',{scope: 'profile'}));//passport.authenticate('google'));
+router.get('/auth/google/callback',
+  passport.authenticate('google'),
+   function(req, res) {
+    console.log('Google login ' + JSON.stringify(req.user));
+    //localStorage.setItem('token',req.user.token);
+    //localStorage.setItem('username',res.user.username);
+    return res.redirect('/:' + req.user.username);
+  });
+
 /*----FACEBOOK----*/
 /*
 router.get('/facebook', passport.authenticate('facebook', {scope: ['email', 'public_profile']}));
@@ -133,16 +144,14 @@ router.get('/auth/facebook/callback',
     passport.authenticate('facebook',
     { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
 */
+
 /*----TWITTER----*/
-/*
 router.get('/api/twitter', passport.authenticate('twitter'));
-router.get('/api/auth/twitter/callback',
+router.get('/auth/twitter/callback',
     passport.authenticate('twitter',
     { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
-*/
-/*----ROUTE TO RETURN SOCIAL LOGGED USER----*/
-//router.get('/api/auth/success', usersController.success);
-/*
+
+
 router.post("/charge" , (req, res) => {
   
     console.log(req.body.payment);
@@ -171,6 +180,6 @@ router.post("/charge" , (req, res) => {
     // , res.send(toastr.success('Sucuenta se ha creado correctemente.','Bienvenido'))
       );
   });
-*/
+
 
 module.exports = router;

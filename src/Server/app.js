@@ -9,9 +9,11 @@ var http = require('http'),
     errorhandler = require('errorhandler'),
     mongoose = require('mongoose');
     dotenv= require('dotenv').config();
-    const open = require('open');
+const open = require('open');
 var isProduction = process.env.NODE_ENV === 'production';
 const port = process.env.PORT;
+var colors = require('colors');
+
 // Create global app object
 var app = express();
 
@@ -23,60 +25,37 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(require('method-override')());
-//app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));
 app.use(express.static('./dist'));
 app.use(express.static('./'));
-//app.use(session({ secret: 'conduit', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
+app.use(session({ secret: 'StyleCoffee', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
 
 if (!isProduction) {
   app.use(errorhandler());
 }
 
 if(isProduction){
-  mongoose.connect(process.env.MONGODB_URI);
+  mongoose.connect(process.env.MONGODB_URI, (err, res) => {
+    if (err) throw err
+    console.log('Conectado a la Base de datos styleCoffee'.cyan)
+  });
 } else {
   mongoose.connect('mongodb://localhost/stylecoffee', (err, res) => {
     if (err) throw err
-    console.log('Conectado a la Base de datos styleCoffee')
+    console.log('Conectado a la Base de datos styleCoffee'.cyan)
   });
   mongoose.set('debug', true);
-
-  app.listen(port, () => {
-    console.log(`Servidor corriendo por http://localhost/:${port}`);
-    open(`http://localhost:${port}/`);
-  });
-  
 }
 
-require('./models/Books');
-// require('./models/Article');
-require('./models/Coffee');
-// require('./models/Comment');
+require('./models/books');
+require('./models/coffee');
+require('./models/User');
 require('./config/passport');
-require('./models/Users');
-
-/*
-app.get('/api/users', function(req, res, next){
-  res.send('Hola Users');
-  /*User.findById(req.payload.id).then(function(user){
-    if(!user){ return res.sendStatus(401); }
-
-    return res.json({user: user.toAuthJSON()});
-  }).catch(next);
-});
-*/
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(require('./routes'));
-
-/// catch 404 and forward to error handler
-/*app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});*/
 
 /// error handlers
 
@@ -103,4 +82,10 @@ app.use(function(err, req, res, next) {
     message: err.message,
     error: {}
   }});
+});
+
+
+app.listen(port, () => {
+  console.log(`Servidor corriendo por http://localhost/:${port}`.green);
+  open(`http://localhost:${port}/`);
 });

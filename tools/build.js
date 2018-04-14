@@ -2,7 +2,7 @@
 // Allowing console calls below since this is a build file.
 /*eslint-disable no-console */
 import webpack from 'webpack';
-import webpackConfig from '../webpack.config.prod';
+import webpackConfig from '../webpack/webpack.config.prod';
 import colors from 'colors';
 
 console.log('Generating minified bundle for production via Webpack. This will take a moment...'.blue);

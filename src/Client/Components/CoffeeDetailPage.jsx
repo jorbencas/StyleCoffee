@@ -2,14 +2,16 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 import axios from 'axios';
 
-class BooksDetailPage extends React.Component {
+class CoffeeDetailPage extends React.Component {
     constructor(props){
-        super(props);   
+        super(props);
+        console.log(this.props.params.id);
         this.state = {                
             components: [],
-            params: props.match.params.id
+            params: this.props.params.id
           };
-          console.log('Hola' +  this.state.params);
+          console.log(this.state);
+          this.getdata = this.getdata.bind(this);
     }    
     componentWillMount() {
       this.getdata();
@@ -18,22 +20,26 @@ class BooksDetailPage extends React.Component {
     getdata(event){
       const params = this.state.params;
       if (params){
-        axios.post('http://localhost:3001/api/books/' + params)
+        axios.post('http://localhost:3001/api/coffee/' + params)
         .then(
           response => this.setState({components: response.data.Coffee})
         );
       }
     }
     render() {               
-       
+      const component = this.state.components.map((item) =>
+        <div>
+          <p>{item.name}</p>
+        </div>
+      )
           return (
             <div>
               <div className="grid-main">
-                <div>Home</div>
+                <div>{component}</div>
               </div>
             </div>
           );
     }
 }
 
-export default BooksDetailPage;
+export default CoffeeDetailPage;

@@ -1,6 +1,6 @@
 var router = require('express').Router();
 var mongoose = require('mongoose');
-var coffee = mongoose.model('coffee');
+var coffee = mongoose.model('Coffee');
 
 console.log('Coffee');
 // return a list of tags
