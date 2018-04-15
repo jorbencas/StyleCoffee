@@ -56,8 +56,8 @@ class BooksDetailPage extends React.Component {
                   </section>
                   <section className="buttons-details">
                     <p className="detail-price">{item.price}€</p>
-                    <a className="button">Reserva-lo</a>
-                    <a className="button">Comprar</a>
+                    <a className="btn-search">Reserva-lo</a>
+                    <a className="btn-search">Comprar</a>
                   </section>
                 </article>
               </section>

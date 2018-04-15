@@ -45,8 +45,6 @@
     width: 100%;
     background: rgb(51, 51, 51)!important;
     overflow: hidden;
-    margin: 0;
-    padding: 0;
  }
 
 .grid-header-logo {
@@ -406,14 +404,15 @@ article{
 
 .detail-price{
     text-align: center;
-    background: gold;
-    color: red;
+    background: rgb(255, 0, 0);
+    color: #ffffff;
     padding: 1%;
     margin: 2px;
     width: 15%;
     height: 5%;
     border: 1px solid white;
-    border-radius: 5px;
+    border-radius: 15px;
+    font-size: 28px;
 }
 
 /*.bookinfo-details p{

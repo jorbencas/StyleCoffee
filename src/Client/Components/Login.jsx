@@ -51,8 +51,8 @@ class Login extends React.Component {
                           <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
                         </div>
                         <br/><br/>
-                        <div className="contact_item">
-                          <Link to="/" className="button contact_Item" onClick={this.handleSubmit}>Iniciar Sesion</Link>
+                        <div>
+                          <Link to="/" className="btn-search" onClick={this.handleSubmit}>Iniciar Sesion</Link>
                         </div>
                     </form>
                 </div> 

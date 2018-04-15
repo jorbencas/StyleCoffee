@@ -85,6 +85,8 @@ import axios from 'axios';
       response => {
         localStorage.setItem('token',response.data.user.token);
         localStorage.setItem('username',response.data.user.username);
+        localStorage.setItem('img',response.data.image);
+        console.log(response.data);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       } ,
       err => toastr.error('Error al registrar-se','Error')

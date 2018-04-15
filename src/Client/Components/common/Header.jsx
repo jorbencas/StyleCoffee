@@ -17,7 +17,7 @@ class Header extends React.Component {
               <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
               <li className="listado-item"><Link to="/BooksList">Books</Link></li>
               <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
-              <li className="listado-item"><Link to="/login">{localStorage.getItem('username')}</Link></li>
+              <li className="listado-item"><Link to="/login">{localStorage.getItem('img') + '' + localStorage.getItem('username')}</Link></li>
               <li className="listado-item"><Link to="/" onClick={logOut}>Logout</Link></li>
             </ul>
           );

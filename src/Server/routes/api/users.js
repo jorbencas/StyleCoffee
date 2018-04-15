@@ -100,8 +100,9 @@ console.log(req.body.user.username + " " + req.body.user.password);
         if(err){ return next(err); }
     
         if(user){
+          console.log(user);
           user.token = user.generateJWT();
-          return res.json({user: user.toAuthJSON()});
+          return res.json({user: user.toAuthJSON(), image : user.image});
         } else {
           return res.status(422).json(info);
         }

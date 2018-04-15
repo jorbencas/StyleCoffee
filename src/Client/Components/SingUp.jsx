@@ -93,8 +93,8 @@ class singup extends React.Component {
                         </div>
                         <br/>
                         <br/><br/>
-                        <div className="contact_item contact_Item" disabled={!this.state.formValid} >
-                          <Link to="/" className="button contact_Item" onClick={this.handleSubmit} >Resgistrar se</Link>
+                        <div className="contact_item" disabled={!this.state.formValid} >
+                          <Link to="/" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
                         </div>
                         <br/>
                         <br/>
