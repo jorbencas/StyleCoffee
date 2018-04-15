@@ -4,11 +4,7 @@ import Modal from 'react-modal';
 import { Link } from 'react-router';
 import Home from './Home';
 import { LoginService, logOut } from '../services/services';
-
-const MODAL_A = 'modal_a';
-const MODAL_B = 'modal_b';
-
-const DEFAULT_TITLE = 'Default title';
+import { FormErrors } from '../lib/FormErrors';
 
 class Login extends React.Component {
     constructor(props) {
@@ -23,66 +19,44 @@ class Login extends React.Component {
 
         this.handleInputChange = this.handleInputChange.bind(this); 
         this.handleSubmit = this.handleSubmit.bind(this); 
-        this.toggleModal = this. toggleModal.bind(this);
     }
     
-      toggleModal(event) {
-        console.log(event);
-        const { isOpen } = this.state.isOpen;
-        this.setState({ isOpen: !isOpen });
-      }
-    
-    componentWillMount(){
-      this.toggleModal();
-    }
       
-      handleInputChange(event) {
-        const target = event.target;
-        const value = target.type === 'checkbox' ? target.checked : target.value;
-        const name = target.name;
-       
-        this.setState({
-          [name]: value
-        });
-    
-        console.log(this.state);
+    handleInputChange(event) {
+      const target = event.target;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const name = target.name;
+  
+      this.setState({[name]: value});
+  
+      console.log(this.state);
     }
-    
+
     handleSubmit(event) {
         LoginService(this.state);
     }
 
-    componentWillUnmount(){
-      this.toggleModal();
-    }
     render() {
       return (
-        <Modal
-          id="modal_with_forms"
-          isOpen={this.state.isOpen}
-          closeTimeoutMS={150}
-          contentLabel="modalB"
-          shouldCloseOnOverlayClick={true}
-          onRequestClose={this.toggleModal}
-          aria={{
-            labelledby: "heading",
-            describedby: "fulldescription"
-          }}>
-          <h1 id="heading">Forms!</h1>
-            <p>Iniciar Sesión</p>
-            <form>
-              <div className="contact_item">
-                <label htmlFor="username">name</label><br/>
-                <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} required/>
-              </div>
-             
-              <div className="contact_item">
-                <label htmlFor="password">Password</label><br/>
-                <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
-              </div>
-                <Link to="/" onClick={this.handleSubmit}>Iniciar Sesion</Link>
-            </form>
-        </Modal>
+        <div className="grid-main">
+          <div className="Contact">
+                    <form id="contact_form" name="contact_form" className="form-contact">
+                    <h1 id="heading">Iniciar Sesión</h1>
+                        <div className="contact_item">
+                          <label htmlFor="username">name</label><br/>
+                          <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} required/>
+                        </div>
+                        <div className="contact_item">
+                          <label htmlFor="password">Password</label><br/>
+                          <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
+                        </div>
+                        <br/><br/>
+                        <div className="contact_item">
+                          <Link to="/" className="button contact_Item" onClick={this.handleSubmit}>Iniciar Sesion</Link>
+                        </div>
+                    </form>
+                </div> 
+        </div>
       );
     }
 }
