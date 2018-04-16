@@ -86,7 +86,7 @@ import axios from 'axios';
         localStorage.setItem('token',response.data.user.token);
         localStorage.setItem('username',response.data.user.username);
         localStorage.setItem('img',response.data.image);
-        console.log(response.data);
+        console.log(response.data.user);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       } ,
       err => toastr.error('Error al registrar-se','Error')
@@ -110,4 +110,13 @@ import axios from 'axios';
     localStorage.removeItem('username');
   }
 
-export{ contactService, CoffeeService, BooksDetailsService, Search, LoginService, logOut, SingUp };
+  function update(user){
+    axios.put('http://localhost:3001/api/user',{user})
+    .then(
+      response => {
+        toastr.success('Hola ' +response.data.user.username + 'tu perfil se ha actualizado correctamente','Bienvenido');
+      } ,
+      err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
+    );
+  }
+export{ contactService, CoffeeService, BooksDetailsService, Search, LoginService, logOut, SingUp, update };

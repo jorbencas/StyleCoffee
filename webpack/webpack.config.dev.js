@@ -1,5 +1,6 @@
 import webpack from 'webpack';
 import path from 'path';
+let FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 export default {
   entry: [
@@ -19,8 +20,9 @@ export default {
     new webpack.ProvidePlugin({
       jQuery: 'jquery'
     }),
-    //new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoErrorsPlugin(),
+    new FaviconsWebpackPlugin('../src/Client/public/assets/photos/logo.png')
   ],
   module: {
     loaders: [

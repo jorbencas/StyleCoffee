@@ -91,7 +91,7 @@ console.log(req.body.user.username + " " + req.body.user.password);
       return res.sendStatus(401); 
     }else{
       passport.authenticate('local', {session: false}, function(err, user, info){
-        var user = new User();
+        user = new User();
         
         user.username = req.body.user.username;
         user.setPassword(req.body.user.password);

@@ -57,6 +57,7 @@ UserSchema.methods.toAuthJSON = function(){
 UserSchema.methods.toProfileJSONFor = function(user){
   return {
     username: this.username,
+    email: this.email,
     image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
     name: this.name,
     apellidos: this.apellidos,

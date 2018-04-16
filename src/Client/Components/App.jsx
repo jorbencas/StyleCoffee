@@ -17,7 +17,7 @@ import { loadOffer, loadList } from '../actions';
 import Main from './Main';
 import listcoffee from './containers/listcoffee';
 import listbooks from './containers/listbooks';
-
+import profile from './profile';
 const store = createStore(rootReducer, applyMiddleware(thunk)); 
 store.dispatch(loadOffer());
 store.dispatch(loadList());
@@ -52,6 +52,7 @@ class App extends React.Component{
         <Route path="/login" component={Login} />
         <Route path="/SingUp" component={singup} />
         <Route path='/abouteus' component={AbouteUs} />
+        <Route path='/profile' component={profile}/>
       </Switch>
       </Route>
     </div>
