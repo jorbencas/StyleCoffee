@@ -2,8 +2,9 @@ import React from 'react';
 import ReactDOM  from 'react-dom';
 import { Link } from 'react-router';
 import axios from 'axios';
-import { FormErrors } from '../lib/FormErrors';
-import update from '../services/services';
+import { FormErrors } from '../../lib/FormErrors';
+import update from '../../services/services';
+
 class Profile extends React.Component {
     constructor(props){
         super(props);   

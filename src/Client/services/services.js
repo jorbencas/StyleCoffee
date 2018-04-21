@@ -2,8 +2,8 @@ import React from "react";
 import toastr from 'toastr';
 import { getCookie, setCookie } from '../lib/utils.js';
 import ReactDOM  from 'react-dom';
-import BooksListPage from '../Components/BooksListPage';
-import CoffeeListPage from '../Components/CoffeeListPage';
+import BooksListPage from '../Components/Books/BooksListPage';
+import CoffeeListPage from '../Components/Coffees/CoffeeListPage';
 import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 import axios from 'axios'; 
 

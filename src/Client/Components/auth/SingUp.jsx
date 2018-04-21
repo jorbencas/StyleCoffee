@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { SingUp, logOut } from '../services/services';
-import * as actions from '../actions';
+import { SingUp, logOut } from '../../services/services';
+import * as actions from '../../actions';
 import { connect } from 'react-redux';
-import { FormErrors } from '../lib/FormErrors';
+import { FormErrors } from '../../lib/FormErrors';
 
 class singup extends React.Component {
     constructor(props) {

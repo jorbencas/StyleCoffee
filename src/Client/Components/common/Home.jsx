@@ -1,9 +1,8 @@
 import React from 'react';
-import { getCookie, setCookie, deleteCookie } from '../lib/utils.js';
-import { Search  } from '../services/services';
+import { getCookie, setCookie, deleteCookie } from '../../lib/utils.js';
+import { Search  } from '../../services/services';
 import { Link } from "react-router";
-import CoffeeListPage from './CoffeeListPage';
-import App from './App.jsx';
+import CoffeeListPage from '../Coffees/CoffeeListPage';
 
 class Home extends React.Component {
     constructor(props){

@@ -1,10 +1,5 @@
 import React from 'react';
-//import { CoffeeService } from '../services/services';
 import { Link } from "react-router";
-//import ReactDOM  from 'react-dom';
-//import App from './App.jsx';
-import { getCookie } from '../lib/utils';
-//import axios from 'axios';
 
 class  CoffeeListPage extends React.Component {
     constructor(props){
@@ -15,34 +10,16 @@ class  CoffeeListPage extends React.Component {
       } 
     
       componentWillReceiveProps(nextProps){
+        console.log('Params:' + nextProps);
         this.setState({
-          components:nextProps.list,
-          componentsOriginal:nextProps.list,
+          components:nextProps.list
+          //componentsOriginal:nextProps.list,
         })
       }
 
-      /*componentDidMount() {
-          this.UserList();
-      }
-    
-      UserList(event) {
-        const params = this.state.params;
-        console.log(params);
-        if (params){
-          axios.get('http://localhost:3001/api/coffee/' + params )
-          .then(
-            response => this.setState({components: response.data.Coffee})
-          );
-        }else{
-          axios.get('http://localhost:3001/api/coffee')
-          .then(
-            response => this.setState({components: response.data.Coffee})
-            )
-        }
-      }*/
 
       render() {
-        const component = this.state.components.map((item) => (
+        const component = this.state.components.map((item, i) => (
           <div className="item">
             <h1>{ item.name }</h1>
             <img src='./assets/photos/cafe.png' width="130px" height="180px" alt="./assets/photos/cafe.png"/>

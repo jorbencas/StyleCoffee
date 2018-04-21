@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import * as actionCreators from '../../actions/index';
-import CoffeeListPage from '../CoffeeListPage';
+import CoffeeListPage from '../Coffees/CoffeeListPage';
 
 const mapStateToProps=(state)=>{
     console.log(state);

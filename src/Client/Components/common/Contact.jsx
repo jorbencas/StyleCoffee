@@ -1,6 +1,6 @@
 import React from 'react';
-import { contactService } from '../services/services';
-import { FormErrors } from '../lib/FormErrors';
+import { contactService } from '../../services/services';
+import { FormErrors } from '../../lib/FormErrors';
 
 class Contact extends React.Component {
     constructor(props){

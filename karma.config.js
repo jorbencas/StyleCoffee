@@ -24,7 +24,7 @@ module.exports = function(config) {
         'karma-jasmine-ajax'
       ],
       files: [
-        'src/client/main.js',
+        'src/client/app.jsx',
         'tests/**/*.js'
       ],
 
@@ -35,7 +35,7 @@ module.exports = function(config) {
 
       preprocessors: {        
         'src/**/*.js': ['webpack'],
-        'tests/**/*.js': ['webpack']
+        'Tests/**/*.js': ['webpack']
       },
       webpack: {
         module: {

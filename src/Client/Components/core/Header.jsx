@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from "react-router";
-//import App from '../App.jsx';
 import { logOut } from '../../services/services';
 
 class Header extends React.Component {
