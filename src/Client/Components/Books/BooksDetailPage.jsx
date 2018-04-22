@@ -7,7 +7,7 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
 
     function render() {   
       console.log(detail);            
-          return component = detail.map((item) =>
+          return detail.map((item) =>
             <section className="itembook">
               <article className="bookfoto">
                 <p>{item.state}</p>
@@ -48,7 +48,7 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
     return (
       <div>
         <div className="grid-main">
-          <div>{render()}</div>
+          <div>{ detail == undefined?'':render()}</div>
         </div>
       </div>
     );
@@ -59,7 +59,7 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
 const mapStateToProps= state => {
   console.log(state);
   return {
-    detail:state.booksdetails.detail.book
+    detail:state.booksdetails.books
   };
 }
 

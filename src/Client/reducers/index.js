@@ -33,7 +33,7 @@ function productsListReducer (state = initialState.productsList, action) {
 
 function booksdetails(state = initialState.booksdetail,action) {
   if (action.type === 'BOOKS_DETAIL') {
-    return state.concat(action.detail);
+    return action.detail;
   }else{
     return state
   }

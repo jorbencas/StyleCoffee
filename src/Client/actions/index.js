@@ -10,11 +10,10 @@ export function loadlistCoffees(){
 }
 
 export function booksdetail(id){
-  console.log('Add todo' + id);
-  return(dispatch)=>{
-    return axios.post(`http://localhost:3001/api/books/` + id)
+  return dispatch =>{
+    console.log(dispatch);
+    return axios.get(`http://localhost:3001/api/books/` + id)
     .then(res => {
-      console.log("Resultado:" + res.data);
       dispatch({ type:"BOOKS_DETAIL",detail:res.data});
     })
   }

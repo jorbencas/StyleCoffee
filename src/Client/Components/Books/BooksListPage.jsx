@@ -33,7 +33,7 @@ const BooksListPage = ({books,booksdetail}) => {
                   <p>{item.edition}</p>
                   <h2>{item.price}€</h2>
                   
-                  <Link className="button" onClick={() => { booksdetail(item.id)}} to={'/BooksList/Book/'+item.id}>Leer Más</Link>
+                  <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Leer Más</Link>
                 </article>
             </section>
           ));
