@@ -11,13 +11,13 @@ import singup from './auth/SingUp';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import { loadOffer, loadList } from '../actions';
+import { loadlistCoffees, loadListBooks } from '../actions';
 import Main from './core/Main';
 import CoffeeListPage from './Coffees/CoffeeListPage';
 import profile from './auth/profile';
 import store from '../Store';
-store.dispatch(loadOffer());
-store.dispatch(loadList());
+store.dispatch(loadlistCoffees());
+store.dispatch(loadListBooks());
 /*
 const token = localStorage.getItem('token');
 // if we have a token, consiger the user to be signed in

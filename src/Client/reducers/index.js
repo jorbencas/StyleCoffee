@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { login } from '../actions';
 
 const initialState = {
   productsOffer: {
@@ -16,7 +15,7 @@ const initialState = {
   }
 };
 
-function productsOfferReducer (state = initialState.productsOffer.list, action) {
+function productsOfferReducer (state = initialState.productsOffer, action) {
   if(action.type==='CHANGE_OFFER'){
     return action.list
   }else{
@@ -34,7 +33,7 @@ function productsListReducer (state = initialState.productsList, action) {
 
 function booksdetails(state = initialState.booksdetail,action) {
   if (action.type === 'BOOKS_DETAIL') {
-    return action.detail
+    return state.concat(action.detail);
   }else{
     return state
   }

@@ -52,7 +52,7 @@ router.put('/user', auth.required, function(req, res, next){
     });
   }).catch(next);
 });
-/*
+
 router.post('/users', function(req, res, next){
   
   let memorystore = req.sessionStore;
@@ -72,7 +72,7 @@ router.post('/users', function(req, res, next){
       return res.status(422).json('fail');
     }
 })
-*/;
+;
 
 router.post('/users/login', function(req, res, next){
 console.log(req.body.user.username + " " + req.body.user.password);

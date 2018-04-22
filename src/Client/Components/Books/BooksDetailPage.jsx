@@ -1,27 +1,13 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
-//import axios from 'axios';
 import {connect} from 'react-redux'
+import {AddtoCard} from '../../actions/index';
 
-class BooksDetailPage extends React.Component {
-    constructor(props){
-        super(props);
-        console.log(props);
-           
-        this.state = {                
-            components: this.props.detail
-          };
-          console.log('Hola' +  this.state);
-    }    
-    componentWillReceiveProps(nextProps){
-      this.setState({
-          store:nextProps
-      })
-  }
+const BooksDetailPage  = ({detail,AddtoCard}) => {
 
-    render() {   
-      console.log(this.state.components);            
-          const component = this.state.components.map((item) =>
+    function render() {   
+      console.log(detail);            
+          return component = detail.map((item) =>
             <section className="itembook">
               <article className="bookfoto">
                 <p>{item.state}</p>
@@ -51,26 +37,38 @@ class BooksDetailPage extends React.Component {
                   </section>
                   <section className="buttons-details">
                     <p className="detail-price">{item.price}€</p>
-                    <a className="btn-search">Reserva-lo</a>
+                    <a className="btn-search" >Reserva-lo</a>
                     <a className="btn-search">Comprar</a>
                   </section>
                 </article>
               </section>
           )
-          return (
-            <div>
-              <div className="grid-main">
-                <div>{component}</div>
-              </div>
-            </div>
-          );
     }
+
+    return (
+      <div>
+        <div className="grid-main">
+          <div>{render()}</div>
+        </div>
+      </div>
+    );
+    
 }
+
 
 const mapStateToProps= state => {
   console.log(state);
-  return state.booksdetails;
+  return {
+    detail:state.booksdetails.detail.book
+  };
 }
 
+const mapDispatchToProps = dispatch =>{
+  return{
+    AddtoCard(id){
+      dispatch(AddtoCard(id));
+    }
+  }
+}
 
-export default connect (mapStateToProps) (BooksDetailPage);
+export default connect (mapStateToProps,mapDispatchToProps) (BooksDetailPage);
