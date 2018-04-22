@@ -9,6 +9,14 @@ export function loadOffer(){
  }
 }
 
+export function booksdetail(id){
+  return(dispatch)=>{
+    return axios.post(`http://localhost:3001/api/books` + id)
+    .then(res => {
+      dispatch(Booksdetail(res.data));
+    })
+  }
+}
 export function login({email,password}){
   return(dispatch)=>{
     return axios.get(`http://localhost:3001/api/user/login`, {email,password})
@@ -41,7 +49,7 @@ export function changeOffert(res){
 export function user(){
   return{
     type:"AUTH_USER",
-    user:[]
+    user:res
   }
 }
 export function loadList(){
@@ -53,7 +61,13 @@ export function loadList(){
   }
  }
  
- 
+ export function Booksdetail(res){
+   return{
+     type:"BOOKS_DETAIL",
+     detail:res
+    }
+ }
+
  export function changeList(res){
    return{
      type:"CHANGE_LIST",

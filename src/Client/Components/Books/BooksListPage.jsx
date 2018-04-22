@@ -1,27 +1,19 @@
 import React from 'react';
 import { Link } from "react-router";
+import {connect} from 'react-redux'
+import {booksdetail} from '../../actions/index';
+//import App from '../App';
 
+const BooksListPage = (books,booksdetail) => {
 
-class BooksListPage extends React.Component {
-    constructor(props){
-        super(props); 
-        this.state = {                
-            components: this.props.list.books
-          };   
-          this.editable = this.editable.bind(this);
-          this.mangment = this.mangment.bind(this);        
+    const details = () => {
+      console.log('TODO Action:' + id);
+
     }
 
-
-      componentWillReceiveProps(nextProps){
-        console.log('Params:' + nextProps);
-        this.setState({
-          components:nextProps.list
-          //componentsOriginal:nextProps.list,
-        });
-      }
-
-      editable(id){
+    /*
+     function editable(id){
+        console.log(id);
         if (localStorage.getItem('token')) {
           return(
             <section className="buttons">
@@ -32,24 +24,25 @@ class BooksListPage extends React.Component {
         }else{
           return(
             <section className="buttons">
-            <Link className="button" to={'/BooksList/Book/'+id}>Leer Más</Link>
+            <Link className="button" to={'/BooksList/Book/'+id} onClick={booksdetail(id)}>Leer Más</Link>
           </section>
           );
         }
-      }
+      }*/
 
-      mangment(){
+      function mangment(){
         if(localStorage.getItem('token')){
           return(
             <section>
-              <Link className="button" to={'/BooksList/Book/'}>Crear un nuevo libro</Link>
-              <Link className="button" to={'/BooksList/Book/'}>Eliminar todos</Link>
+              <Link className="button" to={'/BooksList/Book/' + 1}>Crear un nuevo libro</Link>
+              <Link className="button" to={'/BooksList/Book/' + 1}>Eliminar todos</Link>
             </section>
           );
         }
       }
-    render() {               
-        const component = this.state.components.map((item) => (
+    function render() { 
+        console.log(books.books);              
+        return books.books.map((item) => (
             <section className="itembook">
                 <article className="bookfoto">
                  <div className="state"><p>{item.state}</p></div>
@@ -60,17 +53,38 @@ class BooksListPage extends React.Component {
                   <p>{item.author}</p>
                   <p>{item.edition}</p>
                   <h2>{item.price}€</h2>
-                  {this.editable(item.id)}
+                  
+                  <Link className="button" to={'/BooksList/Book/'+item.id} onClick={() => { booksdetail(item.id)}}>Leer Más</Link>
                 </article>
             </section>
           ));
+        }
+/*{editable(item.id)}*/
+
+
+
           return (
             <div className="grid-main" id="listbooks">
-              {this.mangment()}
-              <div  id="list" >{ component != {} ? component:'No hay Libros!!' }</div>
+              {mangment()}
+              <div  id="list" >{ books != {} ? render():'No hay Libros!!' }</div>
             </div>
           );
-    }
 }
 
-export default BooksListPage;
+const mapStateToProps= state => {
+  console.log(state);
+  return { 
+    books: state.productsList.books
+  };
+}
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    booksdetail(id){
+      console.log('id'+ item.id);
+      debugger;
+      dispatch(booksdetail(id));
+    }
+  }
+}
+export default connect (mapStateToProps,mapDispatchToProps)(BooksListPage);

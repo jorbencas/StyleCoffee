@@ -26,6 +26,7 @@ router.get('/:param', function(req, res, next) {
   }).catch(next);
 });
 
+/*
 router.post('/', function(req,res,next){
   console.log('Saveing book' + req.body.title);
 
@@ -52,5 +53,5 @@ router.post('/', function(req,res,next){
     res.status(200).send(bookStored);
   });
 });
-
+*/
 module.exports = router;

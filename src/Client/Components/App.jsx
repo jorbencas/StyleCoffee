@@ -2,6 +2,7 @@ import React from "react";
 import Home from './common/Home';
 import Contact from './common/Contact';
 import { Route, Switch } from "react-router-dom";
+import BooksListPage from './Books/BooksListPage';
 import BooksDetailPage from './Books/BooksDetailPage';
 import CoffeeDetailsPage from './Coffees/CoffeeDetailPage';
 import Login from './auth/Login';
@@ -10,15 +11,11 @@ import singup from './auth/SingUp';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import { createStore,applyMiddleware } from 'redux';
-import rootReducer from '../reducers/index';
-import thunk from 'redux-thunk';
 import { loadOffer, loadList } from '../actions';
 import Main from './core/Main';
-import listcoffee from './containers/listcoffee';
-import listbooks from './containers/listbooks';
+import CoffeeListPage from './Coffees/CoffeeListPage';
 import profile from './auth/profile';
-const store = createStore(rootReducer, applyMiddleware(thunk)); 
+import store from '../Store';
 store.dispatch(loadOffer());
 store.dispatch(loadList());
 /*
@@ -43,10 +40,10 @@ class App extends React.Component{
         <Route exact path="/" component={Home}/>
         <Route exact path="/Home" component={Home}/>
         <Route exact path="/Contact" component={Contact} />
-        <Route exact path="/CoffeeList" component={listcoffee} />
-        <Route path="/coffees/:param" component={listcoffee} />
-        <Route exact path="/BooksList" component={listbooks} />
-        <Route path="/book/:param" component={listbooks} />
+        <Route exact path="/CoffeeList" component={CoffeeListPage} />
+        <Route path="/coffees/:param" component={CoffeeListPage} />
+        <Route exact path="/BooksList" component={BooksListPage} />
+        <Route path="/book/:param" component={BooksListPage} />
         <Route path='/BooksList/Book/:id' component={BooksDetailPage}/>
         <Route path='/CoffeeList/Coffee/:id' component={CoffeeDetailsPage} />
         <Route path="/login" component={Login} />

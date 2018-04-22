@@ -1,29 +1,24 @@
 import React from 'react';
 import ReactDOM  from 'react-dom';
-import axios from 'axios';
+//import axios from 'axios';
+import {connect} from 'react-redux'
 
 class BooksDetailPage extends React.Component {
     constructor(props){
-        super(props);   
+        super(props);
+        console.log(props);
+           
         this.state = {                
-            components: [],
-            params: this.props.params.id
+            components: this.props.detail
           };
-          console.log('Hola' +  this.state.params);
+          console.log('Hola' +  this.state);
     }    
-    componentWillMount() {
-      this.getdata();
-    }
+    componentWillReceiveProps(nextProps){
+      this.setState({
+          store:nextProps
+      })
+  }
 
-    getdata(event){
-      const id = this.state.params;
-      if (id){
-        axios.post('http://localhost:3001/api/books/' + id)
-        .then(
-          response => this.setState({components: response.data.books})
-        );
-      }
-    }
     render() {   
       console.log(this.state.components);            
           const component = this.state.components.map((item) =>
@@ -72,4 +67,10 @@ class BooksDetailPage extends React.Component {
     }
 }
 
-export default BooksDetailPage;
+const mapStateToProps= state => {
+  console.log(state);
+  return state.booksdetails;
+}
+
+
+export default connect (mapStateToProps) (BooksDetailPage);
