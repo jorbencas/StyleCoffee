@@ -12,6 +12,9 @@ const initialState = {
   },
   booksdetail:{
     detail:[]
+  },
+  coffeesdetail:{
+    detail:[]
   }
 };
 
@@ -39,10 +42,28 @@ function booksdetails(state = initialState.booksdetail,action) {
   }
 }
 
+function coffeedetails(state = initialState.coffeesdetail,action) {
+  if (action.type === 'COFFEE_DETAIL') {
+    return action.detail;
+  }else{
+    return state
+  }
+}
+
+function loginReducer(state = initialState.user,action){
+  if (action.type === 'AUTH_USER') {
+    return action.detail;
+  }else{
+    return state
+  }
+}
+
 const rootReducer = combineReducers({
   productsOffer: productsOfferReducer,
   productsList: productsListReducer,
-  booksdetails: booksdetails
+  booksdetails: booksdetails,
+  coffeedetails: coffeedetails,
+  loginReducer:loginReducer
 });
 
 export default rootReducer;

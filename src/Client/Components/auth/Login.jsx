@@ -1,21 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { LoginService, logOut } from '../../services/services';
-import { FormErrors } from '../../lib/FormErrors';
+import {connect} from 'react-redux'
+import {login} from '../../actions/index';
 
 class Login extends React.Component {
-    constructor(props) {
+    constructor({props,login}) {
         super(props);
 
         this.state = { 
-          isOpen: false,
           username: '',
-          email:'',
           password: ''
         };
 
         this.handleInputChange = this.handleInputChange.bind(this); 
-        this.handleSubmit = this.handleSubmit.bind(this); 
     }
     
       
@@ -27,10 +24,6 @@ class Login extends React.Component {
       this.setState({[name]: value});
   
       console.log(this.state);
-    }
-
-    handleSubmit(event) {
-        LoginService(this.state);
     }
 
     render() {
@@ -49,7 +42,7 @@ class Login extends React.Component {
                         </div>
                         <br/><br/>
                         <div>
-                          <Link to="/" className="btn-search" onClick={this.handleSubmit}>Iniciar Sesion</Link>
+                          <Link to="/" className="btn-search" onClick={()=>{login(this.state)}}>Iniciar Sesion</Link>
                         </div>
                     </form>
                 </div> 
@@ -58,4 +51,21 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+
+const mapStateToProps= state => {
+  console.log(state);
+  return {
+    user:state.loginReducer.user
+  };
+}
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    login(user){
+      console.log(user);
+      dispatch(login(user));
+    }
+  }
+}
+
+export default connect (mapStateToProps,mapDispatchToProps) (Login);

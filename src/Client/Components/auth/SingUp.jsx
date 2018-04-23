@@ -68,7 +68,6 @@ class singup extends React.Component {
     
     handleSubmit(event) {
         SingUp(this.state);
-        //actions.login();
     }
 
 
