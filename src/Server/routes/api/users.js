@@ -95,6 +95,7 @@ console.log(req.body.user.username + " " + req.body.user.password);
         
         user.username = req.body.user.username;
         user.setPassword(req.body.user.password);
+       
         console.log(user);
     
         if(err){ return next(err); }
@@ -102,7 +103,7 @@ console.log(req.body.user.username + " " + req.body.user.password);
         if(user){
           console.log(user);
           user.token = user.generateJWT();
-          return res.json({user: user.toAuthJSON(), image : user.image});
+          return res.json({user: user.toAuthJSON()});
         } else {
           return res.status(422).json(info);
         }
@@ -121,6 +122,11 @@ router.post('/users', function(req, res, next){
   user.username = req.body.user.username;
   user.email = req.body.user.email;
   user.setPassword(req.body.user.password);
+  user.image = '';
+  user.dni = '';
+  user.date_birthday = '';
+  user.name = req.body.user.username;
+  user.apellidos = '';
 
   user.save().then(function(){
     return res.json({user: user.toAuthJSON()});
@@ -135,7 +141,7 @@ router.get('/auth/google/callback',
     console.log('Google login ' + JSON.stringify(req.user));
     //localStorage.setItem('token',req.user.token);
     //localStorage.setItem('username',res.user.username);
-    return res.redirect('/:' + req.user.username);
+    return res.redirect('/' + req.user);
   });
 
 /*----FACEBOOK----*/

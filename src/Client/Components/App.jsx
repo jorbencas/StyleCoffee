@@ -18,14 +18,14 @@ import profile from './auth/profile';
 import store from '../Store';
 store.dispatch(loadlistCoffees());
 store.dispatch(loadListBooks());
-/*
+
 const token = localStorage.getItem('token');
 // if we have a token, consiger the user to be signed in
 if (token) {
     // we need to update application state
-    store.dispatch({ type: AUTH_USER });
+   store.getState().loginReducer;
 }
-*/
+
 
 class App extends React.Component{
   

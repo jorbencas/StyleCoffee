@@ -25,25 +25,7 @@ import axios from 'axios';
          });
     }
 
-  function CoffeeService(event){
-    console.log('Hola Estoy cargando los cafes');
-    var xmlhttp = new XMLHttpRequest();
-        var url = "http://localhost:3001/api/coffee";
-        xmlhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                var myArr = JSON.parse(this.responseText);
-                console.log(myArr);
-                return myArr.Coffee;
-            }
-        };
-        xmlhttp.open("GET", url, true);
-        xmlhttp.setRequestHeader('Content-Type', 'text/plain');
-        xmlhttp.send();
-  }
-
-  function BooksDetailsService(){
-
-  }
+ 
 
   function Search(search){
     console.log(search);
@@ -119,4 +101,4 @@ import axios from 'axios';
       err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
     );
   }
-export{ contactService, CoffeeService, BooksDetailsService, Search, LoginService, logOut, SingUp, update };
+export{ contactService, Search, LoginService, logOut, SingUp, update };

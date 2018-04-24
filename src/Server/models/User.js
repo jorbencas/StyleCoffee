@@ -55,6 +55,7 @@ UserSchema.methods.toAuthJSON = function(){
 };
 
 UserSchema.methods.toProfileJSONFor = function(user){
+  console.log('Ussernamregregrggregre:' + user);
   return {
     username: this.username,
     email: this.email,

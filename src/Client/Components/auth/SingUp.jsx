@@ -1,14 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { SingUp, logOut } from '../../services/services';
-import * as actions from '../../actions';
 import { connect } from 'react-redux';
 import { FormErrors } from '../../lib/FormErrors';
+import {googlelogin} from '../../actions/index';
 
 class singup extends React.Component {
-    constructor(props) {
+    constructor({props,googlelogin}) {
         super(props);
-
+        console.log(this.props);
         this.state = { 
           username: '',
           email:'',
@@ -67,7 +66,7 @@ class singup extends React.Component {
 
     
     handleSubmit(event) {
-        SingUp(this.state);
+        //SingUp(this.state);
     }
 
 
@@ -101,11 +100,11 @@ class singup extends React.Component {
                         <div className="Social_Item">
                           <div className="btn-google">
                             <img src="http://pngimg.com/uploads/google/google_PNG19635.png" width="18%" height="45%" alt="Google" srcSet=""/>
-                            <Link to='/' href="http://localhost:3001/api/SigUpGoogle">Sing Up with Google</Link>
+                            <a href='http://localhost:3001/api/SigUpGoogle'>Sing Up with Google</a>
                           </div>
                           <div className="btn-twitter">
                             <img src="http://backgroundcheckall.com/wp-content/uploads/2017/12/twitter-logo-transparent-background-2.png" width="18%" height="45%" alt="Twitter" srcSet=""/>
-                            <Link to='/' href="http://localhost:3001/api/twitter">Sing Up with Twitter</Link>
+                            <a href="http://localhost:3001/api/twitter">Sing Up with Twitter</a>
                           </div>
                         </div>
                     </form>
@@ -115,4 +114,19 @@ class singup extends React.Component {
     }
 }
 
-export default singup;
+const mapStateToProps= state => {
+  console.log(state);
+  return {
+    user:state.googleReducer.user
+  };
+}
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    googlelogin(){
+      dispatch(googlelogin());
+    }
+  }
+}
+
+export default connect (mapStateToProps,mapDispatchToProps) (singup);

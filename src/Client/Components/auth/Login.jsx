@@ -42,7 +42,7 @@ class Login extends React.Component {
                         </div>
                         <br/><br/>
                         <div>
-                          <Link to="/" className="btn-search" onClick={()=>{login(this.state)}}>Iniciar Sesion</Link>
+                          <Link to="/" className="btn-search" onClick={()=>{this.props.login(this.state)}}>Iniciar Sesion</Link>
                         </div>
                     </form>
                 </div> 

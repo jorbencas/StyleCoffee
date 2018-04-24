@@ -11,7 +11,7 @@ router.param('username', function(req, res, next, username){
     }else{
       console.log(user);
       req.profile = user;
-     // return res.json({profile: req.profile.toProfileJSONFor(req.profile)});
+      return res.json({profile: req.profile.toProfileJSONFor(req.profile)});
       return next();
     }
    

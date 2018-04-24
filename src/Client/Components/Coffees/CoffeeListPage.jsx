@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from "react-router";
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import {coffeesdetails} from '../../actions/index';
 
 const CoffeeListPage = ({detail, coffeesdetails}) => {

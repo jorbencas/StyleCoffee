@@ -1,15 +1,16 @@
 import React from 'react';
 import { getCookie, setCookie, deleteCookie } from '../../lib/utils.js';
-import { Search  } from '../../services/services';
 import { Link } from "react-router";
-import CoffeeListPage from '../Coffees/CoffeeListPage';
+import { loadlistCoffees, loadListBooks } from '../../actions';
+import {connect} from 'react-redux';
 
 class Home extends React.Component {
-    constructor(props){
+    constructor({props,loadlistCoffees, loadListBooks}){
         super(props);
         this.state = {
             subject:'',
-            path:'/book/'
+            path:'/book/',
+            action:''
         }; 
         console.log(this.state);
         this.handleInputChange = this.handleInputChange.bind(this); 
@@ -20,11 +21,10 @@ class Home extends React.Component {
         $('#books').attr('checked', true);
         $('#rdb1').addClass('cheked');
         setCookie('kindsearch','true',12);
+        this.setState({action:this.props.loadListBooks});
     }
 
-    componentWillUnmount(){
-        deleteCookie('kindsearch');
-    }
+    
 
     handleInputChange(event) {
         const target = event.target;
@@ -49,6 +49,7 @@ class Home extends React.Component {
                 $('#rdb1').addClass('cheked');
                 setCookie('kindsearch','true',12);  
                 that.setState({path:'/book/'});
+                that.setState({action:that.props.loadListBooks()});
             }
         });
     
@@ -59,6 +60,7 @@ class Home extends React.Component {
                 $('#rdb2').addClass('cheked');
                 setCookie('kindsearch','false',12); 
                 that.setState({path:'/coffees/'});
+                that.setState({action:that.props.loadlistCoffees()});
             }
         });
         console.log(this.state);
@@ -76,7 +78,7 @@ class Home extends React.Component {
                         <article id="rdb2" className="checkbox"> <input type="radio" name="radio" onClick={this.handleClick} id="coffees"/> Coffes</article>
                     </section>
                     <input id="search" placeholder="Search everything that you find" onKeyPress={this.handleInputChange} type="text"/>
-                    <Link className="btn-search" to={param} >Search</Link>
+                    <Link className="btn-search" to={param} onClick={()=>{this.state.action}}>Search</Link>
                 </section>
 
             <h1>Tenga el placer de probar toda clase de cafés</h1>
@@ -159,5 +161,29 @@ class Home extends React.Component {
         );
     }
 }
-
-export default Home;
+const mapStateToProps= state => {
+    console.log(state);
+    /*return {
+      user:state.googleReducer.user
+    };*/
+  }
+  
+  const mapDispatchToProps = dispatch =>{
+      if (getCookie('kindsearch') == 'true') {
+          console.log('Books');
+        return{
+            loadListBooks(param){
+              dispatch(loadListBooks(param));
+            }
+          }
+      }else if (getCookie('kindsearch') == 'false') {
+        console.log('Coffes');
+        return{
+            loadlistCoffees(param){
+              dispatch(loadlistCoffees(param));
+            }
+          }
+      }
+  }
+  
+export default connect (mapStateToProps,mapDispatchToProps) (Home);

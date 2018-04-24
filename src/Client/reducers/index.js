@@ -52,18 +52,25 @@ function coffeedetails(state = initialState.coffeesdetail,action) {
 
 function loginReducer(state = initialState.user,action){
   if (action.type === 'AUTH_USER') {
-    return action.detail;
+    return action.user;
   }else{
     return state
   }
 }
-
+function googleReducer(state = initialState.user,action){
+  if (action.type === 'GOOGLE_AUTH_USER') {
+    return action.user;
+  }else{
+    return state
+  }
+}
 const rootReducer = combineReducers({
   productsOffer: productsOfferReducer,
   productsList: productsListReducer,
   booksdetails: booksdetails,
   coffeedetails: coffeedetails,
-  loginReducer:loginReducer
+  loginReducer:loginReducer,
+  googleReducer:googleReducer
 });
 
 export default rootReducer;
