@@ -6,7 +6,7 @@ export function loadlistCoffees(param){
     console.log('Param:' + param);
     debugger;
     return(dispatch)=>{
-      return axios.get(`http://localhost:3001/api/coffee`,{param})
+      return axios.get(`http://localhost:3001/api/coffee/` + param)
       .then(res => {
         dispatch({type:"CHANGE_OFFER",list:res.data});
       })
@@ -54,7 +54,7 @@ export function loadListBooks(param){
     console.log('Param:' + param);
     debugger;
     return(dispatch)=>{
-      return axios.get(`http://localhost:3001/api/books`,{param})
+      return axios.post(`http://localhost:3001/api/books/` + param)
       .then(res => {
         dispatch({ type:"CHANGE_LIST",list:res.data});
       })

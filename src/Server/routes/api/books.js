@@ -19,7 +19,7 @@ router.get('/:id', function(req, res, next) {
   }).catch(next);
 });
 
-router.get('/:param', function(req, res, next) {
+router.post('/:param', function(req, res, next) {
   console.log('hola');
   Books.find({ genere: req.params.param}).then(function (books) {
       return res.json({books: books});
