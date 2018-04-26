@@ -3,14 +3,14 @@ import { getCookie, setCookie, deleteCookie } from '../../lib/utils.js';
 import { Link } from "react-router";
 import { loadlistCoffees, loadListBooks } from '../../actions';
 import {connect} from 'react-redux';
-import Categorys from './Categoris';
+import Categorys from './categorys/Categoris';
 
 class Home extends React.Component {
     constructor({props,loadlistCoffees, loadListBooks}){
         super(props);
         this.state = {
             subject:'',
-            path:'/book/',
+            path:'/books/',
             action:'loadListBooks'
         }; 
         console.log(this.state);
@@ -48,7 +48,7 @@ class Home extends React.Component {
                 $('#rdb2').removeClass('cheked');
                 $('#rdb1').addClass('cheked');
                 setCookie('kindsearch','true',12);  
-                that.setState({path:'/book/'});
+                that.setState({path:'/books/'});
                 that.setState({action:'loadListBooks'});
             }
         });
