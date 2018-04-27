@@ -52,7 +52,7 @@ router.put('/user', auth.required, function(req, res, next){
     });
   }).catch(next);
 });
-
+/*
 router.post('/users', function(req, res, next){
   
   let memorystore = req.sessionStore;
@@ -73,7 +73,7 @@ router.post('/users', function(req, res, next){
     }
 })
 ;
-
+*/
 router.post('/users/login', function(req, res, next){
 console.log(req.body.user.username + " " + req.body.user.password);
   
@@ -113,10 +113,10 @@ console.log(req.body.user.username + " " + req.body.user.password);
 
   
 });
-
+/*
 router.post('/users', function(req, res, next){
 
-    console.log(req.body.user.username + " " + req.body.user.email + " " + req.body.user.password)
+    console.log(req.body.user);
   var user = new User();
 
   user.username = req.body.user.username;
@@ -127,6 +127,18 @@ router.post('/users', function(req, res, next){
   user.date_birthday = '';
   user.name = req.body.user.username;
   user.apellidos = '';
+
+  user.save().then(function(){
+    return res.json({user: user.toAuthJSON});
+  }).catch(next);
+});
+*/
+router.post('/users', function(req, res, next){
+  var user = new User();
+
+  user.username = req.body.user.username;
+  user.email = req.body.user.email;
+  user.setPassword(req.body.user.password);
 
   user.save().then(function(){
     return res.json({user: user.toAuthJSON()});

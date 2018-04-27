@@ -3,22 +3,17 @@ import ReactDOM  from 'react-dom';
 import { Link } from 'react-router';
 import axios from 'axios';
 import { FormErrors } from '../../lib/FormErrors';
-import update from '../../services/services';
+import { update } from '../../services/services';
 
 class Profile extends React.Component {
     constructor(props){
         super(props);   
         this.state = {                
             components: [],
-            username: '',
-            image:'',
-            email:'',
-            password: '',
             formErrors: {username:'',email: '', password: ''},
             emailValid: false,
             formValid: false
           };
-          console.log('Hola' +  this.state);
           this.handleInputChange = this.handleInputChange.bind(this); 
           this.handleSubmit = this.handleSubmit.bind(this); 
           this.validateField = this.validateField.bind(this);
@@ -32,7 +27,9 @@ class Profile extends React.Component {
       const payload = localStorage.getItem('username');
       let that = this;
       if (payload){
-        axios.get('http://localhost:3001/api/profiles/' + payload)
+        console.log(payload);
+        debugger;
+        axios.get('http://localhost:3001/api/profiles/' + 'jorbencas')
         .then(
           response => that.setState({components: response.data.profile},console.log(response.data.profile))
         );
@@ -92,13 +89,14 @@ class Profile extends React.Component {
                <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
                       <div><FormErrors formErrors={this.state.formErrors} /></div>
+                      <img src={this.state.components.image} alt="" srcset=""/>
                         <div className="contact_item">
                           <label htmlFor="username">name</label><br/>
-                          <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.username} required/>
+                          <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.components.username} required/>
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.email)}`}>
                           <label htmlFor="email">Email</label><br/>
-                          <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} value={this.state.email}required/>
+                          <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} value={this.state.components.email}required/>
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
                           <label htmlFor="password">Password</label><br/>

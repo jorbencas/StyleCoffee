@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { FormErrors } from '../../lib/FormErrors';
 import {googlelogin} from '../../actions/index';
+import { SingUp }  from '../../services/services';
 
 class singup extends React.Component {
     constructor({props,googlelogin}) {
@@ -66,7 +67,10 @@ class singup extends React.Component {
 
     
     handleSubmit(event) {
-        //SingUp(this.state);
+      event.preventDefault();
+      console.log(this.state);
+      debugger;
+      SingUp(this.state);
     }
 
 

@@ -23,9 +23,9 @@ router.post('/', function(req, res) {
           });
         } else {
           res.status('200').json({
-            success: true
+            success: true,
+            contact: req.body
           });
-          return res.json({contact: req.body.email})
         }
       });
     

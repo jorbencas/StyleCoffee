@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from "react-router";
 import {connect} from 'react-redux'
 import {booksdetail} from '../../actions/index';
-//import App from '../App';
 
 const BooksListPage = ({books,booksdetail}) => {
 
@@ -18,9 +17,27 @@ const BooksListPage = ({books,booksdetail}) => {
         }
       }
 
+      function editable (item){
+          if(localStorage.getItem('token')){
 
-    function render() { 
-        console.log(books);              
+          return(
+            <section>
+              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Editar</Link>
+              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Borrar</Link>
+            </section>
+          )
+        }else{
+         return(
+            <section>
+              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Leer Más</Link>
+              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Añadir al carrito</Link>
+            </section>
+          ) 
+        }
+        
+      }
+
+    function render() {               
         return books.map((item) => (
             <section className="itembook">
                 <article className="bookfoto">
@@ -32,8 +49,7 @@ const BooksListPage = ({books,booksdetail}) => {
                   <p>{item.author}</p>
                   <p>{item.edition}</p>
                   <h2>{item.price}€</h2>
-                  
-                  <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Leer Más</Link>
+                  {editable(item)}
                 </article>
             </section>
           ));
