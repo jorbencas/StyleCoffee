@@ -10,6 +10,12 @@ class Profile extends React.Component {
         super(props);   
         this.state = {                
             components: [],
+            username:this.state.components.username?this.state.components.username:'',
+            email:this.state.components.email?this.state.components.email:'',
+            dni:this.state.components.dni?this.state.components.dni:'',
+            date_birthday:this.state.compopnents.date_birthday?this.state.compopnents.date_birthday:'',
+            name:this.state.components.name?this.state.components.name:'',
+            apellidos:this.state.components.apellidos?this.state.components.apellidos:'',
             formErrors: {username:'',email: '', password: ''},
             emailValid: false,
             formValid: false
@@ -40,7 +46,8 @@ class Profile extends React.Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-  
+      console.log(value);
+      debugger;
       this.setState({[name]: value}, () => { this.validateField(name, value) });
   
       console.log(this.state);
@@ -81,8 +88,7 @@ class Profile extends React.Component {
       update(this.state.components);
     }
 
-    render() {   
-      console.log(this.state.email + ' ' + this.state.password + ' ' + this.state.image);            
+    render() {            
           return (
             <div>
               <div className="grid-main">

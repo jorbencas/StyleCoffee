@@ -23,7 +23,6 @@ export function loadlistCoffees(param){
 
 export function booksdetail(id){
   return dispatch =>{
-    console.log(dispatch);
     return axios.get(`http://localhost:3001/api/books/` + id)
     .then(res => {
       dispatch({ type:"BOOKS_DETAIL",detail:res.data});
@@ -40,12 +39,11 @@ export function coffeesdetails(id){
   }
 }
 
-export function AddtoCard(id){
-  return(dispatch)=>{
-    return axios.post(`http://localhost:3001/api/books/` + id)
-    .then(res => {
-      dispatch({ type:"ADD_TO_CARD", cart:res.data});
-    })
+export function AddtoCard(product){
+  console.log(product);
+  return {
+  type:"ADD_TO_CART",
+  product
   }
 }
 
@@ -60,13 +58,14 @@ export function loadListBooks(param){
       })
     }
   }
+
   return(dispatch)=>{
     return axios.get(`http://localhost:3001/api/books`)
     .then(res => {
       dispatch({ type:"CHANGE_LIST",list:res.data});
     })
   }
- }
+}
 
 export function login(user){
   console.log(user);

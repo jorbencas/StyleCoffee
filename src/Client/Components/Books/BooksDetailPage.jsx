@@ -6,8 +6,8 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
 
     function render() {   
       console.log(detail);            
-          return detail.map((item) =>
-            <section className="itembook">
+          return detail.map(item => {
+            <section className="itembook" key={item.id}>
               <article className="bookfoto">
                 <p>{item.state}</p>
                 <img src={item.image} width="320px" height="380px" alt="./assets/photos/libro.png"/>
@@ -41,7 +41,7 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
                   </section>
                 </article>
               </section>
-          )
+          })
     }
 
     return (

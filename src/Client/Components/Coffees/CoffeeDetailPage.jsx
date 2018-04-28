@@ -7,11 +7,11 @@ const CoffeeDetailPage = ({detail}) => {
  
    function render() { 
      console.log(detail);
-      return detail.map((item) =>
-        <div>
+      return detail.map(item =>{
+        <div key={item.id}>
           <p>{item.name}</p>
         </div>
-      )
+      })
     }
           return (
             <div>

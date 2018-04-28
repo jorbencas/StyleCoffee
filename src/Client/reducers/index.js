@@ -15,12 +15,15 @@ const initialState = {
   },
   coffeesdetail:{
     detail:[]
+  },
+  cart:{
+    cart:[],total:0
   }
 };
 
 function productsOfferReducer (state = initialState.productsOffer, action) {
   if(action.type==='CHANGE_OFFER'){
-    return action.list
+    return action.list; 
   }else{
     return state
   }
@@ -57,9 +60,21 @@ function loginReducer(state = initialState.user,action){
     return state
   }
 }
-function googleReducer(state = initialState.user,action){
-  if (action.type === 'GOOGLE_AUTH_USER') {
-    return action.user;
+function ShoppingCardReducer(state = initialState.cart,action){
+  console.log(state);
+  if (action.type === 'ADD_TO_CART') {
+    let cart=state.cart;
+    let total=state.total;
+    total++;
+    console.log(action.cart);
+    cart.push(action.cart)
+    return [
+      ...state,
+      {
+        cart: cart,
+        total: total
+      }
+    ][0];
   }else{
     return state
   }
@@ -70,7 +85,7 @@ const rootReducer = combineReducers({
   booksdetails: booksdetails,
   coffeedetails: coffeedetails,
   loginReducer:loginReducer,
-  googleReducer:googleReducer
+  ShoppingCardReducer:ShoppingCardReducer
 });
 
 export default rootReducer;

@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from "react-router";
 import {connect} from 'react-redux'
-import {booksdetail} from '../../actions/index';
+import {booksdetail, AddtoCard} from '../../actions/index';
+import { bindActionCreators } from 'redux'
 
 const BooksListPage = ({books,booksdetail}) => {
 
@@ -30,7 +31,7 @@ const BooksListPage = ({books,booksdetail}) => {
          return(
             <section>
               <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Leer Más</Link>
-              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Añadir al carrito</Link>
+              <Link className="button" to={'/card/'+item.id}  onClick={() => { AddtoCard(item)}} >Añadir al carrito</Link>
             </section>
           ) 
         }
@@ -38,7 +39,7 @@ const BooksListPage = ({books,booksdetail}) => {
       }
 
     function render() {               
-        return books.map((item) => (
+        return books.map( item => (
             <section className="itembook">
                 <article className="bookfoto">
                  <div className="state"><p>{item.state}</p></div>
@@ -71,11 +72,7 @@ const mapStateToProps= state => {
 }
 
 const mapDispatchToProps = dispatch =>{
-  return{
-    booksdetail(id){
-      dispatch(booksdetail(id));
-    }
-  }
+  return bindActionCreators({booksdetail,AddtoCard}, dispatch)
 }
 
 export default connect (mapStateToProps,mapDispatchToProps)(BooksListPage);

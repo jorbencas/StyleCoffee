@@ -16,6 +16,8 @@ import singup from './auth/SingUp';
 import Main from './core/Main';
 import CoffeeListPage from './Coffees/CoffeeListPage';
 import profile from './auth/profile';
+import ShoppingCard from './Card/ShoppingCard';
+//import { hot } from 'react-hot-loader';
 
 import { loadlistCoffees, loadListBooks } from '../actions';
 import store from '../Store';
@@ -53,6 +55,7 @@ render() {
             <Route path="/SingUp" component={singup} />
             <Route path='/abouteus' component={AbouteUs} />
             <Route path='/profile' component={profile}/>
+            <Route path='/card/:id' component={ShoppingCard}/>
           </Switch>
         </Route>
       </div>
@@ -62,4 +65,4 @@ render() {
 
 };
 
-export default App;
+export default App /*hot(module)(App)*/;
