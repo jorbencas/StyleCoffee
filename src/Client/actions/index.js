@@ -1,8 +1,9 @@
 import axios from 'axios';
 import toastr from 'toastr';
+import store from '../Store';
 
 export function loadlistCoffees(param){
-  if (param  != undefined ) {
+  if (param) {
     console.log('Param:' + param);
     debugger;
     return(dispatch)=>{
@@ -41,14 +42,14 @@ export function coffeesdetails(id){
 
 export function AddtoCard(product){
   console.log(product);
-  return {
+  return  dispatch({
   type:"ADD_TO_CART",
   product
-  }
+  });
 }
 
 export function loadListBooks(param){
-  if (param != undefined) {
+  if (param) {
     console.log('Param:' + param);
     debugger;
     return(dispatch)=>{
@@ -57,27 +58,49 @@ export function loadListBooks(param){
         dispatch({ type:"CHANGE_LIST",list:res.data});
       })
     }
-  }
-
-  return(dispatch)=>{
-    return axios.get(`http://localhost:3001/api/books`)
-    .then(res => {
-      dispatch({ type:"CHANGE_LIST",list:res.data});
-    })
+  }else{
+    return(dispatch)=>{
+      return axios.get(`http://localhost:3001/api/books`)
+      .then(res => {
+        dispatch({ type:"CHANGE_LIST",list:res.data});
+      })
+    }
   }
 }
 
 export function login(user){
-  console.log(user);
   return(dispatch)=>{
     return axios.post('http://localhost:3001/api/users/login',{user})
     .then(
       response => {dispatch({type:"AUTH_USER",user:response.data});
         localStorage.setItem('token',response.data.user.token);
         localStorage.setItem('username',response.data.user.username);
-        console.log(response.data.user);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       } ,
       err => toastr.error('Error al registrar-se','Error')
     )};
+  }
+
+  export function profile(){
+    const username = store.getState().loginReducer.user.user.username;
+    return(dispatch)=>{
+      return axios.get('http://localhost:3001/api/profiles/' + username)
+        .then(
+          res =>{dispatch({type:"PROFILE_USER",profile:res.data.profile})}
+        );
+    }
+  }
+
+  export function updateprofile(user){
+    console.log(user);
+    return(dispatch)=>{
+      return axios.put('http://localhost:3001/api/user',{user})
+      .then(
+        res => {
+          dispatch({type:"PROFILE_USER",user:response.data.profile});
+          toastr.success('Hola ' +res.data.user.username + 'tu perfil se ha actualizado correctamente','Bienvenido');
+        },
+        err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
+      );
+    }
   }

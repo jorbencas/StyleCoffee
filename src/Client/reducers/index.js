@@ -1,24 +1,13 @@
 import { combineReducers } from 'redux';
 
 const initialState = {
-  productsOffer: {
-    list: []
-  },
-  productsList: {
-    list: []
-  },
-  user:{
-    user: []
-  },
-  booksdetail:{
-    detail:[]
-  },
-  coffeesdetail:{
-    detail:[]
-  },
-  cart:{
-    cart:[],total:0
-  }
+  productsOffer: {list: []},
+  productsList: {list: []},
+  user:{user: [],authenticated:false},
+  booksdetail:{detail:[]},
+  coffeesdetail:{detail:[]},
+  cart:{cart:[],total:0},
+  profile:{profile:[]}
 };
 
 function productsOfferReducer (state = initialState.productsOffer, action) {
@@ -31,7 +20,7 @@ function productsOfferReducer (state = initialState.productsOffer, action) {
 }
 function productsListReducer (state = initialState.productsList, action) {
   if(action.type==='CHANGE_LIST'){
-    return  action.list;
+    return action.list;
   }else{
     return state
   }
@@ -55,13 +44,21 @@ function coffeedetails(state = initialState.coffeesdetail,action) {
 
 function loginReducer(state = initialState.user,action){
   if (action.type === 'AUTH_USER') {
-    return action.user;
+    return [ ...state,{authenticated: true,user: action.user}][0]
   }else{
     return state
   }
 }
+
+function ProfileReducer(state = initialState.profile, action){
+  if (action.type === 'PROFILE_USER') {
+    return[...state,{profile:action.profile}][0]
+  }else{
+    return state
+  }
+}
+
 function ShoppingCardReducer(state = initialState.cart,action){
-  console.log(state);
   if (action.type === 'ADD_TO_CART') {
     let cart=state.cart;
     let total=state.total;
@@ -85,7 +82,8 @@ const rootReducer = combineReducers({
   booksdetails: booksdetails,
   coffeedetails: coffeedetails,
   loginReducer:loginReducer,
-  ShoppingCardReducer:ShoppingCardReducer
+  ShoppingCardReducer:ShoppingCardReducer,
+  ProfileReducer:ProfileReducer
 });
 
 export default rootReducer;

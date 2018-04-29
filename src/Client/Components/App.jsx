@@ -15,22 +15,21 @@ import AbouteUs from './common/AbouteUs';
 import singup from './auth/SingUp';
 import Main from './core/Main';
 import CoffeeListPage from './Coffees/CoffeeListPage';
-import profile from './auth/profile';
+import Profile from './auth/profile';
 import ShoppingCard from './Card/ShoppingCard';
 //import { hot } from 'react-hot-loader';
 
 import { loadlistCoffees, loadListBooks } from '../actions';
 import store from '../Store';
-store.dispatch(loadlistCoffees());
-store.dispatch(loadListBooks());
-
 const token = localStorage.getItem('token');
 // if we have a token, consiger the user to be signed in
 if (token) {
     // we need to update application state
-   store.getState().loginReducer;
+   store.dispatch({type:"AUTH_USER", user:store.getState().loginReducer.user});
 }
 
+store.dispatch(loadlistCoffees());
+store.dispatch(loadListBooks());
 
 class App extends React.Component{
   
@@ -54,7 +53,7 @@ render() {
             <Route path="/login" component={Login} />
             <Route path="/SingUp" component={singup} />
             <Route path='/abouteus' component={AbouteUs} />
-            <Route path='/profile' component={profile}/>
+            <Route path='/profile' component={Profile}/>
             <Route path='/card/:id' component={ShoppingCard}/>
           </Switch>
         </Route>

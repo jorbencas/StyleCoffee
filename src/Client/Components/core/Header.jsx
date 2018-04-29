@@ -1,22 +1,24 @@
 import React from 'react';
 import { Link } from "react-router";
 import { logOut } from '../../services/services';
+import { connect } from 'react-redux';
 
 class Header extends React.Component {
-    constructor(props){
+    constructor({props, authenticated, username}){
         super(props);  
         this.menulogin = this.menulogin.bind(this); 
     }    
 
     menulogin(){
-      if( window.location.href  === "Jorge" || localStorage.getItem('token')){
+      //console.log('Header:' + this.props.authenticated);
+      if(this.props.authenticated){
           return(
             <ul>
               <li className="listado-item"><Link to="/Contact">Contact</Link></li>
               <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
               <li className="listado-item"><Link to="/BooksList">Books</Link></li>
               <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
-              <li className="listado-item"><Link to="/profile">{localStorage.getItem('img') + '' + localStorage.getItem('username')}</Link></li>
+              <li className="listado-item"><Link to="/profile">{ this.props.username.user === undefined ?'':this.props.username.user.username}</Link></li>
               <li className="listado-item"><Link to="/" onClick={logOut}>Logout</Link></li>
             </ul>
           );
@@ -58,4 +60,9 @@ class Header extends React.Component {
 
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  //console.log(state);
+  return { authenticated: state.loginReducer.authenticated,username: state.loginReducer.user }
+};
+
+export default connect(mapStateToProps)(Header);

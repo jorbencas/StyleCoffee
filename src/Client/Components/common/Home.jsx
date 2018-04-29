@@ -5,6 +5,12 @@ import { loadlistCoffees, loadListBooks } from '../../actions';
 import {connect} from 'react-redux';
 import Categorys from './categorys/Categoris';
 
+const mapStateToProps= state => {
+    return {
+      user:state.loginReducer.user
+    };
+  }
+  
 class Home extends React.Component {
     constructor({props,loadlistCoffees, loadListBooks}){
         super(props);
@@ -13,7 +19,6 @@ class Home extends React.Component {
             path:'/books/',
             action:'loadListBooks'
         }; 
-        console.log(this.state);
         this.handleInputChange = this.handleInputChange.bind(this); 
         this.handleClick = this.handleClick.bind(this);  
     }   
@@ -69,7 +74,6 @@ class Home extends React.Component {
 
     render() {
         const param = this.state.path + this.state.subject;
-        console.log(param);
         return(
             <div className="grid-main" id="home">
                 <section id="search-zone" className=" search-zone">
@@ -85,23 +89,16 @@ class Home extends React.Component {
         );
     }
 }
-const mapStateToProps= state => {
-    console.log(state);
-    return {
-      user:state.loginReducer.user
-    };
-  }
+
   
   const mapDispatchToProps = dispatch =>{
       if (getCookie('kindsearch') == 'true') {
-          console.log('Books');
         return{
             loadListBooks(param){
               dispatch(loadListBooks(param));
             }
           }
       }else if (getCookie('kindsearch') == 'false') {
-        console.log('Coffes');
         return{
             loadlistCoffees(param){
               dispatch(loadlistCoffees(param));

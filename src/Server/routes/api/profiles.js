@@ -9,7 +9,6 @@ router.param('username', function(req, res, next, username){
     if (!user) { 
       return res.sendStatus(404).send('EL usuario no existe corrige lo'); 
     }else{
-      console.log(user);
       req.profile = user;
       return next();
     }
@@ -18,7 +17,6 @@ router.param('username', function(req, res, next, username){
 });
 
 router.get('/:username', function(req, res, next){
-  console.log(req.payload);
   if(req.payload){
     User.findById(req.payload.id).then(function(user){
       if(!user){ return res.json({profile: req.profile.toProfileJSONFor(false)}); }

@@ -38,13 +38,4 @@ import axios from 'axios';
     localStorage.removeItem('username');
   }
 
-  function update(user){
-    axios.put('http://localhost:3001/api/user',{user})
-    .then(
-      response => {
-        toastr.success('Hola ' +response.data.user.username + 'tu perfil se ha actualizado correctamente','Bienvenido');
-      } ,
-      err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
-    );
-  }
-export{ contactService, logOut, SingUp, update };
+export{ contactService, logOut, SingUp };

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from "react-router";
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 import {booksdetail, AddtoCard} from '../../actions/index';
-import { bindActionCreators } from 'redux'
+import { bindActionCreators } from 'redux';
 
 const BooksListPage = ({books,booksdetail}) => {
 
@@ -72,7 +72,7 @@ const mapStateToProps= state => {
 }
 
 const mapDispatchToProps = dispatch =>{
-  return bindActionCreators({booksdetail,AddtoCard}, dispatch)
+  return bindActionCreators({booksdetail,AddtoCard}, dispatch);
 }
 
 export default connect (mapStateToProps,mapDispatchToProps)(BooksListPage);

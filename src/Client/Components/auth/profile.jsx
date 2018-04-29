@@ -1,21 +1,30 @@
 import React from 'react';
-import ReactDOM  from 'react-dom';
 import { Link } from 'react-router';
-import axios from 'axios';
 import { FormErrors } from '../../lib/FormErrors';
-import { update } from '../../services/services';
+import { updateprofile, profile } from '../../actions';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+
+const mapStateToProps= (state) => {
+  //console.log(state.ProfileReducer.profile);
+  return {
+    user:state.ProfileReducer.profile
+  };
+}
 
 class Profile extends React.Component {
     constructor(props){
-        super(props);   
+        super(props);  
         this.state = {                
             components: [],
-            username:this.state.components.username?this.state.components.username:'',
-            email:this.state.components.email?this.state.components.email:'',
-            dni:this.state.components.dni?this.state.components.dni:'',
-            date_birthday:this.state.compopnents.date_birthday?this.state.compopnents.date_birthday:'',
-            name:this.state.components.name?this.state.components.name:'',
-            apellidos:this.state.components.apellidos?this.state.components.apellidos:'',
+            username:this.props.user.username == undefined?'':this.props.user.username,
+            email:this.props.user.email == undefined?'':this.props.user.email,
+            dni:this.props.user.dni == undefined?'':this.props.user.dni,
+            date_birthday:this.props.user.date_birthday == undefined?'':this.props.user.date_birthday,
+            name:this.props.user.name == undefined?'':this.props.user.name,
+            apellidos:this.props.user.apellidos == undefined?'':this.props.user.apellidos,
+            image:this.props.user.image == undefined?'':this.props.user.image,
             formErrors: {username:'',email: '', password: ''},
             emailValid: false,
             formValid: false
@@ -25,29 +34,19 @@ class Profile extends React.Component {
           this.validateField = this.validateField.bind(this);
           this.validateForm = this.validateForm.bind(this);
     }    
-    componentWillMount() {
-      this.getdata();
+
+    componentWillMount(){
+      this.props.profile();
     }
 
-    getdata(event){
-      const payload = localStorage.getItem('username');
-      let that = this;
-      if (payload){
-        console.log(payload);
-        debugger;
-        axios.get('http://localhost:3001/api/profiles/' + 'jorbencas')
-        .then(
-          response => that.setState({components: response.data.profile},console.log(response.data.profile))
-        );
-      }
+    componentWillReceiveProps(nextProps){
+      this.setState({user:nextProps})
     }
 
     handleInputChange(event) {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-      console.log(value);
-      debugger;
       this.setState({[name]: value}, () => { this.validateField(name, value) });
   
       console.log(this.state);
@@ -85,24 +84,24 @@ class Profile extends React.Component {
     }
 
     handleSubmit(event){
-      update(this.state.components);
+      this.props.updateprofile(this.state);
     }
 
-    render() {            
+    render() {         
           return (
             <div>
               <div className="grid-main">
                <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
                       <div><FormErrors formErrors={this.state.formErrors} /></div>
-                      <img src={this.state.components.image} alt="" srcset=""/>
+                      <img src={this.state.image} alt="" srcSet=""/>
                         <div className="contact_item">
                           <label htmlFor="username">name</label><br/>
-                          <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.components.username} required/>
+                          <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.username} required/>
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.email)}`}>
                           <label htmlFor="email">Email</label><br/>
-                          <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} value={this.state.components.email}required/>
+                          <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} value={this.state.email}required/>
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
                           <label htmlFor="password">Password</label><br/>
@@ -120,4 +119,10 @@ class Profile extends React.Component {
     }
 }
 
-export default Profile;
+
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({profile,updateprofile}, dispatch);
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps) (Profile);

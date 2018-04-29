@@ -45,7 +45,7 @@ const CategorysCoffee = ({loadlistCoffees}) => {
 }
 
 const mapStateToProps= state => {
-    console.log(state);
+    //console.log(state);
     return {
       user:state.loginReducer.user
     };
