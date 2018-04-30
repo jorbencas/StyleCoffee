@@ -4,10 +4,9 @@ import { FormErrors } from '../../lib/FormErrors';
 import { updateprofile, profile } from '../../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import ListErrors from '../errors/errors';
 
 const mapStateToProps= (state) => {
-  //console.log(state.ProfileReducer.profile);
   return {
     user:state.ProfileReducer.profile
   };
@@ -16,15 +15,16 @@ const mapStateToProps= (state) => {
 class Profile extends React.Component {
     constructor(props){
         super(props);  
-        this.state = {                
-            components: [],
-            username:this.props.user.username == undefined?'':this.props.user.username,
-            email:this.props.user.email == undefined?'':this.props.user.email,
-            dni:this.props.user.dni == undefined?'':this.props.user.dni,
-            date_birthday:this.props.user.date_birthday == undefined?'':this.props.user.date_birthday,
-            name:this.props.user.name == undefined?'':this.props.user.name,
-            apellidos:this.props.user.apellidos == undefined?'':this.props.user.apellidos,
-            image:this.props.user.image == undefined?'':this.props.user.image,
+        this.state = {  
+            id:'',              
+            username:'',
+            email:'',
+            dni:'',
+            date_birthday:'',
+            name:'',
+            apellidos:'',
+            image:'',
+            token:'',
             formErrors: {username:'',email: '', password: ''},
             emailValid: false,
             formValid: false
@@ -40,7 +40,16 @@ class Profile extends React.Component {
     }
 
     componentWillReceiveProps(nextProps){
-      this.setState({user:nextProps})
+      console.log(nextProps.user);
+      this.setState({
+        id:nextProps.user.id,
+        username:nextProps.user.username, 
+        dni:nextProps.user.dni, 
+        email:nextProps.user.email,
+        date_birthday:nextProps.user.date_birthday,
+        name:nextProps.user.name,
+        apellidos:nextProps.user.apellidos,
+        image:nextProps.user.image,})
     }
 
     handleInputChange(event) {
@@ -91,24 +100,39 @@ class Profile extends React.Component {
           return (
             <div>
               <div className="grid-main">
+              <ListErrors/>
                <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
                       <div><FormErrors formErrors={this.state.formErrors} /></div>
                       <img src={this.state.image} alt="" srcSet=""/>
                         <div className="contact_item">
                           <label htmlFor="username">name</label><br/>
-                          <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.username} required/>
+                          <input type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.username} required/>
+                        </div>
+                        <div>
+                          <label htmlFor="dni"></label>
+                          <input type="text" id="dni" name="dni" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.dni} required/>
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.email)}`}>
                           <label htmlFor="email">Email</label><br/>
-                          <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} value={this.state.email}required/>
+                          <input type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} value={this.state.email}required/>
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
                           <label htmlFor="password">Password</label><br/>
-                          <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
+                          <input type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
                         </div>
-                        <br/>
-                        <br/><br/>
+                        <div>
+                          <label htmlFor="date_birthday">Fecha de nacimiento</label>
+                          <input type="date" id="date_birthday" name="date_birthday" placeholder="date_birthday" onChange={this.handleInputChange} required/>
+                        </div>
+                        <div>
+                          <label htmlFor="name">Nombre</label>
+                          <input type="text" required="required" name="name" id="name"/>
+                        </div>
+                        <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
+                          <label htmlFor="apellidos" htmlFor="apellidos">Apellidos</label>
+                          <input type="text" name="apellidos" id="apellidos"/>
+                        </div> <br/><br/><br/>
                         <div className="contact_item" disabled={!this.state.formValid} >
                           <Link to="/" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
                         </div>

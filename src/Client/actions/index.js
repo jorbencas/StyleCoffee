@@ -78,7 +78,8 @@ export function login(user){
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       } ,
       err => toastr.error('Error al registrar-se','Error')
-    )};
+    ).catch(err => {authError(err)});
+  };
   }
 
   export function profile(){
@@ -87,20 +88,31 @@ export function login(user){
       return axios.get('http://localhost:3001/api/profiles/' + username)
         .then(
           res =>{dispatch({type:"PROFILE_USER",profile:res.data.profile})}
-        );
+        ).catch(err => {authError(err)});
     }
   }
 
-  export function updateprofile(user){
-    console.log(user);
+  export function authError (error){
+    return {
+        type: 'AUTH_ERROR',
+        payload: error
+    };
+};
+  export function updateprofile(payload){
+    payload.token = localStorage.getItem('token');
     return(dispatch)=>{
-      return axios.put('http://localhost:3001/api/user',{user})
+      return axios.put('http://localhost:3001/api/user',{payload},{
+        headers: { authorization: localStorage.getItem('token'),
+            'Access-Control-Allow-Origin': '*',
+            'Content-Type': 'application/json',
+           }}
+    )
       .then(
         res => {
           dispatch({type:"PROFILE_USER",user:response.data.profile});
           toastr.success('Hola ' +res.data.user.username + 'tu perfil se ha actualizado correctamente','Bienvenido');
         },
         err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
-      );
+      ).catch(err => {authError(err)});;
     }
   }

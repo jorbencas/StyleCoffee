@@ -19,13 +19,14 @@ import Profile from './auth/profile';
 import ShoppingCard from './Card/ShoppingCard';
 //import { hot } from 'react-hot-loader';
 
-import { loadlistCoffees, loadListBooks } from '../actions';
+import { loadlistCoffees, loadListBooks,profile } from '../actions';
 import store from '../Store';
 const token = localStorage.getItem('token');
 // if we have a token, consiger the user to be signed in
 if (token) {
     // we need to update application state
    store.dispatch({type:"AUTH_USER", user:store.getState().loginReducer.user});
+   ;
 }
 
 store.dispatch(loadlistCoffees());

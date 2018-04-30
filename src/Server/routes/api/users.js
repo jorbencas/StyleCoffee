@@ -16,8 +16,9 @@ router.get('/users',auth.required, function(req, res, next){
 });
 
 router.put('/user', auth.required, function(req, res, next){
+  console.log(req.headers.authorization);
   User.findById(req.payload.id).then(function(user){
-    if(!user){ return res.sendStatus(401); }
+    if(!user){ return res.sendStatus(401).json({errors: {Username: "can't be blank"}}); }
 
     // only update fields that were actually passed...
     if(typeof req.body.user.username !== 'undefined'){

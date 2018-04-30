@@ -126,11 +126,11 @@ const mapStateToProps= state => {
 }
 
 const mapDispatchToProps = dispatch =>{
-  return{
+  /*return{
     googlelogin(){
       dispatch(googlelogin());
     }
-  }
+  }*/
 }
 
 export default connect (mapStateToProps,mapDispatchToProps) (singup);

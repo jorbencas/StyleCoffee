@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { error } from 'util';
 
 const initialState = {
   productsOffer: {list: []},
@@ -7,7 +8,8 @@ const initialState = {
   booksdetail:{detail:[]},
   coffeesdetail:{detail:[]},
   cart:{cart:[],total:0},
-  profile:{profile:[]}
+  profile:{profile:[]},
+  errors:{error:[]}
 };
 
 function productsOfferReducer (state = initialState.productsOffer, action) {
@@ -58,6 +60,14 @@ function ProfileReducer(state = initialState.profile, action){
   }
 }
 
+function printerrors(state = initialState.errors,action){
+  if (action.type === 'AUTH_ERROR') {
+    return {error: action.payload};
+  }else{
+    return state
+  }
+}
+
 function ShoppingCardReducer(state = initialState.cart,action){
   if (action.type === 'ADD_TO_CART') {
     let cart=state.cart;
@@ -83,7 +93,8 @@ const rootReducer = combineReducers({
   coffeedetails: coffeedetails,
   loginReducer:loginReducer,
   ShoppingCardReducer:ShoppingCardReducer,
-  ProfileReducer:ProfileReducer
+  ProfileReducer:ProfileReducer,
+  printerrors:printerrors
 });
 
 export default rootReducer;
