@@ -3,6 +3,21 @@ import { Link } from "react-router";
 import {connect} from 'react-redux';
 import {coffeesdetails} from '../../actions/index';
 
+const mapStateToProps= state => {
+  console.log(state);
+  return {
+    detail:state.productsOffer.Coffee
+  };
+}
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    coffeesdetails(id){
+      dispatch(coffeesdetails(id));
+    }
+  }
+}
+
 const CoffeeListPage = ({detail, coffeesdetails}) => {
 
      function render() {
@@ -23,21 +38,6 @@ const CoffeeListPage = ({detail, coffeesdetails}) => {
             </div>
           </div>
         );
-}
-
-const mapStateToProps= state => {
-  console.log(state);
-  return {
-    detail:state.productsOffer.Coffee
-  };
-}
-
-const mapDispatchToProps = dispatch =>{
-  return{
-    coffeesdetails(id){
-      dispatch(coffeesdetails(id));
-    }
-  }
 }
 
 export default connect (mapStateToProps,mapDispatchToProps)(CoffeeListPage);

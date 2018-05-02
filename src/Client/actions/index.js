@@ -1,6 +1,7 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import store from '../Store';
+import { getCookie, setCookie } from '../lib/utils.js';
 
 export function loadlistCoffees(param){
   if (param) {
@@ -40,12 +41,14 @@ export function coffeesdetails(id){
   }
 }
 
-export function AddtoCard(product){
-  console.log(product);
-  return  dispatch({
-  type:"ADD_TO_CART",
-  product
-  });
+export function AddtoCard(card){
+  let id = card.id;
+  return (dispatch) => {
+    return axios.get(`http://localhost:3001/api/books/` + id)
+    .then(res => {
+    dispatch({type:"ADD_TO_CART", card:res.data});
+    });
+  };
 }
 
 export function loadListBooks(param){
@@ -76,16 +79,21 @@ export function login(user){
         localStorage.setItem('token',response.data.user.token);
         localStorage.setItem('username',response.data.user.username);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
-      } ,
-      err => toastr.error('Error al registrar-se','Error')
-    ).catch(err => {authError(err)});
+      }
+    ).catch(err => {authError(err),
+      toastr.error('Error al registrar-se','Error')
+    });
   };
   }
 
   export function profile(){
     const username = store.getState().loginReducer.user.user.username;
+    let token = localStorage.getItem('token');
     return(dispatch)=>{
-      return axios.get('http://localhost:3001/api/profiles/' + username)
+      return axios.get('http://localhost:3001/api/profiles/' + username,{
+        headers: {
+          Authorization: 'Token ' + token
+        }})
         .then(
           res =>{dispatch({type:"PROFILE_USER",profile:res.data.profile})}
         ).catch(err => {authError(err)});
@@ -97,22 +105,37 @@ export function login(user){
         type: 'AUTH_ERROR',
         payload: error
     };
+  };
+
+export function SingUp(user){
+  console.log(user);
+  return(dispatch)=>{
+    return axios.post('http://localhost:3001/api/users',{user})
+    .then(
+      res => {
+        dispatch({type:"SINGUP_USER",user:res.data.user})
+        localStorage.setItem('token',res.data.user.token);
+        localStorage.setItem('username',JSON.stringify(res.data.user.username));
+        //console.log('User Really is:' + JSON.stringify(res.data.user));
+        toastr.success('Hola ' +res.data.user.username + 'te has registrado correctamente','Bienvenido');
+      } ,
+      err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
+    );
+  };
 };
-  export function updateprofile(payload){
-    payload.token = localStorage.getItem('token');
+
+  export function updateprofile(user){
+    let token = localStorage.getItem('token');
     return(dispatch)=>{
-      return axios.put('http://localhost:3001/api/user',{payload},{
-        headers: { authorization: localStorage.getItem('token'),
-            'Access-Control-Allow-Origin': '*',
-            'Content-Type': 'application/json',
-           }}
+      return axios.put('http://localhost:3001/api/user',{user},{headers: { Authorization: 'Token ' + token} }
     )
       .then(
         res => {
           dispatch({type:"PROFILE_USER",user:response.data.profile});
           toastr.success('Hola ' +res.data.user.username + 'tu perfil se ha actualizado correctamente','Bienvenido');
-        },
-        err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
-      ).catch(err => {authError(err)});;
+        }
+      ).catch(err => {authError(err); 
+        toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
+      });;
     }
   }

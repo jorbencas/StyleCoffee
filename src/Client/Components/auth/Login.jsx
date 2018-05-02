@@ -3,6 +3,20 @@ import { Link } from 'react-router';
 import {connect} from 'react-redux'
 import {login} from '../../actions/index';
 
+const mapStateToProps= state => {
+  return {
+    user:state.loginReducer.user
+  };
+}
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    login(user){
+      dispatch(login(user));
+    }
+  }
+}
+
 class Login extends React.Component {
     constructor({props,login}) {
         super(props);
@@ -49,23 +63,6 @@ class Login extends React.Component {
         </div>
       );
     }
-}
-
-
-const mapStateToProps= state => {
-  console.log(state);
-  return {
-    user:state.loginReducer.user
-  };
-}
-
-const mapDispatchToProps = dispatch =>{
-  return{
-    login(user){
-      console.log(user);
-      dispatch(login(user));
-    }
-  }
 }
 
 export default connect (mapStateToProps,mapDispatchToProps) (Login);

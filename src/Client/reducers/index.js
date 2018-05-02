@@ -44,6 +44,14 @@ function coffeedetails(state = initialState.coffeesdetail,action) {
   }
 }
 
+function SingUpReducer(state = initialState.user,action) {
+  if (action.type === 'SINGUP_USER') {
+    return [ ...state,{authenticated: true,user: action.user}][0]
+  }else{
+    return state
+  }
+}
+
 function loginReducer(state = initialState.user,action){
   if (action.type === 'AUTH_USER') {
     return [ ...state,{authenticated: true,user: action.user}][0]
@@ -70,6 +78,7 @@ function printerrors(state = initialState.errors,action){
 
 function ShoppingCardReducer(state = initialState.cart,action){
   if (action.type === 'ADD_TO_CART') {
+    console.log('Hola');
     let cart=state.cart;
     let total=state.total;
     total++;
@@ -94,7 +103,8 @@ const rootReducer = combineReducers({
   loginReducer:loginReducer,
   ShoppingCardReducer:ShoppingCardReducer,
   ProfileReducer:ProfileReducer,
-  printerrors:printerrors
+  printerrors:printerrors,
+  SingUpReducer:SingUpReducer
 });
 
 export default rootReducer;

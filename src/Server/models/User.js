@@ -14,7 +14,8 @@ var UserSchema = new mongoose.Schema({
   dni: String,
   date_birthday: String,
   hash: String,
-  salt: String
+  salt: String,
+  type: String,
 }, {timestamps: true});
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});

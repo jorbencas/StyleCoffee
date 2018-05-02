@@ -17,14 +17,12 @@ import Main from './core/Main';
 import CoffeeListPage from './Coffees/CoffeeListPage';
 import Profile from './auth/profile';
 import ShoppingCard from './Card/ShoppingCard';
-//import { hot } from 'react-hot-loader';
 
 import { loadlistCoffees, loadListBooks,profile } from '../actions';
 import store from '../Store';
-const token = localStorage.getItem('token');
-// if we have a token, consiger the user to be signed in
+const token = window.localStorage.getItem('token');
+
 if (token) {
-    // we need to update application state
    store.dispatch({type:"AUTH_USER", user:store.getState().loginReducer.user});
    ;
 }
@@ -32,7 +30,7 @@ if (token) {
 store.dispatch(loadlistCoffees());
 store.dispatch(loadListBooks());
 
-class App extends React.Component{
+export class App extends React.Component{
   
 render() {
     
@@ -55,7 +53,7 @@ render() {
             <Route path="/SingUp" component={singup} />
             <Route path='/abouteus' component={AbouteUs} />
             <Route path='/profile' component={Profile}/>
-            <Route path='/card/:id' component={ShoppingCard}/>
+            <Route path='/card' component={ShoppingCard}/>
           </Switch>
         </Route>
       </div>
@@ -65,4 +63,4 @@ render() {
 
 };
 
-export default App /*hot(module)(App)*/;
+export default App ;

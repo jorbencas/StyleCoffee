@@ -18,12 +18,15 @@ router.param('username', function(req, res, next, username){
 
 router.get('/:username',auth.optional, function(req, res, next){
   if(req.payload){
+    console.log('Hola');
     User.findById(req.payload.id).then(function(user){
+      console.log(user);
       if(!user){ return res.json({profile: req.profile.toProfileJSONFor(false)}); }
 
       return res.json({profile: req.profile.toProfileJSONFor(user)});
     });
   } else {
+    console.log('Adeu');
     return res.json({profile: req.profile.toProfileJSONFor(false)});
   }
 });

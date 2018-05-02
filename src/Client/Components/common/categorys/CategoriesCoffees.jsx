@@ -45,18 +45,17 @@ const CategorysCoffee = ({loadlistCoffees}) => {
 }
 
 const mapStateToProps= state => {
-    //console.log(state);
     return {
       user:state.loginReducer.user
     };
   }
 
 const mapDispatchToProps = dispatch=>{
-            return{
-                loadlistCoffees(param){
-                dispatch(loadlistCoffees(param));
-                }
-            }
+  return{
+        loadlistCoffees(param){
+        dispatch(loadlistCoffees(param));
+    }
+  }
 }
 
 export default connect (mapStateToProps,mapDispatchToProps)(CategorysCoffee);

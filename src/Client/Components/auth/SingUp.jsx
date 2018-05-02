@@ -2,13 +2,23 @@ import React from 'react';
 import { Link } from 'react-router';
 import { connect } from 'react-redux';
 import { FormErrors } from '../../lib/FormErrors';
-import {googlelogin} from '../../actions/index';
-import { SingUp }  from '../../services/services';
+import { SingUp } from '../../actions/index';
+import { bindActionCreators } from 'redux';
+
+const mapStateToProps= state => {
+  return {
+    user:state.SingUpReducer.user
+  };
+}
+
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({SingUp}, dispatch);
+}
 
 class singup extends React.Component {
-    constructor({props,googlelogin}) {
+    constructor({props,SingUp}) {
         super(props);
-        console.log(this.props);
+
         this.state = { 
           username: '',
           email:'',
@@ -19,7 +29,6 @@ class singup extends React.Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this); 
-        this.handleSubmit = this.handleSubmit.bind(this); 
         this.validateField = this.validateField.bind(this);
         this.validateForm = this.validateForm.bind(this);
     }
@@ -65,14 +74,6 @@ class singup extends React.Component {
       return(error.length === 0 ? 'Tu debes escribir algo' : 'has-error');
     }
 
-    
-    handleSubmit(event) {
-      event.preventDefault();
-      console.log(this.state);
-      debugger;
-      SingUp(this.state);
-    }
-
 
     render() {
       return (
@@ -96,7 +97,7 @@ class singup extends React.Component {
                         <br/>
                         <br/><br/>
                         <div className="contact_item" disabled={!this.state.formValid} >
-                          <Link to="/" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
+                          <Link to="/" className="btn-search" onClick={() => {this.props.SingUp(this.state)}} >Resgistrar se</Link>
                         </div>
                         <br/>
                         <br/>
@@ -116,21 +117,6 @@ class singup extends React.Component {
         </div>
       );
     }
-}
-
-const mapStateToProps= state => {
-  console.log(state);
-  return {
-    user:state.googleReducer.user
-  };
-}
-
-const mapDispatchToProps = dispatch =>{
-  /*return{
-    googlelogin(){
-      dispatch(googlelogin());
-    }
-  }*/
 }
 
 export default connect (mapStateToProps,mapDispatchToProps) (singup);

@@ -4,7 +4,17 @@ import {connect} from 'react-redux';
 import {booksdetail, AddtoCard} from '../../actions/index';
 import { bindActionCreators } from 'redux';
 
-const BooksListPage = ({books,booksdetail}) => {
+const mapStateToProps= state => {
+  return { 
+    books: state.productsList.books
+  };
+}
+
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({booksdetail,AddtoCard}, dispatch);
+}
+
+ export const BooksListPage = ({books,booksdetail}) => {
 
       function mangment(){
         if(localStorage.getItem('token')){
@@ -31,11 +41,10 @@ const BooksListPage = ({books,booksdetail}) => {
          return(
             <section>
               <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Leer Más</Link>
-              <Link className="button" to={'/card/'+item.id}  onClick={() => { AddtoCard(item)}} >Añadir al carrito</Link>
+              <Link className="button" to='/card'  onClick={() => { AddtoCard(item)}} >Añadir al carrito</Link>
             </section>
           ) 
         }
-        
       }
 
     function render() {               
@@ -62,17 +71,6 @@ const BooksListPage = ({books,booksdetail}) => {
               <div  id="list" >{ books != {} ? render():'No hay Libros!!' }</div>
             </div>
           );
-}
-
-const mapStateToProps= state => {
-  console.log(state);
-  return { 
-    books: state.productsList.books
-  };
-}
-
-const mapDispatchToProps = dispatch =>{
-  return bindActionCreators({booksdetail,AddtoCard}, dispatch);
 }
 
 export default connect (mapStateToProps,mapDispatchToProps)(BooksListPage);

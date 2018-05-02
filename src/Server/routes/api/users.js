@@ -16,10 +16,11 @@ router.get('/users',auth.required, function(req, res, next){
 });
 
 router.put('/user', auth.required, function(req, res, next){
-  console.log(req.headers.authorization);
+  //console.log(req.body.user);
   User.findById(req.payload.id).then(function(user){
-    if(!user){ return res.sendStatus(401).json({errors: {Username: "can't be blank"}}); }
-
+    //console.log(user);
+    if(!user){ return res.status(422)}
+    
     // only update fields that were actually passed...
     if(typeof req.body.user.username !== 'undefined'){
       user.username = req.body.user.username;
@@ -48,6 +49,8 @@ router.put('/user', auth.required, function(req, res, next){
     if(typeof req.body.user.dni !== 'undefined'){
       user.dni = req.body.user.dni;
     }
+
+    
     return user.save().then(function(){
       return res.json({user: user.toAuthJSON()});
     });
@@ -87,7 +90,7 @@ console.log(req.body.user.username + " " + req.body.user.password);
   }
 
   User.find({password: req.body.user.password}).then(function(user){
-    console.log(user);
+    //console.log(user);
     if(!user){ 
       return res.sendStatus(401); 
     }else{
@@ -97,12 +100,12 @@ console.log(req.body.user.username + " " + req.body.user.password);
         user.username = req.body.user.username;
         user.setPassword(req.body.user.password);
        
-        console.log(user);
+        //console.log(user);
     
         if(err){ return next(err); }
     
         if(user){
-          console.log(user);
+          //console.log(user);
           user.token = user.generateJWT();
           return res.json({user: user.toAuthJSON()});
         } else {

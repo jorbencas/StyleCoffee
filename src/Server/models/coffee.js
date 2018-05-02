@@ -10,7 +10,8 @@ var CoffeeSchema = new mongoose.Schema({
   name: String,
   image: String,
   kind:String,
-  price: {type: Number, default: 0}
+  price: {type: Number, default: 0},
+  stock: {type: Number, default:0}
 }, {timestamps: true});
 
 CoffeeSchema.methods.toProfileJSONFor = function(user){

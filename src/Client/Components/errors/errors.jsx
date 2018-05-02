@@ -7,8 +7,22 @@ const mapStateToProps = (state) => {
 };
 
 class ListErrors extends React.Component {
+    constructor(props){
+        super(props);  
+        this.state = {  
+            errorMessage:''
+        }
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log(nextProps);
+        this.setState({
+            errorMessage:nextProps.errorMessage.error,
+          })
+      }
+
   render() {
-    const errors = this.props.errorMessage.errors;
+    const errors = this.state.errorMessage;
     if (errors) {
       return (
         <ul className="">
@@ -31,4 +45,4 @@ class ListErrors extends React.Component {
 
 
 
-export default ListErrors;
+export default connect (mapStateToProps,actions)  (ListErrors);

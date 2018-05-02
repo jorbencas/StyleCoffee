@@ -2,6 +2,19 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {AddtoCard} from '../../actions/index';
 
+const mapStateToProps= state => {
+  return {
+    detail:state.coffeedetails.Coffee
+  };
+}
+/*
+const mapDispatchToProps = dispatch =>{
+  return{
+    AddtoCard(id){
+      dispatch(AddtoCard(id));
+    }
+  }
+}*/
 
 const CoffeeDetailPage = ({detail}) => {
  
@@ -22,20 +35,5 @@ const CoffeeDetailPage = ({detail}) => {
           );
     
 }
-
-const mapStateToProps= state => {
-  console.log(state);
-  return {
-    detail:state.coffeedetails.Coffee
-  };
-}
-/*
-const mapDispatchToProps = dispatch =>{
-  return{
-    AddtoCard(id){
-      dispatch(AddtoCard(id));
-    }
-  }
-}*/
 
 export default connect (mapStateToProps) (CoffeeDetailPage);

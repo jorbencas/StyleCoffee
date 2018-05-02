@@ -12,11 +12,15 @@ const mapStateToProps= (state) => {
   };
 }
 
+const mapDispatchToProps = (dispatch) =>{
+  return bindActionCreators({profile,updateprofile}, dispatch);
+}
+
+
 class Profile extends React.Component {
     constructor(props){
         super(props);  
-        this.state = {  
-            id:'',              
+        this.state = {                
             username:'',
             email:'',
             dni:'',
@@ -56,6 +60,7 @@ class Profile extends React.Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
+      console.log(name);
       this.setState({[name]: value}, () => { this.validateField(name, value) });
   
       console.log(this.state);
@@ -127,11 +132,11 @@ class Profile extends React.Component {
                         </div>
                         <div>
                           <label htmlFor="name">Nombre</label>
-                          <input type="text" required="required" name="name" id="name"/>
+                          <input type="text" name="name" id="name" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
                           <label htmlFor="apellidos" htmlFor="apellidos">Apellidos</label>
-                          <input type="text" name="apellidos" id="apellidos"/>
+                          <input type="text" name="apellidos" id="apellidos" onChange={this.handleInputChange} required/>
                         </div> <br/><br/><br/>
                         <div className="contact_item" disabled={!this.state.formValid} >
                           <Link to="/" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
@@ -141,11 +146,6 @@ class Profile extends React.Component {
             </div>
           );
     }
-}
-
-
-const mapDispatchToProps = dispatch =>{
-  return bindActionCreators({profile,updateprofile}, dispatch);
 }
 
 

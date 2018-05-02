@@ -1,5 +1,4 @@
 import toastr from 'toastr';
-import { getCookie, setCookie } from '../lib/utils.js';
 import axios from 'axios'; 
 
   function contactService (contact){
@@ -20,22 +19,10 @@ import axios from 'axios';
          });
     }
 
-  function SingUp(user){
-    console.log(user);
-    axios.post('http://localhost:3001/api/users',{user})
-    .then(
-      res => {
-        localStorage.setItem('token',res.data.user.token);
-        localStorage.setItem('username',JSON.stringify(res.data.user.username));
-        console.log('User Really is:' + JSON.stringify(res.data.user));
-        toastr.success('Hola ' +res.data.user.username + 'te has registrado correctamente','Bienvenido');
-      } ,
-      err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
-    );
-  }
+
   function logOut(){
     localStorage.removeItem('token');
     localStorage.removeItem('username');
   }
 
-export{ contactService, logOut, SingUp };
+export{ contactService, logOut };

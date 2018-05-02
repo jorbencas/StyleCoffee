@@ -2,6 +2,20 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {AddtoCard} from '../../actions/index';
 
+const mapStateToProps= state => {
+  return {
+    detail:state.booksdetails.books
+  };
+}
+
+const mapDispatchToProps = dispatch =>{
+  return{
+    AddtoCard(id){
+      dispatch(AddtoCard(id));
+    }
+  }
+}
+
 const BooksDetailPage  = ({detail,AddtoCard}) => {
 
     function render() {   
@@ -52,22 +66,6 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
       </div>
     );
     
-}
-
-
-const mapStateToProps= state => {
-  console.log(state);
-  return {
-    detail:state.booksdetails.books
-  };
-}
-
-const mapDispatchToProps = dispatch =>{
-  return{
-    AddtoCard(id){
-      dispatch(AddtoCard(id));
-    }
-  }
 }
 
 export default connect (mapStateToProps,mapDispatchToProps) (BooksDetailPage);
