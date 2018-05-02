@@ -226,7 +226,7 @@
     border-radius: 10px;
     overflow: hidden;
 }
-.checkbox input[type=radio]{
+.checkbox article{
     display: inline-block;
     padding: 5px 20px;
 }
@@ -235,11 +235,11 @@
     border: 1px solid rgb(255, 104, 104);
     border-radius: 5px;
 }
-.cheked {
+.checked {
     color: #757575fd;
     background-color: rgb(255, 104, 104);
 }
-.checked > input[type="radio"]:checked{
+.checked:active{
     display: none;
 }
 

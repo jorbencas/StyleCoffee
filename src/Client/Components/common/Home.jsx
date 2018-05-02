@@ -78,8 +78,8 @@ class Home extends React.Component {
             <div className="grid-main" id="home">
                 <section id="search-zone" className=" search-zone">
                     <section className="section">
-                        <article id="rdb1" className="checkbox"> <input type="radio" name="radio" onClick={this.handleClick} id="books" />Books</article>
-                        <article id="rdb2" className="checkbox"> <input type="radio" name="radio" onClick={this.handleClick} id="coffees"/> Coffes</article>
+                        <article id="rdb1" className="checkbox" onClick={this.handleClick} id="books"> Books</article>
+                        <article id="rdb2" className="checkbox" onClick={this.handleClick} id="coffees"> Coffes</article>
                     </section>
                     <input id="search" placeholder="Search everything that you find" onKeyPress={this.handleInputChange} type="text"/>
                     <Link className="btn-search" to={param} onClick={()=>{this.state.action==='loadListBooks'?this.props.loadListBooks(this.state.subject):this.props.loadlistCoffees(this.state.subject)}}>Search</Link>
