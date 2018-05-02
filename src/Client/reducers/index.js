@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import { error } from 'util';
 
 const initialState = {
   productsOffer: {list: []},
