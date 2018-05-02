@@ -1,5 +1,5 @@
-#### <img src="./src/Client/public/assets/photos/logo.png" width="18"></img>
-``#### StyleCoffee
+#### <img src="./src/Client/public/assets/photos/logo.png" width="24"></img>
+#### StyleCoffee
 The main purpose of this project is build a Web Aplication using React, Redux  Node JS in the server and Mongo DB in the Database.
 
  - [Technologies](#technologies)
