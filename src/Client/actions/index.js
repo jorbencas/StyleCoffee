@@ -41,16 +41,32 @@ export function coffeesdetails(id){
   }
 }
 
-export function AddtoCard(card){
-  let id = card.id;
-  return (dispatch) => {
-    return axios.get(`http://localhost:3001/api/books/` + id)
-    .then(res => {
-    dispatch({type:"ADD_TO_CART", card:res.data});
-    });
-  };
+export function AddtoCard(cart){
+  return dispatch =>{
+      dispatch({type:"ADD_TO_CART", cart:cart});
+      toastr.success('El producto ' +cart.title + 'se ha añadido a tu cesta','Bienvenido');
+  }
 }
 
+export function BuyProduct(cart){
+  console.log(cart);
+  debugger;
+  return(dispatch)=>{
+    return axios.post(`http://localhost:3001/api/charge`, {cart})
+    .then(res => {
+      dispatch({type:"BOOKS_DETAIL",detail:res.data});
+    })
+  }
+}
+
+export function RemoveFromcard(cart){
+  console.log(cart);
+  debugger;
+  return dispatch =>{
+    dispatch({type:'REMOVE_TO_CART',cart:cart});
+    toastr.info('El producto ' +cart.title + 'se ha eliminado a tu cesta','Bienvenido');
+  }
+}
 export function loadListBooks(param){
   if (param) {
     console.log('Param:' + param);
@@ -84,7 +100,7 @@ export function login(user){
       toastr.error('Error al registrar-se','Error')
     });
   };
-  }
+}
 
   export function profile(){
     const username = store.getState().loginReducer.user.user.username;

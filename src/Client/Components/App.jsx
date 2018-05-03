@@ -17,6 +17,7 @@ import Main from './core/Main';
 import CoffeeListPage from './Coffees/CoffeeListPage';
 import Profile from './auth/profile';
 import ShoppingCard from './Card/ShoppingCard';
+import BuyForm from './Card/BuyformPage';
 
 import { loadlistCoffees, loadListBooks,profile } from '../actions';
 import store from '../Store';
@@ -54,6 +55,7 @@ render() {
             <Route path='/abouteus' component={AbouteUs} />
             <Route path='/profile' component={Profile}/>
             <Route path='/card' component={ShoppingCard}/>
+            <Route path='/buy' component={BuyForm}/>
           </Switch>
         </Route>
       </div>

@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router";
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
+import {RemoveFromcard,BuyProduct} from '../../actions/index';
 
 const mapStateToProps= state => {
   console.log(state);
@@ -10,12 +11,11 @@ const mapStateToProps= state => {
   };
 }
 
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({RemoveFromcard}, dispatch);
+}
 
-
-const ShoppingCard = ({cart}) => {
-
-      
-
+const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
     function render() {               
         return cart.map((item) => (
             <section className="itembook">
@@ -29,15 +29,17 @@ const ShoppingCard = ({cart}) => {
                   <p>{item.edition}</p>
                   <h2>{item.price}€</h2>
                 </article>
+                <Link  to='/card' className="btn-search" onClick={()=>{RemoveFromcard(item)}}>Eliminar</Link>
             </section>
           ));
+          <Link to='/buy' onClick={()=>{BuyProduct(cart)}} className="btn-search">Comprar</Link>
         }
 
           return (
             <div className="grid-main" id="listbooks">
-              <div  id="list" >{ cart != undefined ? render():'No hay Libros!!' }</div>
+              <div  id="list" >{ cart != undefined ? render():'El carrito esta vacio!!' }</div>
             </div>
           );
 }
 
-export default connect (mapStateToProps)(ShoppingCard);
+export default connect (mapStateToProps,mapDispatchToProps)(ShoppingCard);

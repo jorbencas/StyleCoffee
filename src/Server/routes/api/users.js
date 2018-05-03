@@ -177,7 +177,8 @@ router.get('/auth/twitter/callback',
 
 router.post("/charge" , (req, res) => {
   
-    console.log(req.body.payment);
+    console.log(req.body.card);
+    /*
     stripe.customers.create({
        email: req.body.stripeEmail,
       source: req.body.stripeToken
@@ -201,7 +202,7 @@ router.post("/charge" , (req, res) => {
       )
     .then( charge => res.redirect('http://localhost:8081//#!/details/' + req.body.payment)
     // , res.send(toastr.success('Sucuenta se ha creado correctemente.','Bienvenido'))
-      );
+      );*/
   });
 
 

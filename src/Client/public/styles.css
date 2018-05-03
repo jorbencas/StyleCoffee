@@ -226,7 +226,7 @@
     border-radius: 10px;
     overflow: hidden;
 }
-.checkbox article{
+.checkbox input[type=radio]{
     display: inline-block;
     padding: 5px 20px;
 }
@@ -235,12 +235,9 @@
     border: 1px solid rgb(255, 104, 104);
     border-radius: 5px;
 }
-.checked {
+.cheked {
     color: #757575fd;
     background-color: rgb(255, 104, 104);
-}
-.checked:active{
-    display: none;
 }
 
 #search {

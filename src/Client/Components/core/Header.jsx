@@ -6,20 +6,33 @@ import { connect } from 'react-redux';
 class Header extends React.Component {
     constructor({props, authenticated, username}){
         super(props);  
+        this.state = {
+          authenticated:'',
+          username:''
+        }
+        
         this.menulogin = this.menulogin.bind(this); 
     }    
 
+    componentWillReceiveProps(nextProps){
+      this.setState({
+        authenticated: nextProps.authenticated,
+        username:nextProps.username.user.username
+        });
+        console.log(this.state);
+    }
+
     menulogin(){
-      //console.log('Header:' + this.props.authenticated);
-      if(this.props.authenticated){
+      if(this.state.authenticated == true ){
           return(
             <ul>
               <li className="listado-item"><Link to="/Contact">Contact</Link></li>
               <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
               <li className="listado-item"><Link to="/BooksList">Books</Link></li>
               <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
-              <li className="listado-item"><Link to="/profile">{ this.props.username.user === undefined ?'':this.props.username.user.username}</Link></li>
+              <li className="listado-item"><Link to="/profile">{ this.state.username}</Link></li>
               <li className="listado-item"><Link to="/" onClick={logOut}>Logout</Link></li>
+              <li className="listado-item"><Link to='/card'>Añadir al carrito</Link></li>
             </ul>
           );
       }else{
@@ -29,8 +42,9 @@ class Header extends React.Component {
             <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
             <li className="listado-item"><Link to="/BooksList">Books</Link></li>
             <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
-            <li className="listado-item"><Link to="/SingUp">Iniciar Sesión</Link></li>
-            <li className="listado-item"><Link to="/login">Registrarse</Link></li>
+            <li className="listado-item"><Link to="/SingUp">Registrarse</Link></li>
+            <li className="listado-item"><Link to="/login">Iniciar Sesión</Link></li>
+            <li className="listado-item"><Link to='/card'>Añadir al carrito</Link></li>
           </ul>
         );
       }
@@ -61,7 +75,6 @@ class Header extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  //console.log(state);
   return { authenticated: state.loginReducer.authenticated,username: state.loginReducer.user }
 };
 

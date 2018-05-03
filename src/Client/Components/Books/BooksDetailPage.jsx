@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {AddtoCard} from '../../actions/index';
+import {BuyProduct} from '../../actions/index';
+import { Link } from "react-router";
 
 const mapStateToProps= state => {
   return {
@@ -10,13 +11,13 @@ const mapStateToProps= state => {
 
 const mapDispatchToProps = dispatch =>{
   return{
-    AddtoCard(id){
-      dispatch(AddtoCard(id));
+    BuyProduct(detail){
+      dispatch(BuyProduct(detail));
     }
   }
 }
 
-const BooksDetailPage  = ({detail,AddtoCard}) => {
+const BooksDetailPage  = ({detail,BuyProduct}) => {
 
     function render() {   
       console.log(detail);            
@@ -51,7 +52,7 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
                   <section className="buttons-details">
                     <p className="detail-price">{item.price}€</p>
                     <a className="btn-search" >Reserva-lo</a>
-                    <a className="btn-search">Comprar</a>
+                    <Link to='/buy' onClick={()=>{BuyProduct(item)}} className="btn-search">Comprar</Link>
                   </section>
                 </article>
               </section>

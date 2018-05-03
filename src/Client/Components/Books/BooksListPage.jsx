@@ -14,7 +14,7 @@ const mapDispatchToProps = dispatch =>{
   return bindActionCreators({booksdetail,AddtoCard}, dispatch);
 }
 
- export const BooksListPage = ({books,booksdetail}) => {
+ export const BooksListPage = ({books,booksdetail, AddtoCard}) => {
 
       function mangment(){
         if(localStorage.getItem('token')){
