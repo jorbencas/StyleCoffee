@@ -3,7 +3,7 @@ import { getCookie, setCookie, deleteCookie } from '../../lib/utils.js';
 import { Link } from "react-router";
 import { loadlistCoffees, loadListBooks } from '../../actions';
 import {connect} from 'react-redux';
-import Categorys from './categorys/Categoris';
+import Categorys from './Categoris';
 
 const mapStateToProps= state => {
     return {

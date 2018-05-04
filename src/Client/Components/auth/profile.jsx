@@ -60,10 +60,8 @@ class Profile extends React.Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-      console.log(name);
+
       this.setState({[name]: value}, () => { this.validateField(name, value) });
-  
-      console.log(this.state);
   }
 
     validateField(fieldName, value) {

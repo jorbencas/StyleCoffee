@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from "react-router";
-import { logOut } from '../../services/services';
+import { logout } from '../../actions/index';
 import { connect } from 'react-redux';
 
 class Header extends React.Component {
-    constructor({props, authenticated, username}){
+    constructor({props, authenticated, username, logout}){
         super(props);  
         this.state = {
           authenticated:'',
@@ -19,7 +19,6 @@ class Header extends React.Component {
         authenticated: nextProps.authenticated,
         username:nextProps.username.user.username
         });
-        console.log(this.state);
     }
 
     menulogin(){
@@ -31,7 +30,7 @@ class Header extends React.Component {
               <li className="listado-item"><Link to="/BooksList">Books</Link></li>
               <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
               <li className="listado-item"><Link to="/profile">{ this.state.username}</Link></li>
-              <li className="listado-item"><Link to="/" onClick={logOut}>Logout</Link></li>
+              <li className="listado-item"><Link to="/" onClick={ () => {this.props.logout()}}>Logout</Link></li>
               <li className="listado-item"><Link to='/card'>Añadir al carrito</Link></li>
             </ul>
           );

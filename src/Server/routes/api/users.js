@@ -155,18 +155,8 @@ router.get('/auth/google/callback',
   passport.authenticate('google'),
    function(req, res) {
     console.log('Google login ' + JSON.stringify(req.user));
-    //localStorage.setItem('token',req.user.token);
-    //localStorage.setItem('username',res.user.username);
     return res.redirect('/' + req.user);
   });
-
-/*----FACEBOOK----*/
-/*
-router.get('/facebook', passport.authenticate('facebook', {scope: ['email', 'public_profile']}));
-router.get('/auth/facebook/callback',
-    passport.authenticate('facebook',
-    { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
-*/
 
 /*----TWITTER----*/
 router.get('/api/twitter', passport.authenticate('twitter'));

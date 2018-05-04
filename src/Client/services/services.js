@@ -19,10 +19,4 @@ import axios from 'axios';
          });
     }
 
-
-  function logOut(){
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-  }
-
-export{ contactService, logOut };
+export{ contactService };

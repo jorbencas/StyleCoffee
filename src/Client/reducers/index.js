@@ -59,6 +59,14 @@ function loginReducer(state = initialState.user,action){
   }
 }
 
+function logoutReducer(state = initialState.user,action){
+  if (action.type === 'LOGOUT_USER') {
+    return [ ...state,{authenticated: false}][0]
+  }else{
+    return state
+  }
+}
+
 function ProfileReducer(state = initialState.profile, action){
   if (action.type === 'PROFILE_USER') {
     return[...state,{profile:action.profile}][0]
@@ -82,28 +90,14 @@ function ShoppingCardReducer(state = initialState.cart,action){
     let total=state.total;
     total++;
     cart.push(action.cart);
-    console.log(state);
-    return [
-      ...state,
-      {
-        cart: cart,
-        total: total
-      }
-    ][0];
+    return [...state,{cart: cart,total: total}][0];
   }else if(action.type === 'REMOVE_TO_CART'){
     console.log(action.cart);
     let cart=state.cart;
     let total=state.total;
     total--;
     cart.pop(action.cart);
-    console.log(state);
-    return [
-      ...state,
-      {
-        cart: cart,
-        total: total
-      }
-    ][0];
+    return [...state,{cart: cart,total: total}][0];
   }else{
     return state
   }

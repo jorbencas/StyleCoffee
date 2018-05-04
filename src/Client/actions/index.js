@@ -4,22 +4,38 @@ import store from '../Store';
 import { getCookie, setCookie } from '../lib/utils.js';
 
 export function loadlistCoffees(param){
-  if (param) {
-    console.log('Param:' + param);
-    debugger;
-    return(dispatch)=>{
-      return axios.get(`http://localhost:3001/api/coffee/` + param)
-      .then(res => {
-        dispatch({type:"CHANGE_OFFER",list:res.data});
-      })
-    }
-  }else{
     return(dispatch)=>{
       return axios.get(`http://localhost:3001/api/coffee`)
       .then(res => {
         dispatch({type:"CHANGE_OFFER",list:res.data});
       })
     }
+}
+
+export function loadListBooks(param){
+    return(dispatch)=>{
+      return axios.get(`http://localhost:3001/api/books`)
+      .then(res => {
+        dispatch({ type:"CHANGE_LIST",list:res.data});
+      })
+    }
+}
+
+export function categoriesbook(param){
+  return(dispatch)=>{
+    return axios.post(`http://localhost:3001/api/books/` + param)
+    .then(res => {
+      dispatch({ type:"CHANGE_LIST",list:res.data});
+    })
+  }
+}
+
+export function categoriescoffee(param){
+  return(dispatch)=>{
+    return axios.get(`http://localhost:3001/api/coffee/` + param)
+    .then(res => {
+      dispatch({type:"CHANGE_OFFER",list:res.data});
+    })
   }
 }
 
@@ -49,8 +65,6 @@ export function AddtoCard(cart){
 }
 
 export function BuyProduct(cart){
-  console.log(cart);
-  debugger;
   return(dispatch)=>{
     return axios.post(`http://localhost:3001/api/charge`, {cart})
     .then(res => {
@@ -60,31 +74,15 @@ export function BuyProduct(cart){
 }
 
 export function RemoveFromcard(cart){
-  console.log(cart);
-  debugger;
   return dispatch =>{
     dispatch({type:'REMOVE_TO_CART',cart:cart});
     toastr.info('El producto ' +cart.title + 'se ha eliminado a tu cesta','Bienvenido');
   }
 }
-export function loadListBooks(param){
-  if (param) {
-    console.log('Param:' + param);
-    debugger;
-    return(dispatch)=>{
-      return axios.post(`http://localhost:3001/api/books/` + param)
-      .then(res => {
-        dispatch({ type:"CHANGE_LIST",list:res.data});
-      })
-    }
-  }else{
-    return(dispatch)=>{
-      return axios.get(`http://localhost:3001/api/books`)
-      .then(res => {
-        dispatch({ type:"CHANGE_LIST",list:res.data});
-      })
-    }
-  }
+
+export function logout(){
+  localStorage.removeItem('token');
+  dispatch({type:"LOGOUT_USER"});
 }
 
 export function login(user){
@@ -93,7 +91,6 @@ export function login(user){
     .then(
       response => {dispatch({type:"AUTH_USER",user:response.data});
         localStorage.setItem('token',response.data.user.token);
-        localStorage.setItem('username',response.data.user.username);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       }
     ).catch(err => {authError(err),
@@ -102,19 +99,17 @@ export function login(user){
   };
 }
 
-  export function profile(){
-    const username = store.getState().loginReducer.user.user.username;
-    let token = localStorage.getItem('token');
-    return(dispatch)=>{
-      return axios.get('http://localhost:3001/api/profiles/' + username,{
-        headers: {
-          Authorization: 'Token ' + token
-        }})
-        .then(
-          res =>{dispatch({type:"PROFILE_USER",profile:res.data.profile})}
-        ).catch(err => {authError(err)});
-    }
+export function profile(){
+  const username = store.getState().loginReducer.user.user.username;
+  let token = localStorage.getItem('token');
+  return(dispatch)=>{
+    return axios.get('http://localhost:3001/api/profiles/' + username,{headers: {Authorization: 'Token ' + token}}
+        )
+       .then(
+         res =>{dispatch({type:"PROFILE_USER",profile:res.data.profile})}
+      ).catch(err => {authError(err)});
   }
+}
 
   export function authError (error){
     return {
@@ -124,15 +119,12 @@ export function login(user){
   };
 
 export function SingUp(user){
-  console.log(user);
   return(dispatch)=>{
     return axios.post('http://localhost:3001/api/users',{user})
     .then(
       res => {
         dispatch({type:"SINGUP_USER",user:res.data.user})
         localStorage.setItem('token',res.data.user.token);
-        localStorage.setItem('username',JSON.stringify(res.data.user.username));
-        //console.log('User Really is:' + JSON.stringify(res.data.user));
         toastr.success('Hola ' +res.data.user.username + 'te has registrado correctamente','Bienvenido');
       } ,
       err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
@@ -144,14 +136,55 @@ export function SingUp(user){
     let token = localStorage.getItem('token');
     return(dispatch)=>{
       return axios.put('http://localhost:3001/api/user',{user},{headers: { Authorization: 'Token ' + token} }
-    )
-      .then(
+      ).then(
         res => {
           dispatch({type:"PROFILE_USER",user:response.data.profile});
           toastr.success('Hola ' +res.data.user.username + 'tu perfil se ha actualizado correctamente','Bienvenido');
         }
       ).catch(err => {authError(err); 
         toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
-      });;
+      });
     }
   }
+
+ /**CRUD */
+
+export function createbook(){
+
+}
+
+export function editbook(){
+
+}
+
+export function deletebook(){
+
+}
+
+export function createcoffee(){
+
+}
+
+export function editcoffee(){
+
+}
+
+export function deletecoffee(){
+
+}
+
+export function deletecoffees(){
+  return axios.delete('http://localhost:3001/api/coffee')
+  .then( () => { dispatch({type:'DELETE_COFFEE  S'});
+  toastr.info('Se han eliminado todos los libros');
+  });
+}
+
+export function deletebooks(){
+return dispatch =>{
+    return axios.delete('http://localhost:3001/api/book')
+    .then( () => { dispatch({type:'DELETE_BOOKS'});
+    toastr.info('Se han eliminado todos los libros');
+    });
+  };
+}
