@@ -65,8 +65,8 @@ export function AddtoCard(cart){
 }
 
 export function BuyProduct(cart){
-  return(dispatch)=>{
-    return axios.post(`http://localhost:3001/api/charge`, {cart})
+  return(dispatch) => {
+    return axios.post(`http://localhost:3001/api/charge/`, {cart})
     .then(res => {
       dispatch({type:"BOOKS_DETAIL",detail:res.data});
     })
@@ -74,7 +74,7 @@ export function BuyProduct(cart){
 }
 
 export function RemoveFromcard(cart){
-  return dispatch =>{
+  return (dispatch) => {
     dispatch({type:'REMOVE_TO_CART',cart:cart});
     toastr.info('El producto ' +cart.title + 'se ha eliminado a tu cesta','Bienvenido');
   }
@@ -149,42 +149,82 @@ export function SingUp(user){
 
  /**CRUD */
 
-export function createbook(){
-
+export function createbook(book){
+  let token = localStorage.getItem('token');
+  return (dispatch) => {
+    return axios.put('http://localhost:3001/api/books/',{book},{headers: { Authorization: 'Token ' + token}})
+    .then(
+      (res)=>{ dispatch({ type:"CHANGE_LIST",list:res.data});
+    });
+  }
 }
 
-export function editbook(){
 
+export function editbook(book){
+  let token = localStorage.getItem('token');
+  return (dispatch) => {
+    return axios.put('http://localhost:3001/api/books/book/',{book},{headers: { Authorization: 'Token ' + token}})
+    .then(
+      (res)=>{ dispatch({ type:"CHANGE_LIST",list:res.data});
+    });
+  }
 }
 
-export function deletebook(){
-
+export function deletebook(book){
+  let token = localStorage.getItem('token');
+  return (dispatch) =>{
+    return axios.delete('http://localhost:3001/api/books/book/',{book},{headers: { Authorization: 'Token ' + token}})
+    .then(
+      (res)=>{ dispatch({ type:"CHANGE_LIST",list:res.data});
+      toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
+    });
+  }
 }
 
-export function createcoffee(){
-
+export function createcoffee(coffee){
+  let token = localStorage.getItem('token');
+  return (dispatch) => {
+    return axios.put('http://localhost:3001/api/coffees/',{coffee},{headers: { Authorization: 'Token ' + token}})
+    .then(
+      (res)=>{ dispatch({ type:"CHANGE_LIST",list:res.data});
+    });
+  }
 }
 
-export function editcoffee(){
-
+export function editcoffee(coffee){
+  let token = localStorage.getItem('token');
+  return (dispatch) => {
+    return axios.put('http://localhost:3001/api/coffees/coffee/',{coffee},{headers: { Authorization: 'Token ' + token}})
+    .then((res)=>{ dispatch({ type:"CHANGE_LIST",list:res.data});
+    });
+  }
 }
 
-export function deletecoffee(){
-
+export function deletecoffee(coffee){
+  let token = localStorage.getItem('token');
+  return (dispatch) => {
+    return axios.delete('http://localhost:3001/api/coffees/coffee',{coffee},{headers: { Authorization: 'Token ' + token}})
+    .then((res)=>{ dispatch({ type:"CHANGE_LIST",list:res.data});
+    });
+  }
 }
 
 export function deletecoffees(){
-  return axios.delete('http://localhost:3001/api/coffee')
-  .then( () => { dispatch({type:'DELETE_COFFEE  S'});
-  toastr.info('Se han eliminado todos los libros');
-  });
+  let token = localStorage.getItem('token');
+  return (dispatch) => {
+    return axios.delete('http://localhost:3001/api/coffees/',{headers: { Authorization: 'Token ' + token}})
+      .then( () => { dispatch({type:'DELETE_COFFEES'});
+      toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
+    });
+  }
 }
 
 export function deletebooks(){
-return dispatch =>{
-    return axios.delete('http://localhost:3001/api/book')
+  let token = localStorage.getItem('token');
+  return (dispatch) => {
+    return axios.delete('http://localhost:3001/api/books/',{headers: { Authorization: 'Token ' + token}})
     .then( () => { dispatch({type:'DELETE_BOOKS'});
-    toastr.info('Se han eliminado todos los libros');
+    toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
     });
   };
 }

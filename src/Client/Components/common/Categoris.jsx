@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import {connect} from 'react-redux';
 import { Link } from "react-router";
 
-const mapStateToProps= state => {
+const mapStateToProps = state => {
   return {
     user:state.loginReducer.user
   };

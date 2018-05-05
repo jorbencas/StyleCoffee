@@ -18,6 +18,9 @@ import CoffeeListPage from './Coffees/CoffeeListPage';
 import Profile from './auth/profile';
 import ShoppingCard from './Card/ShoppingCard';
 import BuyForm from './Card/BuyformPage';
+import managebooks from './Books/EditBooks';
+import managecoffees from './Coffees/EditCoffee';
+import ReserveBook from './common/ReservePage';
 
 import { loadlistCoffees, loadListBooks,profile } from '../actions';
 import store from '../Store';
@@ -56,6 +59,11 @@ render() {
             <Route path='/profile' component={Profile}/>
             <Route path='/card' component={ShoppingCard}/>
             <Route path='/buy' component={BuyForm}/>
+            <Route path='/reservebook' component={ReserveBook}/>
+            <Route path='/createbooks' component={managebooks}/>
+            <Route path='/editebook/:id' component={managebooks}/>
+            <Route path='/createcoffees' component={managecoffees}/>
+            <Route path='/editecoffee/:id' component={managecoffees}/>
           </Switch>
         </Route>
       </div>

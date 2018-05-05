@@ -51,7 +51,7 @@ const BooksDetailPage  = ({detail,BuyProduct}) => {
                   </section>
                   <section className="buttons-details">
                     <p className="detail-price">{item.price}€</p>
-                    <a className="btn-search" >Reserva-lo</a>
+                    <Link to='/reservebook' className="btn-search">Reserva-lo</Link>
                     <Link to='/buy' onClick={()=>{BuyProduct(item)}} className="btn-search">Comprar</Link>
                   </section>
                 </article>

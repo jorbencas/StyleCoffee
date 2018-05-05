@@ -53,7 +53,9 @@ class Profile extends React.Component {
         date_birthday:nextProps.user.date_birthday,
         name:nextProps.user.name,
         apellidos:nextProps.user.apellidos,
-        image:nextProps.user.image,})
+        image:nextProps.user.image
+      });
+      console.log(this.state);
     }
 
     handleInputChange(event) {

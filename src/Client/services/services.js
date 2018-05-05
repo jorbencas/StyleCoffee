@@ -1,5 +1,4 @@
 import toastr from 'toastr';
-import axios from 'axios'; 
 
   function contactService (contact){
         console.log(contact);
@@ -15,7 +14,6 @@ import axios from 'axios';
               console.log(data);
               toastr.success('Se le  envio un email a' +data.contact + ' correctamente','Email');
             }
-            
          });
     }
 

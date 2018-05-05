@@ -3,7 +3,7 @@ var router = require('express').Router();
 var passport = require('passport');
 var User = mongoose.model('User');
 var auth = require('../auth');
-var stripe = require("stripe")('sk_test_sje4TJ42Scf9KdKuqcJsPp7Z');
+var stripe = require("stripe")(process.env.STRYPE_API_KEY);
 console.log('Users');
 
 router.get('/users',auth.required, function(req, res, next){
@@ -96,14 +96,10 @@ console.log(req.body.user.username + " " + req.body.user.password);
     }else{
       passport.authenticate('local', {session: false}, function(err, user, info){
         user = new User();
-        
         user.username = req.body.user.username;
         user.setPassword(req.body.user.password);
-       
-        //console.log(user);
-    
+
         if(err){ return next(err); }
-    
         if(user){
           //console.log(user);
           user.token = user.generateJWT();
@@ -165,10 +161,10 @@ router.get('/auth/twitter/callback',
     { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
 
 
-router.post("/charge" , (req, res) => {
+router.post("/charge", (req, res) => {
   
     console.log(req.body.card);
-    /*
+    
     stripe.customers.create({
        email: req.body.stripeEmail,
       source: req.body.stripeToken
@@ -183,7 +179,7 @@ router.post("/charge" , (req, res) => {
              customer: customer.id
         })
         .then(
-           Computer.update({ _id:req.body.payment}, {$inc:{"shop.0.stock":10}})  
+           Computer.update({ id:req.body.payment}, {$inc:{"shop.0.stock":10}})  
           // computer.save()
         )
         console.log(computer);
@@ -192,7 +188,7 @@ router.post("/charge" , (req, res) => {
       )
     .then( charge => res.redirect('http://localhost:8081//#!/details/' + req.body.payment)
     // , res.send(toastr.success('Sucuenta se ha creado correctemente.','Bienvenido'))
-      );*/
+      );
   });
 
 

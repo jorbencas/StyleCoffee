@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router";
 import {connect} from 'react-redux';
-import {booksdetail, AddtoCard} from '../../actions/index';
+import {booksdetail, AddtoCard, deletebooks} from '../../actions/index';
 import { bindActionCreators } from 'redux';
 
 const mapStateToProps= state => {
@@ -11,17 +11,18 @@ const mapStateToProps= state => {
 }
 
 const mapDispatchToProps = dispatch =>{
-  return bindActionCreators({booksdetail,AddtoCard}, dispatch);
+  return bindActionCreators({booksdetail,AddtoCard,deletebooks}, dispatch);
 }
 
- export const BooksListPage = ({books,booksdetail, AddtoCard}) => {
+ export const BooksListPage = ({books,booksdetail, AddtoCard,deletebooks}) => {
 
       function mangment(){
         if(localStorage.getItem('token')){
           return(
             <section>
-              <Link className="button" to={'/BooksList/Book/' + 1}>Crear un nuevo libro</Link>
-              <Link className="button" to={'/BooksList/Book/' + 1}>Eliminar todos</Link>
+              
+              <Link className="button" to='/createbooks'>Crear un nuevo libro</Link>
+              <Link className="button" to='/BooksList' onClick={() => {this.props.deletebooks()}}>Eliminar todos</Link>
               <br/><br/>
             </section>
           );
@@ -33,8 +34,8 @@ const mapDispatchToProps = dispatch =>{
 
           return(
             <section>
-              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Editar</Link>
-              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { booksdetail(item.id)}} >Borrar</Link>
+              <Link className="button" to={'/editebook/'+item.id}  onClick={() => { booksdetail(item.id)}} >Editar</Link>
+              <Link className="button" to={'/BooksList'+item.id}  onClick={() => { booksdetail(item.id)}} >Borrar</Link>
             </section>
           )
         }else{

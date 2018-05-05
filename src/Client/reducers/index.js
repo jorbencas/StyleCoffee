@@ -85,14 +85,12 @@ function printerrors(state = initialState.errors,action){
 
 function ShoppingCardReducer(state = initialState.cart,action){
   if (action.type === 'ADD_TO_CART') {
-    console.log(action.cart);
     let cart=state.cart;
     let total=state.total;
     total++;
     cart.push(action.cart);
     return [...state,{cart: cart,total: total}][0];
   }else if(action.type === 'REMOVE_TO_CART'){
-    console.log(action.cart);
     let cart=state.cart;
     let total=state.total;
     total--;
