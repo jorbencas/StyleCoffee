@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { getCookie } from '../lib/utils';
 
 const initialState = {
   productsOffer: {list: []},
@@ -13,7 +14,7 @@ const initialState = {
 
 function productsOfferReducer (state = initialState.productsOffer, action) {
   if(action.type==='CHANGE_OFFER'){
-    return action.list; 
+    return [...state,action.list][0]; 
   }else{
     return state
   }
@@ -21,7 +22,7 @@ function productsOfferReducer (state = initialState.productsOffer, action) {
 }
 function productsListReducer (state = initialState.productsList, action) {
   if(action.type==='CHANGE_LIST'){
-    return action.list;
+    return [...state,action.list][0];
   }else{
     return state
   }
@@ -29,7 +30,7 @@ function productsListReducer (state = initialState.productsList, action) {
 
 function booksdetails(state = initialState.booksdetail,action) {
   if (action.type === 'BOOKS_DETAIL') {
-    return action.detail;
+    return [...state,action.detail][0];
   }else{
     return state
   }
@@ -37,7 +38,7 @@ function booksdetails(state = initialState.booksdetail,action) {
 
 function coffeedetails(state = initialState.coffeesdetail,action) {
   if (action.type === 'COFFEE_DETAIL') {
-    return action.detail;
+    return [...state,action.detail][0];
   }else{
     return state
   }
@@ -85,10 +86,25 @@ function printerrors(state = initialState.errors,action){
 
 function ShoppingCardReducer(state = initialState.cart,action){
   if (action.type === 'ADD_TO_CART') {
+    var productsmap = new Map()
     let cart=state.cart;
     let total=state.total;
     total++;
     cart.push(action.cart);
+    /*let storecart = localStorage.getItem('cart');
+    console.log(storecart);
+    if (storecart) {
+      let kind = getCookie('kind');
+      console.log(kind);
+      productsmap.set(kind,[JSON.parse(storecart)]);
+      console.log(productsmap);
+      let cart = localStorage.setItem('cart', JSON.stringify(productsmap));
+      console.log(cart);
+      return [...state,{cart: cart,total: total}][0];
+    }else{*/
+     
+     /* return [...state,{cart: cart,total: total}][0];
+    }*/
     return [...state,{cart: cart,total: total}][0];
   }else if(action.type === 'REMOVE_TO_CART'){
     let cart=state.cart;

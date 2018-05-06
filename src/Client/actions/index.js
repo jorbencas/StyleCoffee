@@ -1,18 +1,17 @@
 import axios from 'axios';
 import toastr from 'toastr';
-import store from '../Store';
-import { getCookie, setCookie } from '../lib/utils.js';
+import { setCookie } from '../lib/utils';
 
-export function loadlistCoffees(param){
+export function loadlistCoffees(){
     return(dispatch)=>{
-      return axios.get(`http://localhost:3001/api/coffee`)
+      return axios.get(`http://localhost:3001/api/coffees`)
       .then(res => {
         dispatch({type:"CHANGE_OFFER",list:res.data});
       })
     }
 }
 
-export function loadListBooks(param){
+export function loadListBooks(){
     return(dispatch)=>{
       return axios.get(`http://localhost:3001/api/books`)
       .then(res => {
@@ -32,7 +31,7 @@ export function categoriesbook(param){
 
 export function categoriescoffee(param){
   return(dispatch)=>{
-    return axios.get(`http://localhost:3001/api/coffee/` + param)
+    return axios.get(`http://localhost:3001/api/coffees/` + param)
     .then(res => {
       dispatch({type:"CHANGE_OFFER",list:res.data});
     })
@@ -50,7 +49,7 @@ export function booksdetail(id){
 
 export function coffeesdetails(id){
   return(dispatch)=>{
-    return axios.post(`http://localhost:3001/api/coffee/` + id)
+    return axios.post(`http://localhost:3001/api/coffees/` + id)
     .then(res => {
       dispatch({type:"COFFEE_DETAIL",detail:res.data});
     })
@@ -59,6 +58,7 @@ export function coffeesdetails(id){
 
 export function AddtoCard(cart){
   return dispatch =>{
+    //setCookie('kind',kind,12);
       dispatch({type:"ADD_TO_CART", cart:cart});
       toastr.success('El producto ' +cart.title + 'se ha añadido a tu cesta','Bienvenido');
   }
