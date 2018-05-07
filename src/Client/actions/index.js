@@ -1,6 +1,7 @@
 import axios from 'axios';
 import toastr from 'toastr';
 import { setCookie } from '../lib/utils';
+import _ from 'underscore';
 
 export function loadlistCoffees(){
     return(dispatch)=>{
@@ -227,4 +228,17 @@ export function deletebooks(){
     toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
     });
   };
+}
+
+
+export function getCart(states) {
+	var cartItems = JSON.parse(localStorage.getItem('cart'));
+	var total = 0.00;
+	_.each(cartItems, function (item) {
+		total += item.price;
+	});
+	return {
+		total: total.toFixed(2),
+		cart: cartItems ? cartItems : 0
+	};
 }

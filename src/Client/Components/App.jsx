@@ -25,12 +25,13 @@ import ReserveBook from './common/ReservePage';
 import { loadlistCoffees, loadListBooks,profile } from '../actions';
 import store from '../Store';
 
-const token = window.localStorage.getItem('token');
+const token = localStorage.getItem('token');
 if (token) {
    store.dispatch({type:"AUTH_USER", user:store.getState().loginReducer.user});
 }
 
 store.dispatch(loadlistCoffees());
+
 
 export class App extends React.Component{
   

@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { getCookie } from '../lib/utils';
+import _ from 'underscore';
 
 const initialState = {
   productsOffer: {list: []},
@@ -86,32 +87,22 @@ function printerrors(state = initialState.errors,action){
 
 function ShoppingCardReducer(state = initialState.cart,action){
   if (action.type === 'ADD_TO_CART') {
-    var productsmap = new Map()
-    let cart=state.cart;
-    let total=state.total;
-    total++;
-    cart.push(action.cart);
-    /*let storecart = localStorage.getItem('cart');
-    console.log(storecart);
-    if (storecart) {
-      let kind = getCookie('kind');
-      console.log(kind);
-      productsmap.set(kind,[JSON.parse(storecart)]);
-      console.log(productsmap);
-      let cart = localStorage.setItem('cart', JSON.stringify(productsmap));
-      console.log(cart);
-      return [...state,{cart: cart,total: total}][0];
-    }else{*/
-     
-     /* return [...state,{cart: cart,total: total}][0];
-    }*/
-    return [...state,{cart: cart,total: total}][0];
+    var cartState = JSON.parse(localStorage.getItem('cart'));
+    console.log(cartState);debugger;
+    cartState = cartState ? cartState : [];
+    localStorage.setItem('cart', JSON.stringify([...cartState, action.cart]));
+    return {
+        cart: JSON.parse(localStorage.getItem('cart'))
+    };
   }else if(action.type === 'REMOVE_TO_CART'){
-    let cart=state.cart;
-    let total=state.total;
-    total--;
-    cart.pop(action.cart);
-    return [...state,{cart: cart,total: total}][0];
+    var cartData = JSON.parse(localStorage.getItem('cart'));
+    state = _.filter(cartData, function (item) {
+        return item.id !== action.cart.id
+    });
+    localStorage.setItem('cart', JSON.stringify(state));
+    return {
+        cart : state
+    };
   }else{
     return state
   }
