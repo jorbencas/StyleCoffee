@@ -3,6 +3,8 @@ import { Link } from "react-router";
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
 import {RemoveFromcard,BuyProduct,getCart} from '../../actions/index';
+import _ from 'underscore';
+let item = [];
 
 const mapStateToProps= state => {
   console.log(state);
@@ -16,6 +18,21 @@ const mapDispatchToProps = dispatch =>{
 }
 
 const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
+
+
+  function saveproductscardtobuy(){
+    let cartitem = JSON.parse(localStorage.getItem('item'));
+
+    if(cartitem.length !== cart.cart.length){
+      let cart = cart.cart;
+      _.each(cart, function (item) {
+        console.log(item.id);
+        //cartitem.push({})
+        //total += item.price;
+      });
+    }
+    //BuyProduct(cartitem)
+  }
     function render() { 
       console.log(cart);              
         return cart.cart.map((item) => (
@@ -33,13 +50,13 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
                 <Link  to='/card' className="btn-search" onClick={()=>{RemoveFromcard(item)}}>Eliminar</Link>
             </section>
           ));
-          <Link to='/buy' onClick={()=>{BuyProduct(cart)}} className="btn-search">Comprar</Link>
         }
 
           return (
             <div className="grid-main" id="listbooks">
-              <div  id="list" >{ cart != undefined ? render():'El carrito esta vacio!!' }</div>
-              <p>Hay{cart.total} productos en el carrito</p>
+              <div  id="list" >{ cart.cart.length !== 0 ? render():'El carrito esta vacio!!' }</div>
+              <Link to='/buy' onClick={()=>{ saveproductscardtobuy()}} className="btn-search">Comprar</Link>
+              <p>Total de productos en el carrito: {cart.cart.length} <br/> Total:{cart.total} €</p>
             </div>
           );
 }

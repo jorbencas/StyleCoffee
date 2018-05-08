@@ -58,7 +58,7 @@ class BooksListPage extends React.Component {
          return(
             <section>
               <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Leer Más</Link>
-              <Link className="button" to='/card'  onClick={() => {console.log(item.id); this.props.AddtoCard(item)}} >Añadir al carrito</Link>
+              <Link className="button" to='/card'  onClick={() => { console.log(item.id);  debugger; this.props.AddtoCard(this.state.kind,item)}} >Añadir al carrito</Link>
             </section>
           ) 
         }

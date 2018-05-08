@@ -2,6 +2,7 @@ import axios from 'axios';
 import toastr from 'toastr';
 import { setCookie } from '../lib/utils';
 import _ from 'underscore';
+let item = [];
 
 export function loadlistCoffees(){
     return(dispatch)=>{
@@ -57,11 +58,15 @@ export function coffeesdetails(id){
   }
 }
 
-export function AddtoCard(cart){
+export function AddtoCard(kind,cart){
   return dispatch =>{
-    //setCookie('kind',kind,12);
-      dispatch({type:"ADD_TO_CART", cart:cart});
-      toastr.success('El producto ' +cart.title + 'se ha añadido a tu cesta','Bienvenido');
+   
+    item.push({'kind':kind,'id':cart.id});
+    console.log(item);
+    debugger;
+    localStorage.setItem('item',JSON.stringify(item));
+    dispatch({type:"ADD_TO_CART", cart:cart});
+    toastr.success('El producto ' +cart.title + 'se ha añadido a tu cesta','Bienvenido');
   }
 }
 

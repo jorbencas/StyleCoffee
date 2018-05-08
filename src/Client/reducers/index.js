@@ -88,7 +88,6 @@ function printerrors(state = initialState.errors,action){
 function ShoppingCardReducer(state = initialState.cart,action){
   if (action.type === 'ADD_TO_CART') {
     var cartState = JSON.parse(localStorage.getItem('cart'));
-    console.log(cartState);debugger;
     cartState = cartState ? cartState : [];
     localStorage.setItem('cart', JSON.stringify([...cartState, action.cart]));
     return {

@@ -164,7 +164,17 @@ router.get('/auth/twitter/callback',
 router.post("/charge", (req, res) => {
   
     console.log(req.body.card);
-    
+    let cart =req.body.card;
+
+    if(typeof cart !== [] ){
+
+    }else{
+
+    }
+
+
+
+
     stripe.customers.create({
        email: req.body.stripeEmail,
       source: req.body.stripeToken
