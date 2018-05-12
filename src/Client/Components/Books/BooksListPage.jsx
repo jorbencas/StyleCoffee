@@ -46,19 +46,18 @@ class BooksListPage extends React.Component {
       }
 
        editable (item){
-          if(localStorage.getItem('token')){
-
+        if(localStorage.getItem('token')){
           return(
             <section>
-              <Link className="button" to={'/editebook/'+item.id}  onClick={() => { booksdetail(item.id)}} >Editar</Link>
-              <Link className="button" to={'/BooksList'+item.id}  onClick={() => { booksdetail(item.id)}} >Borrar</Link>
+              <Link className="button" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
+              <Link className="button" to={'/BooksList'}  onClick={() => { this.props.booksdetail(item.id)}} >Borrar</Link>
             </section>
           )
         }else{
-         return(
+          return(
             <section>
               <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Leer Más</Link>
-              <Link className="button" to='/card'  onClick={() => { console.log(item.id);  debugger; this.props.AddtoCard(this.state.kind,item)}} >Añadir al carrito</Link>
+              <Link className="button" to='/card'  onClick={() => { this.props.AddtoCard(this.state.kind,item)}} >Añadir al carrito</Link>
             </section>
           ) 
         }

@@ -60,23 +60,31 @@ export function coffeesdetails(id){
 
 export function AddtoCard(kind,cart){
   return dispatch =>{
-   
     item.push({'kind':kind,'id':cart.id});
-    console.log(item);
-    debugger;
     localStorage.setItem('item',JSON.stringify(item));
     dispatch({type:"ADD_TO_CART", cart:cart});
     toastr.success('El producto ' +cart.title + 'se ha añadido a tu cesta','Bienvenido');
   }
 }
 
-export function BuyProduct(cart){
-  return(dispatch) => {
-    return axios.post(`http://localhost:3001/api/charge/`, {cart})
-    .then(res => {
-      dispatch({type:"BOOKS_DETAIL",detail:res.data});
-    })
+export function BuyProduct(card){
+  let cartitem = localStorage.getItem('cartitem');
+  if (cartitem) {
+    return(dispatch) => {
+      return axios.post(`http://localhost:3001/api/charge/`, {cartitem})
+      .then(res => {
+        dispatch({type:"BOOKS_DETAIL",detail:res.data});
+      })
+    }
+  }else{
+    return(dispatch) => {
+      return axios.post(`http://localhost:3001/api/charge/`, {card})
+      .then(res => {
+        dispatch({type:"BOOKS_DETAIL",detail:res.data});
+      })
+    }
   }
+  
 }
 
 export function RemoveFromcard(cart){
@@ -117,12 +125,9 @@ export function profile(){
   }
 }
 
-  export function authError (error){
-    return {
-        type: 'AUTH_ERROR',
-        payload: error
-    };
-  };
+export function authError (error){
+   return {type: 'AUTH_ERROR',payload: error};
+};
 
 export function SingUp(user){
   return(dispatch)=>{
@@ -138,20 +143,20 @@ export function SingUp(user){
   };
 };
 
-  export function updateprofile(user){
-    let token = localStorage.getItem('token');
-    return(dispatch)=>{
-      return axios.put('http://localhost:3001/api/user',{user},{headers: { Authorization: 'Token ' + token} }
-      ).then(
-        res => {
-          dispatch({type:"PROFILE_USER",user:response.data.profile});
-          toastr.success('Hola ' +res.data.user.username + 'tu perfil se ha actualizado correctamente','Bienvenido');
-        }
-      ).catch(err => {authError(err); 
-        toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
-      });
-    }
+export function updateprofile(user){
+  let token = localStorage.getItem('token');
+  return(dispatch)=>{
+    return axios.put('http://localhost:3001/api/user',{user},{headers: { Authorization: 'Token ' + token} }
+    ).then(
+      res => {
+        dispatch({type:"PROFILE_USER",user:response.data.profile});
+        toastr.success('Hola ' +res.data.user.username + 'tu perfil se ha actualizado correctamente','Bienvenido');
+      }
+    ).catch(err => {authError(err); 
+      toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
+    });
   }
+}
 
  /**CRUD */
 
@@ -230,7 +235,7 @@ export function deletebooks(){
   return (dispatch) => {
     return axios.delete('http://localhost:3001/api/books/',{headers: { Authorization: 'Token ' + token}})
     .then( () => { dispatch({type:'DELETE_BOOKS'});
-    toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
+    toastr.error( 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
     });
   };
 }

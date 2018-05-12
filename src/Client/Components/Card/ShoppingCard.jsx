@@ -22,7 +22,6 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
   function saveproductscardtobuy(){
     let cartitem = JSON.parse(localStorage.getItem('item'));
-
     if(cartitem.length !== cart.cart.length){
       let cart = cart.cart;
       _.each(cart, function (item) {
@@ -54,7 +53,7 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
           return (
             <div className="grid-main" id="listbooks">
-              <div  id="list" >{ cart.cart.length !== 0 ? render():'El carrito esta vacio!!' }</div>
+              <div  id="list" >{ cart.cart.length !== 0 || cart !== undefined ? render():'El carrito esta vacio!!' }</div>
               <Link to='/buy' onClick={()=>{ saveproductscardtobuy()}} className="btn-search">Comprar</Link>
               <p>Total de productos en el carrito: {cart.cart.length} <br/> Total:{cart.total} €</p>
             </div>

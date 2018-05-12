@@ -228,10 +228,24 @@ router.put('/book',auth.required, function(req,res,next){
 });
 
 router.delete('/',auth.required, function(req,res,next){
-
+  Books.remove({},function(error){
+    if (error) {
+      res.status(401).send('Ertro els borrar el libro!!');
+    }else{
+      res.status(200).send('Swe ha borrado correctamente.');
+    }
+  });
 });
 
 router.delete('/book',auth.required, function(req,res,next){
+  console.log(req.body.id);
+  Books.remove({id:req.body.book.id},function(err){
+    if (err) {
+      res.status(401).send('Ertro els borrar el libro!!');
+    }else{
+      res.status(200).send('Swe ha borrado correctamente.');
+    }
+  });
 
 }),
 

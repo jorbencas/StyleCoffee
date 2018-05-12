@@ -3,6 +3,14 @@ import { Link } from "react-router";
 import { logout } from '../../actions/index';
 import { connect } from 'react-redux';
 
+const mapStateToProps = (state) => {
+  return { authenticated: state.loginReducer.authenticated,username: state.loginReducer.user }
+};
+
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({logout}, dispatch);
+}
+
 class Header extends React.Component {
     constructor({props, authenticated, username, logout}){
         super(props);  
@@ -30,7 +38,7 @@ class Header extends React.Component {
               <li className="listado-item"><Link to="/BooksList">Books</Link></li>
               <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
               <li className="listado-item"><Link to="/profile">{ this.state.username}</Link></li>
-              <li className="listado-item"><Link to="/" onClick={ () => {this.props.logout()}}>Logout</Link></li>
+              <li className="listado-item"><Link to="/" onClick={ () => {logout()}}>Logout</Link></li>
               <li className="listado-item"><Link to='/card'>Añadir al carrito</Link></li>
             </ul>
           );
@@ -72,9 +80,5 @@ class Header extends React.Component {
     }
 
 }
-
-const mapStateToProps = (state) => {
-  return { authenticated: state.loginReducer.authenticated,username: state.loginReducer.user }
-};
 
 export default connect(mapStateToProps)(Header);

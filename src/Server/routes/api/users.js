@@ -2,6 +2,8 @@ var mongoose = require('mongoose');
 var router = require('express').Router();
 var passport = require('passport');
 var User = mongoose.model('User');
+var coffee = mongoose.model('Coffee');
+var Books = mongoose.model('Books');
 var auth = require('../auth');
 var stripe = require("stripe")(process.env.STRYPE_API_KEY);
 console.log('Users');
@@ -150,15 +152,15 @@ router.get('/SigUpGoogle',passport.authenticate('google',{scope: 'profile'}));//
 router.get('/auth/google/callback',
   passport.authenticate('google'),
    function(req, res) {
-    console.log('Google login ' + JSON.stringify(req.user));
-    return res.redirect('/' + req.user);
+   
+    return res.redirect('/');
   });
 
 /*----TWITTER----*/
 router.get('/api/twitter', passport.authenticate('twitter'));
 router.get('/auth/twitter/callback',
     passport.authenticate('twitter',
-    { successRedirect: 'http://localhost:8081/#!/social', failureRedirect: 'http://localhost:8081/#!/register' }));
+    { successRedirect: 'http://localhost:3001/', failureRedirect: '/' }));
 
 
 router.post("/charge", (req, res) => {
@@ -166,39 +168,39 @@ router.post("/charge", (req, res) => {
     console.log(req.body.card);
     let cart =req.body.card;
 
-    if(typeof cart !== [] ){
-
-    }else{
-
-    }
-
-
-
-
     stripe.customers.create({
        email: req.body.stripeEmail,
       source: req.body.stripeToken
     })
-    .then(customer =>
-      Computer.find().then(function(computer){
-        console.log(computer);
-        stripe.charges.create({
-          amount: 322,
-          description: "Sample Charge",
-             currency: "eur",
-             customer: customer.id
-        })
-        .then(
-           Computer.update({ id:req.body.payment}, {$inc:{"shop.0.stock":10}})  
-          // computer.save()
-        )
-        console.log(computer);
-      })
-  
-      )
-    .then( charge => res.redirect('http://localhost:8081//#!/details/' + req.body.payment)
-    // , res.send(toastr.success('Sucuenta se ha creado correctemente.','Bienvenido'))
-      );
+    .then(customer => {
+      if(typeof cart !== [] ){
+        card.forEach(element => {
+          if(element.kind === 'Book'){
+            Books.findById({id: element.id}).then(
+              stripe.charges.create({
+                amount: 322,
+                description: "Sample Charge",
+                   currency: "eur",
+                   customer: customer.id
+              })
+              .then(
+                 //Computer.update({ id:req.body.payment}, {$inc:{"shop.0.stock":10}})  
+                // computer.save()
+              )
+            )
+          }else if(element.kind === 'coffee'){
+            coffee.findById().then()
+          }
+        });
+      }else if(typeof cart === {} ) {
+        if(cart.kind === 'Book'){
+          Books.findById({id: element.id}).then()
+        }else if(cart.kind === 'coffee'){
+          coffee.findById().then()
+        }
+      }
+    })
+    .then( charge => res.redirect() );
   });
 
 
