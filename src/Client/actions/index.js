@@ -70,13 +70,19 @@ export function AddtoCard(kind,cart){
 export function BuyProduct(card){
   let cartitem = localStorage.getItem('cartitem');
   if (cartitem) {
+     let Cart = card + cartitem;
+    let Item = [];
+    Item.push(Cart)
     return(dispatch) => {
-      return axios.post(`http://localhost:3001/api/charge/`, {cartitem})
+      return axios.post(`http://localhost:3001/api/charge/`, {Item})
       .then(res => {
         dispatch({type:"BOOKS_DETAIL",detail:res.data});
       })
     }
   }else{
+    let Cart = card + cartitem;
+    let Item = [];
+    Item.push(Cart)
     return(dispatch) => {
       return axios.post(`http://localhost:3001/api/charge/`, {card})
       .then(res => {

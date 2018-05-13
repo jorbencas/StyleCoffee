@@ -17,7 +17,7 @@ import Main from './core/Main';
 import CoffeeListPage from './Coffees/CoffeeListPage';
 import Profile from './auth/profile';
 import ShoppingCard from './Card/ShoppingCard';
-import BuyForm from './Card/BuyformPage';
+import CreditCard from './Card/BuyformPage';
 import managebooks from './Books/EditBooks';
 import managecoffees from './Coffees/EditCoffee';
 import ReserveBook from './common/ReservePage';
@@ -57,7 +57,7 @@ render() {
             <Route path='/abouteus' component={AbouteUs} />
             <Route path='/profile' component={Profile}/>
             <Route path='/card' component={ShoppingCard}/>
-            <Route path='/buy' component={BuyForm}/>
+            <Route path='/buy' component={CreditCard}/>
             <Route path='/reservebook' component={ReserveBook}/>
             <Route path='/createbooks' component={managebooks}/>
             <Route path='/editebook/:id' component={managebooks}/>
