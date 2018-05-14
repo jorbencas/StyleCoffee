@@ -6,6 +6,7 @@ var secret = require('../config').secret;
 var passport = require('passport');
 
 var UserSchema = new mongoose.Schema({
+  id:Number,
   username: String,
   email: String,
   image: String,
@@ -44,6 +45,7 @@ UserSchema.methods.generateJWT = function() {
 
 UserSchema.methods.toAuthJSON = function(){
   return {
+    id:this.id,
     username: this.username,
     email: this.email,
     token: this.generateJWT(),
@@ -57,6 +59,7 @@ UserSchema.methods.toAuthJSON = function(){
 
 UserSchema.methods.toProfileJSONFor = function(user){
   return {
+    id:this.id,
     username: this.username,
     email: this.email,
     image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',

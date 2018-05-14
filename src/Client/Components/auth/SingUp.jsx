@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { FormErrors } from '../../lib/FormErrors';
 import { SingUp } from '../../actions/index';
 import { bindActionCreators } from 'redux';
+import {hashcode} from '../../lib/utils';
 
 const mapStateToProps= state => {
   return {
@@ -19,7 +20,8 @@ class singup extends React.Component {
     constructor({props,SingUp}) {
         super(props);
 
-        this.state = { 
+        this.state = {
+          id:0, 
           username: '',
           email:'',
           password: '',
@@ -39,6 +41,14 @@ class singup extends React.Component {
       const name = target.name;
   
       this.setState({[name]: value}, () => { this.validateField(name, value) });
+
+
+      let newid = hashcode(this.state.username + this.state.email + this.state.password);
+      if(newid !== 0){
+        this.setState({id: newid});
+        console.log(this.state);
+      }
+
   }
 
     validateField(fieldName, value) {

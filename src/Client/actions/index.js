@@ -3,7 +3,8 @@ import toastr from 'toastr';
 import { setCookie } from '../lib/utils';
 import _ from 'underscore';
 let item = [];
-
+import store from '../Store';import { debug } from 'util';
+;
 export function loadlistCoffees(){
     return(dispatch)=>{
       return axios.get(`http://localhost:3001/api/coffees`)
@@ -178,6 +179,8 @@ export function createbook(book){
 
 
 export function editbook(book){
+  console.log(book);
+  debugger;
   let token = localStorage.getItem('token');
   return (dispatch) => {
     return axios.put('http://localhost:3001/api/books/book/',{book},{headers: { Authorization: 'Token ' + token}})

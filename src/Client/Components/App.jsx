@@ -17,7 +17,7 @@ import Main from './core/Main';
 import CoffeeListPage from './Coffees/CoffeeListPage';
 import Profile from './auth/profile';
 import ShoppingCard from './Card/ShoppingCard';
-import CreditCard from './Card/BuyformPage';
+import CreditCard from './Card/CreaditCard';
 import managebooks from './Books/EditBooks';
 import managecoffees from './Coffees/EditCoffee';
 import ReserveBook from './common/ReservePage';
