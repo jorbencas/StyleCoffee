@@ -65,7 +65,7 @@ const mapStateToProps= state => {
 
     handleInputChange(event) {
       const target = event.target;
-      const value = target.type === 'checkbox' ? target.checked : target.value;
+      const value = target.type === 'checkbox' ? target.value : target.value;
       const name = target.name;
 
       console.log(name);
@@ -74,6 +74,10 @@ const mapStateToProps= state => {
       this.setState({[name]: value});
 
 
+      if(name === 'genere'){
+        //let newgenere = this.state.genere.push(value);
+        this.setState({genere:value});
+      }
       let newid = hashcode(this.state.title);
       if(newid !== 0){
         this.setState({id: newid});
@@ -147,6 +151,16 @@ const mapStateToProps= state => {
                         <div className={`contact_item`}>
                           <label htmlFor="price" >price</label>
                           <input type="number" name="price" id="price" onChange={this.handleInputChange} required/>
+                        </div>
+                        <div>
+                          <input type='checkbox' name="genere" className="genere" id="accion" value="accion" onChange={this.handleInputChange}/>	
+					                <label className="terminos" htmlFor="genero">Acción</label>
+
+                          <input type='checkbox' name="genere" className="genere" id="novela_negra" value="novela_negra" onChange={this.handleInputChange}/>	
+					                <label className="terminos" htmlFor="genero">Novela Negra</label>
+
+                          <input type='checkbox' name="genere" className="genere" id="drama" value="drama" onChange={this.handleInputChange} />	
+					                <label className="terminos" htmlFor="genero">Drama</label>
                         </div>
                         <div className={`contact_item`}>
                           <label htmlFor="stock" >stock</label>

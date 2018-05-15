@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router";
 import {connect} from 'react-redux'
 import { bindActionCreators } from 'redux'
-import {RemoveFromcard,BuyProduct,getCart} from '../../actions/index';
+import {RemoveFromcard,getCart} from '../../actions/index';
 import _ from 'underscore';
 let item = [];
 

@@ -3,6 +3,7 @@ import toastr from 'toastr';
 import { setCookie } from '../lib/utils';
 import _ from 'underscore';
 let item = [];
+let Item = [];
 import store from '../Store';import { debug } from 'util';
 ;
 export function loadlistCoffees(){
@@ -41,7 +42,7 @@ export function categoriescoffee(param){
   }
 }
 
-export function booksdetail(id){
+export function booksdetail(kind,id){
   return dispatch =>{
     return axios.get(`http://localhost:3001/api/books/` + id)
     .then(res => {
@@ -61,29 +62,31 @@ export function coffeesdetails(id){
 
 export function AddtoCard(kind,cart){
   return dispatch =>{
-    item.push({'kind':kind,'id':cart.id});
+    item.push({'kind':kind,'id':cart.id,'token':0});
     localStorage.setItem('item',JSON.stringify(item));
     dispatch({type:"ADD_TO_CART", cart:cart});
     toastr.success('El producto ' +cart.title + 'se ha añadido a tu cesta','Bienvenido');
   }
 }
 
-export function BuyProduct(card){
-  let cartitem = localStorage.getItem('cartitem');
+export function BuyProduct(cart){
+  let cartitem = localStorage.getItem('item');
+  console.log(cartitem);
   if (cartitem) {
-     let Cart = card + cartitem;
-    let Item = [];
-    Item.push(Cart)
+   // let t = {'token':cart};
+    let p = JSON.parse(cartitem);
+    p.token = cart;
+    console.log(p);
+     
     return(dispatch) => {
-      return axios.post(`http://localhost:3001/api/charge/`, {Item})
+      return axios.post(`http://localhost:3001/api/charge/`, {p})
       .then(res => {
         dispatch({type:"BOOKS_DETAIL",detail:res.data});
       })
     }
   }else{
-    let Cart = card + cartitem;
-    let Item = [];
-    Item.push(Cart)
+    let Cart = { cartitem, cart};
+    Item.push(Cart);
     return(dispatch) => {
       return axios.post(`http://localhost:3001/api/charge/`, {card})
       .then(res => {
@@ -179,8 +182,6 @@ export function createbook(book){
 
 
 export function editbook(book){
-  console.log(book);
-  debugger;
   let token = localStorage.getItem('token');
   return (dispatch) => {
     return axios.put('http://localhost:3001/api/books/book/',{book},{headers: { Authorization: 'Token ' + token}})

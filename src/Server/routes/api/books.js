@@ -140,28 +140,29 @@ router.put('/book',auth.required, function(req,res,next){
     book.title = req.body.book.title;
   }
 
-  if(typeof req.body.book.image === undefined){
+  if(typeof req.body.book.image !== undefined){
     book.image = req.body.book.image;
   }
   
-  if(typeof req.body.book.genere === undefined){
-    book.genere = req.body.book.genere;
+  if(typeof req.body.book.genere !== Object){
+    book.genere.push(req.body.book.genere);
   }
+  
 
-  if(typeof req.body.book.description === undefined){
+  if(typeof req.body.book.description !== undefined){
     book.description = req.body.book.description;
   }
 
-  if(typeof req.body.book.yearpublication === undefined){
+  if(typeof req.body.book.yearpublication !== undefined){
     book.yearpublication = req.body.book.yearpublication;
   }
 
-  if(typeof req.body.book.author === undefined){
-    book.author = req.body.book.author
+  if(typeof req.body.book.author !== undefined){
+    book.author = req.body.book.author;
   }
 
   if(typeof req.body.book.price !== 0){
-    book.price = req.body.book.price
+    book.price = req.body.book.price;
   }
   
   if(typeof req.body.book.edition !== undefined){
@@ -169,28 +170,28 @@ router.put('/book',auth.required, function(req,res,next){
   }
 
   if(typeof req.body.book.languaje !== undefined){
-    book.languaje = req.body.book.languaje  
+    book.languaje = req.body.book.languaje;  
   }
   
   if(typeof req.body.book.numpags !== 0){
-    book.numpags = req.body.book.numpags   
+    book.numpags = req.body.book.numpags;   
   }
   
   if(typeof req.body.book.state !== undefined){
-    book.state = req.body.book.state   
+    book.state = req.body.book.state;   
   }
   
   if(typeof req.body.book.format !== undefined){
-    book.format = req.body.format;
+    book.format = req.body.book.format;
  
   }
 
   if(typeof req.body.book.stock !== 0){
-    book.isbn = req.body.isbn;
+    book.stock = req.body.book.stock;
   }
 
   if(typeof req.body.book.encuadernation !== undefined){
-    book.encuadernation=req.body.encuadernation
+    book.encuadernation=req.body.book.encuadernation;
   }
   
   book.save((err, bookStored) => {

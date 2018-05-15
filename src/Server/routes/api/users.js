@@ -170,12 +170,11 @@ router.post("/charge", (req, res) => {
     let cart =req.body.card;
 
     stripe.customers.create({
-       email: req.body.stripeEmail,
       source: req.body.stripeToken
     })
     .then(customer => {
       if(typeof cart !== [] ){
-        card.forEach(element => {
+        cart.forEach(element => {
           if(element.kind === 'Book'){
             Books.findById({id: element.id}).then(
               stripe.charges.create({

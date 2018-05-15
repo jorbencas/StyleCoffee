@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from "react-router";
 import {connect} from 'react-redux';
-import {loadListBooks,booksdetail, AddtoCard, deletebooks} from '../../actions/index';
+import {loadListBooks,booksdetail, deletebooks,deletebook} from '../../actions/index';
 import { bindActionCreators } from 'redux';
 
 const mapStateToProps = state => {
@@ -11,11 +11,11 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch =>{
-  return bindActionCreators({loadListBooks,booksdetail,AddtoCard,deletebooks}, dispatch);
+  return bindActionCreators({loadListBooks,booksdetail,deletebooks, deletebook}, dispatch);
 }
 
 class BooksListPage extends React.Component {
-  constructor({props,loadListBooks,books,booksdetail, AddtoCard,deletebooks}) {
+  constructor({props,loadListBooks,books,booksdetail,deletebooks}) {
     super(props);
     this.state = {
       listbooks:[],
@@ -50,14 +50,13 @@ class BooksListPage extends React.Component {
           return(
             <section>
               <Link className="button" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
-              <Link className="button" to={'/BooksList'}  onClick={() => { this.props.booksdetail(item.id)}} >Borrar</Link>
+              <Link className="button" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} >Borrar</Link>
             </section>
           )
         }else{
           return(
             <section>
-              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Leer Más</Link>
-              <Link className="button" to='/card'  onClick={() => { this.props.AddtoCard(this.state.kind,item)}} >Añadir al carrito</Link>
+              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(this.state.kind,item.id)}} >Leer Más</Link>
             </section>
           ) 
         }
