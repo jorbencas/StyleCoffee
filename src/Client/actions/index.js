@@ -75,7 +75,12 @@ export function BuyProduct(cart){
   if (cartitem) {
    // let t = {'token':cart};
     let p = JSON.parse(cartitem);
-    p.token = cart;
+    for(let i= 0; i = p.length; i++){
+      console.log([i]);
+      let elemento = [i];
+      elemento.token = cart;
+    }
+   
     console.log(p);
      
     return(dispatch) => {
