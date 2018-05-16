@@ -75,25 +75,17 @@ export function BuyProduct(cart){
   if (cartitem) {
    // let t = {'token':cart};
     let p = JSON.parse(cartitem);
-    for(let i= 0; i = p.length; i++){
-      console.log([i]);
-      let elemento = [i];
+    for(let i= 0; i < p.length; i++){
+      //console.log([i]);
+      let elemento = p[i];
       elemento.token = cart;
+      console.log(elemento);
+      localStorage.setItem('item',JSON.stringify(elemento));
     }
-   
-    console.log(p);
-     
+    let carrito = JSON.parse(localStorage.getItem('item'));
+    console.log(carrito);
     return(dispatch) => {
-      return axios.post(`http://localhost:3001/api/charge/`, {p})
-      .then(res => {
-        dispatch({type:"BOOKS_DETAIL",detail:res.data});
-      })
-    }
-  }else{
-    let Cart = { cartitem, cart};
-    Item.push(Cart);
-    return(dispatch) => {
-      return axios.post(`http://localhost:3001/api/charge/`, {card})
+      return axios.post(`http://localhost:3001/api/charge`, {carrito})
       .then(res => {
         dispatch({type:"BOOKS_DETAIL",detail:res.data});
       })
@@ -199,7 +191,7 @@ export function editbook(book){
 export function deletebook(book){
   let token = localStorage.getItem('token');
   return (dispatch) =>{
-    return axios.delete('http://localhost:3001/api/books/book/',{book},{headers: { Authorization: 'Token ' + token}})
+    return axios.delete('http://localhost:3001/api/books/book/' + book,{headers: { Authorization: 'Token ' + token}})
     .then(
       (res)=>{ dispatch({ type:"CHANGE_LIST",list:res.data});
       toastr.error( err + 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
@@ -229,7 +221,7 @@ export function editcoffee(coffee){
 export function deletecoffee(coffee){
   let token = localStorage.getItem('token');
   return (dispatch) => {
-    return axios.delete('http://localhost:3001/api/coffees/coffee',{coffee},{headers: { Authorization: 'Token ' + token}})
+    return axios.delete('http://localhost:3001/api/coffees/coffee/'+ coffee,{headers: { Authorization: 'Token ' + token}})
     .then((res)=>{ dispatch({ type:"CHANGE_LIST",list:res.data});
     });
   }

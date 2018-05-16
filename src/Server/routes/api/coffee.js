@@ -37,10 +37,23 @@ router.put('/coffee',auth.required, function(req, res, next) {
 
 router.delete('/',auth.required, function(req, res, next) {
   console.log('Create coffee');
+  coffee.remove({}, function(err){
+    if (err) {
+      res.status(401).send('Ertro els borrar el libro!!');
+    }else{
+      res.status(200).send('Swe ha borrado correctamente.');
+    }
+  });
 });
 
-router.delete('/coffee',auth.required, function(req, res, next) {
-  console.log('Create coffee');
+router.delete('/coffee/:coffee',auth.required, function(req, res, next) {
+  coffee.remove({id:req.params.coffee}).then( function(err){
+    if (err) {
+      res.status(401).send('Ertro els borrar el libro!!');
+    }else{
+      res.status(200).send('Swe ha borrado correctamente.');
+    }
+  });
 });
 
 module.exports = router;

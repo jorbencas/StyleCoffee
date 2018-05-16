@@ -210,9 +210,9 @@ router.delete('/',auth.required, function(req,res,next){
   });
 });
 
-router.delete('/book',auth.required, function(req,res,next){
-  console.log(req.body.id);
-  Books.remove({id:req.body.book.id},function(err){
+router.delete('/book/:book',auth.required, function(req,res,next){
+  console.log(req.params.book);
+  Books.remove({id:req.params.book},function(err){
     if (err) {
       res.status(401).send('Ertro els borrar el libro!!');
     }else{

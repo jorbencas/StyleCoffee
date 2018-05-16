@@ -166,8 +166,8 @@ router.get('/auth/twitter/callback',
 
 router.post("/charge", (req, res) => {
   
-    console.log(req.body.card);
-    let cart =req.body.card;
+    console.log(req.body.carrito);
+    let cart =req.body.carrito;
 
     stripe.customers.create({
       source: req.body.stripeToken
