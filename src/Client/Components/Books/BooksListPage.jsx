@@ -82,7 +82,7 @@ class BooksListPage extends React.Component {
         return(
           <div className="grid-main" id="listbooks">
               {this.mangment()}
-              <div  id="list" >{ this.props.books != [{}] ? Books:'No hay Libros!!' }</div>
+              <div  id="list" >{ this.props.books !== undefined ? Books:'No hay Libros!!' }</div>
             </div>
         ) 
       } 

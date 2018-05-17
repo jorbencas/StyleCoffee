@@ -165,42 +165,45 @@ router.get('/auth/twitter/callback',
 
 
 router.post("/charge", (req, res) => {
-  
-    console.log(req.body.carrito);
     let cart =req.body.carrito;
-
+    console.log(cart);
     stripe.customers.create({
-      source: req.body.stripeToken
+      email:'jorbencas@gmail.com',
+      source: cart[1].token
     })
     .then(customer => {
-      if(typeof cart !== [] ){
-        cart.forEach(element => {
-          if(element.kind === 'Book'){
-            Books.findById({id: element.id}).then(
-              stripe.charges.create({
-                amount: 322,
+        console.log(cart[1].kind);
+        let i = 0;
+        cart.forEach((element) => {
+          console.log(element);
+          if(element.kind === 'books'){
+            console.log('Hola Mundo');
+            console.log(i);
+            Books.find({id: element.id}).then(function(book){
+              if(!book){
+                console.log('Error');
+              }else{
+                console.log(book.stock);
+                console.log(book[i].stock);
+                console.log('Adeu Andreu');
+              }
+             
+              /*stripe.charges.create({
+                amount: nook.price,
                 description: "Sample Charge",
                    currency: "eur",
                    customer: customer.id
-              })
-              .then(
-                 //Computer.update({ id:req.body.payment}, {$inc:{"shop.0.stock":10}})  
-                // computer.save()
-              )
-            )
+              }).then(
+                 Books.update({stock:element.stock}, {$desc:1})  
+              )*/
+            });
+            i++;
           }else if(element.kind === 'coffee'){
-            coffee.findById().then()
+            //coffee.findById().then()
           }
         });
-      }else if(typeof cart === {} ) {
-        if(cart.kind === 'Book'){
-          Books.findById({id: element.id}).then()
-        }else if(cart.kind === 'coffee'){
-          coffee.findById().then()
-        }
-      }
     })
-    .then( charge => res.redirect() );
+    .then( );
   });
 
 

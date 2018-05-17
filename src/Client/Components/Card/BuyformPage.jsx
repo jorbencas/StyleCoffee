@@ -1,7 +1,22 @@
 import {BuyProduct} from '../../actions/index';
 import React from 'react';
+import {connect} from 'react-redux'
+import { bindActionCreators } from 'redux'
+
+
+const mapStateToProps= state => {
+  console.log(state);
+  /*return { 
+    cart: getCart(state.ShoppingCardReducer.cart)
+  };*/
+}
+
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({BuyProduct}, dispatch);
+}
+
 class StripeComponent extends React.Component{
-	constructor(props) {
+	constructor(props,BuyProduct) {
     super(props);
       console.log(props);
     this.state = {
@@ -21,10 +36,11 @@ class StripeComponent extends React.Component{
   };
 
   handleSubmit(e) {
+    let that = this;
     e.preventDefault();
     Stripe.createToken(this.state.card, function (status, response) {
       console.log( status, response ); 
-      BuyProduct(response.id);     
+      that.props.BuyProduct(response.id);     
     });
   };
     
@@ -47,4 +63,4 @@ class StripeComponent extends React.Component{
   }
 }
 
-export default StripeComponent;
+export default connect (mapStateToProps,mapDispatchToProps)(StripeComponent);

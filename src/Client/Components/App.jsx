@@ -26,8 +26,9 @@ import { loadlistCoffees, loadListBooks,profile } from '../actions';
 import store from '../Store';
 
 const token = localStorage.getItem('token');
-if (token) {
-   store.dispatch({type:"AUTH_USER", user:store.getState().loginReducer.user});
+const user = store.getState().loginReducer.user;
+if (token && user) {
+   store.dispatch({type:"AUTH_USER", user:user});
 }
 
 store.dispatch(loadlistCoffees());

@@ -73,17 +73,14 @@ export function BuyProduct(cart){
   let cartitem = localStorage.getItem('item');
   console.log(cartitem);
   if (cartitem) {
-   // let t = {'token':cart};
     let p = JSON.parse(cartitem);
-    for(let i= 0; i < p.length; i++){
-      //console.log([i]);
-      let elemento = p[i];
-      elemento.token = cart;
-      console.log(elemento);
-      localStorage.setItem('item',JSON.stringify(elemento));
-    }
+    let itemes = [];
+    _.each(p, function (item) {
+      item.token = cart;
+      itemes.push(item);
+      localStorage.setItem('item',JSON.stringify(itemes));
+    });
     let carrito = JSON.parse(localStorage.getItem('item'));
-    console.log(carrito);
     return(dispatch) => {
       return axios.post(`http://localhost:3001/api/charge`, {carrito})
       .then(res => {
