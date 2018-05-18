@@ -26,11 +26,8 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
       let cart = cart.cart;
       _.each(cart, function (item) {
         console.log(item.id);
-        //cartitem.push({})
-        //total += item.price;
       });
     }
-    //BuyProduct(cartitem)
   }
     function render() { 
       console.log(cart);              
@@ -53,8 +50,8 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
           return (
             <div className="grid-main" id="listbooks">
-              <div  id="list" >{ cart.cart.length !== 0 || cart !== undefined ? render():'El carrito esta vacio!!' }</div>
-              <Link to='/buy' onClick={()=>{ saveproductscardtobuy()}} className="btn-search">Comprar</Link>
+              <div  id="list" >{ cart.length > 0 ? render():'El carrito esta vacio!!' }</div>
+              <Link to='/buy' onClick={()=>{ cart.length === 0 ?'':saveproductscardtobuy()}} className="btn-search">Comprar</Link>
               <p>Total de productos en el carrito: {cart.cart.length} <br/> Total:{cart.total} €</p>
             </div>
           );

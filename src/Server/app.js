@@ -55,13 +55,10 @@ require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(require('./routes'));
-
+app.use('/',require('./routes'));
 
 /// error handlers
 
-// development error handler
-// will print stacktrace
 if (!isProduction) {
   app.use(function(err, req, res, next) {
     console.log(err.stack);

@@ -1,10 +1,10 @@
 import React from "react";
-
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { Route, Switch } from "react-router-dom";
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-
+//Components
 import Home from './common/Home';
 import Contact from './common/Contact';
 import BooksListPage from './Books/BooksListPage';
@@ -22,22 +22,15 @@ import managebooks from './Books/EditBooks';
 import managecoffees from './Coffees/EditCoffee';
 import ReserveBook from './common/ReservePage';
 
-import { loadlistCoffees, loadListBooks,profile } from '../actions';
 import store from '../Store';
-
 const token = localStorage.getItem('token');
 const user = store.getState().loginReducer.user;
-if (token && user) {
+if (user.lenght > 0 && token) {
    store.dispatch({type:"AUTH_USER", user:user});
 }
 
-store.dispatch(loadlistCoffees());
-
-
-export class App extends React.Component{
-  
+export class App extends React.Component{  
 render() {
-    
   return (
     <Provider store={store}>
      <Router history={browserHistory}>

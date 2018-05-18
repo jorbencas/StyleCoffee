@@ -1,43 +1,59 @@
 import React from 'react';
 import { Link } from "react-router";
 import {connect} from 'react-redux';
-import {coffeesdetails} from '../../actions/index';
+import {loadlistCoffees,coffeesdetails} from '../../actions/index';
+import { bindActionCreators } from 'redux';
 
 const mapStateToProps= state => {
-  console.log(state);
   return {
     detail:state.productsOffer.Coffee
   };
 }
 
 const mapDispatchToProps = dispatch =>{
-  return{
-    coffeesdetails(id){
-      dispatch(coffeesdetails(id));
-    }
-  }
+  return bindActionCreators({loadlistCoffees, coffeesdetails}, dispatch);
 }
 
-const CoffeeListPage = ({detail, coffeesdetails}) => {
+class CoffeeListPage extends React.Component {
+  constructor({props, coffeesdetails, loadlistCoffees}){
+    super(props)
+    this.state = {
+      detail:[]
+    }
+  }
 
-     function render() {
-        return detail.map((item, i) => (
-          <div className="item">
-            <h1>{ item.name }</h1>
-            <img src='./assets/photos/cafe.png' width="130px" height="180px" alt="./assets/photos/cafe.png"/>
-            <p>{ item.kind }</p>
-            <p className="price">{ item.price } €</p>
-            <Link className="btn-search" to={'/CoffeeList/Coffee/' + item.id} onClick={()=>{coffeesdetails(item.id)}}>details</Link>  
-          </div>
+  componentWillMount(){
+    window.location.pathname === "/CoffeeList" ?this.props.loadlistCoffees():[{}];
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({detail:nextProps.detail});
+  }
+      render() {
+        const detail = this.state.detail.map((item, i) => (
+          <section className="itembook">
+            <article className="bookfoto">
+              <div className="state"><p>{item.state}</p></div>
+              <img src={item.image} width="140px" height="215px" alt="./assets/photos/libro.png"/>
+            </article>
+            <article className="bookinfo">
+              <p>{ item.title }</p>
+              <p>{item.author}</p>
+              <p>{item.edition}</p>
+              <h2>{item.price}€</h2>
+              
+            </article>
+          </section> 
         ));
-      }
+      
         return (
           <div id="listcoffee">
             <div className="grid-main">
-              <div>{  render() }</div>
+              <div>{ this.state.detail.lenght <=0?'No hay cafes':detail }</div>
             </div>
           </div>
-        );
+        )
+      }
 }
 
 export default connect (mapStateToProps,mapDispatchToProps)(CoffeeListPage);

@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import { getCookie } from '../lib/utils';
 import _ from 'underscore';
+import { routerReducer } from 'react-router-redux';
 
 const initialState = {
   productsOffer: {list: []},
@@ -115,7 +116,8 @@ const rootReducer = combineReducers({
   ShoppingCardReducer:ShoppingCardReducer,
   ProfileReducer:ProfileReducer,
   printerrors:printerrors,
-  SingUpReducer:SingUpReducer
+  SingUpReducer:SingUpReducer,
+  routing: routerReducer
 });
 
 export default rootReducer;

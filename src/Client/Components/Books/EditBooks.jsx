@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import ListErrors from '../errors/errors';
 import { FormErrors } from '../../lib/FormErrors';
 import {hashcode} from '../../lib/utils';
+
 const mapStateToProps= state => {
     return {
       detail:state.booksdetails.books
@@ -42,8 +43,6 @@ const mapStateToProps= state => {
     }    
 
     componentWillReceiveProps(nextProps){
-      console.log(nextProps.detail);
-      debugger;
       this.setState({
         title:nextProps.detail[0].title?nextProps.detail[0].title:'', 
         author:nextProps.detail[0].author?nextProps.detail[0].author:'', 
@@ -109,6 +108,7 @@ const mapStateToProps= state => {
           return (
             <div>
               <div className="grid-main">
+              <div className="Contact">
                <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Crea un libro</h1>
                       {this.editableimg()}
@@ -170,6 +170,7 @@ const mapStateToProps= state => {
                           <Link to="/BooksList" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
                         </div>
               </form>
+              </div>
               </div>
             </div>
           );

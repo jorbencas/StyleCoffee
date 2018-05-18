@@ -105,6 +105,7 @@ class Profile extends React.Component {
           return (
             <div>
               <div className="grid-main">
+              <div className="Contact">
               <ListErrors/>
                <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
@@ -142,6 +143,7 @@ class Profile extends React.Component {
                           <Link to="/" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
                         </div>
               </form>
+              </div>
               </div>
             </div>
           );
