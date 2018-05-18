@@ -1,6 +1,9 @@
 import webpack from 'webpack';
 import path from 'path';
 
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
+
+
 module.exports = {
   resolve: {
     extensions: ['', '.js', '.jsx', '.css', '.json']
@@ -23,16 +26,18 @@ module.exports = {
       jQuery: 'jquery',
       $: 'jquery'
     })
-  ],
+  ] ,
   module: {
     loaders: [
-      { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: "file"},
-      { test: /\.(woff|woff2)$/, loader: "url?prefix=font/&limit=5000"},
-      { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=application/octet-stream"},
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url?limit=10000&mimetype=image/svg+xml"},
-      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
-      { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
-      { test: /(\.js|.jsx)$/, loader: 'babel-loader', query: { presets: ['es2015', 'react']},  exclude: /node_modules/}
-    ]
+      { test: /(\.js|.jsx)$/, loader: 'babel-loader', exclude: '/node_modules/', query: { presets: ['es2015', 'react']},options: {
+        // This is a feature of `babel-loader` for Webpack (not Babel itself).
+        // It enables caching results in ./node_modules/.cache/babel-loader/
+        // directory for faster rebuilds.
+        cacheDirectory: true,
+        plugins: ['react-hot-loader/babel'],
+      }},
+      { test: /\.scss$/, loader: "!css-loader!sass-loader", fallback: "style-loader"}
+    ],
   }
+
 }

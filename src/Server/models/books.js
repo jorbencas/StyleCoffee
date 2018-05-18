@@ -22,7 +22,8 @@ var BooksSchema = new mongoose.Schema({
   state:String,
   format:String,
   isbn:String,
-  encuadernation:String
+  encuadernation:String,
+  stock:{type: Number, default:0}
 }, {timestamps: true});
 
 BooksSchema.methods.toProfileJSONFor = function(user){

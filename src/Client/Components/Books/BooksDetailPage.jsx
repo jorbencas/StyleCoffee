@@ -1,32 +1,28 @@
 import React from 'react';
-import ReactDOM  from 'react-dom';
-import axios from 'axios';
+import {connect} from 'react-redux'
+import {AddtoCard} from '../../actions/index';
+import { Link } from "react-router";
+const  kind = 'books';
+const mapStateToProps= state => {
+  return {
+    detail:state.booksdetails.books
+  };
+}
 
-class BooksDetailPage extends React.Component {
-    constructor(props){
-        super(props);   
-        this.state = {                
-            components: [],
-            params: this.props.params.id
-          };
-          console.log('Hola' +  this.state.params);
-    }    
-    componentWillMount() {
-      this.getdata();
+const mapDispatchToProps = dispatch =>{
+  return{
+    AddtoCard(kind,detail){
+      dispatch(AddtoCard(kind,detail));
     }
+  }
+}
 
-    getdata(event){
-      const id = this.state.params;
-      if (id){
-        axios.post('http://localhost:3001/api/books/' + id)
-        .then(
-          response => this.setState({components: response.data.books})
-        );
-      }
-    }
-    render() {   
-      console.log(this.state.components);            
-          const component = this.state.components.map((item) =>
+
+const BooksDetailPage  = ({detail,AddtoCard}) => {
+
+    function render() {   
+      console.log(detail);            
+          return detail.map( (item) => 
             <section className="itembook">
               <article className="bookfoto">
                 <p>{item.state}</p>
@@ -56,20 +52,22 @@ class BooksDetailPage extends React.Component {
                   </section>
                   <section className="buttons-details">
                     <p className="detail-price">{item.price}€</p>
-                    <a className="button">Reserva-lo</a>
-                    <a className="button">Comprar</a>
+                    <Link to='/reservebook' className="btn-search">Reserva-lo</Link>
+                    <Link  id="addtocard" to='/card' onClick={()=>{AddtoCard(kind,item)}} className="btn-search">Añadir al carrito</Link>
                   </section>
                 </article>
               </section>
           )
-          return (
-            <div>
-              <div className="grid-main">
-                <div>{component}</div>
-              </div>
-            </div>
-          );
     }
+
+    return (
+      <div>
+        <div className="grid-main">
+          <div>{ detail == undefined?'':render()}</div>
+        </div>
+      </div>
+    );
+    
 }
 
-export default BooksDetailPage;
+export default connect (mapStateToProps,mapDispatchToProps) (BooksDetailPage);

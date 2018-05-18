@@ -7,26 +7,47 @@ import * as actionCreators from '../../actions/index';
 import {connect} from 'react-redux'
 =======
 import { Link } from "react-router";
-//import App from '../App.jsx';
-import { logOut } from '../../services/services';
+import { logout } from '../../actions/index';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+  return { authenticated: state.loginReducer.authenticated,username: state.loginReducer.user }
+};
+
+const mapDispatchToProps = dispatch =>{
+  return bindActionCreators({logout}, dispatch);
+}
 
 >>>>>>> development:src/Client/Components/common/Header.jsx
 class Header extends React.Component {
-    constructor(props){
+    constructor({props, authenticated, username, logout}){
         super(props);  
+        this.state = {
+          authenticated:'',
+          username:''
+        }
+        
         this.menulogin = this.menulogin.bind(this); 
     }    
 
+    componentWillReceiveProps(nextProps){
+      this.setState({
+        authenticated: nextProps.authenticated,
+        username:nextProps.username.user.username
+        });
+    }
+
     menulogin(){
-      if( window.location.href  === "Jorge" || localStorage.getItem('token')){
+      if(this.state.authenticated == true ){
           return(
             <ul>
               <li className="listado-item"><Link to="/Contact">Contact</Link></li>
               <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
               <li className="listado-item"><Link to="/BooksList">Books</Link></li>
               <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
-              <li className="listado-item"><Link to="/login">{localStorage.getItem('username')}</Link></li>
-              <li className="listado-item"><Link to="/" onClick={logOut}>Logout</Link></li>
+              <li className="listado-item"><Link to="/profile">{ this.state.username}</Link></li>
+              <li className="listado-item"><Link to="/" onClick={ () => {logout()}}>Logout</Link></li>
+              <li className="listado-item"><Link to='/card'>Añadir al carrito</Link></li>
             </ul>
           );
       }else{
@@ -36,8 +57,9 @@ class Header extends React.Component {
             <li className="listado-item"><Link to="/CoffeeList">Cafes</Link></li>
             <li className="listado-item"><Link to="/BooksList">Books</Link></li>
             <li className="listado-item"><Link to="/abouteus">Quienes somos</Link></li>
-            <li className="listado-item"><Link to="/SingUp">Iniciar Sesión</Link></li>
-            <li className="listado-item"><Link to="/login">Registrarse</Link></li>
+            <li className="listado-item"><Link to="/SingUp">Registrarse</Link></li>
+            <li className="listado-item"><Link to="/login">Iniciar Sesión</Link></li>
+            <li className="listado-item"><Link to='/card'>Añadir al carrito</Link></li>
           </ul>
         );
       }
@@ -78,5 +100,9 @@ export default connect (mapStateToProps, actionCreators)(Header);
 
 }
 
+<<<<<<< HEAD:src/Client/Components/common/Header.jsx
 export default Header;
 >>>>>>> development:src/Client/Components/common/Header.jsx
+=======
+export default connect(mapStateToProps)(Header);
+>>>>>>> development:src/Client/Components/core/Header.jsx

@@ -1,64 +1,76 @@
 import React from "react";
-import Home from './Home';
-import Contact from './Contact';
+
 import { Route, Switch } from "react-router-dom";
-import BooksDetailPage from './BooksDetailPage';
-import CoffeeDetailsPage from './CoffeeDetailPage';
-import Login from './Login';
-import AbouteUs from './AbouteUs';
-import singup from './SingUp';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import { createStore,applyMiddleware } from 'redux';
-import rootReducer from '../reducers/index';
-import thunk from 'redux-thunk';
-import { loadOffer, loadList } from '../actions';
-import Main from './Main';
-import listcoffee from './containers/listcoffee';
-import listbooks from './containers/listbooks';
 
-const store = createStore(rootReducer, applyMiddleware(thunk)); 
-store.dispatch(loadOffer());
-store.dispatch(loadList());
-/*
+import Home from './common/Home';
+import Contact from './common/Contact';
+import BooksListPage from './Books/BooksListPage';
+import BooksDetailPage from './Books/BooksDetailPage';
+import CoffeeDetailsPage from './Coffees/CoffeeDetailPage';
+import Login from './auth/Login';
+import AbouteUs from './common/AbouteUs';
+import singup from './auth/SingUp';
+import Main from './core/Main';
+import CoffeeListPage from './Coffees/CoffeeListPage';
+import Profile from './auth/profile';
+import ShoppingCard from './Card/ShoppingCard';
+import CreditCard from './Card/CreaditCard';
+import managebooks from './Books/EditBooks';
+import managecoffees from './Coffees/EditCoffee';
+import ReserveBook from './common/ReservePage';
+
+import { loadlistCoffees, loadListBooks,profile } from '../actions';
+import store from '../Store';
+
 const token = localStorage.getItem('token');
-// if we have a token, consiger the user to be signed in
-if (token) {
-    // we need to update application state
-    store.dispatch({ type: AUTH_USER });
+const user = store.getState().loginReducer.user;
+if (token && user) {
+   store.dispatch({type:"AUTH_USER", user:user});
 }
-*/
 
-class App extends React.Component{
+store.dispatch(loadlistCoffees());
+
+
+export class App extends React.Component{
   
-  render() {
+render() {
     
-    return (
+  return (
     <Provider store={store}>
      <Router history={browserHistory}>
-    <div id="content">
-    <Route component={Main}>
-      <Switch>
-        <Route exact path="/" component={Home}/>
-        <Route exact path="/Home" component={Home}/>
-        <Route exact path="/Contact" component={Contact} />
-        <Route exact path="/CoffeeList" component={listcoffee} />
-        <Route path="/coffees/:param" component={listcoffee} />
-        <Route exact path="/BooksList" component={listbooks} />
-        <Route path="/book/:param" component={listbooks} />
-        <Route path='/BooksList/Book/:id' component={BooksDetailPage}/>
-        <Route path='/CoffeeList/Coffee/:id' component={CoffeeDetailsPage} />
-        <Route path="/login" component={Login} />
-        <Route path="/SingUp" component={singup} />
-        <Route path='/abouteus' component={AbouteUs} />
-      </Switch>
-      </Route>
-    </div>
-  </Router>
+      <div id="content">
+        <Route component={Main}>
+          <Switch>
+            <Route exact path="/" component={Home}/>
+            <Route exact path="/Home" component={Home}/>
+            <Route exact path="/Contact" component={Contact} />
+            <Route exact path="/CoffeeList" component={CoffeeListPage} />
+            <Route path="/coffees/:param" component={CoffeeListPage} />
+            <Route exact path="/BooksList" component={BooksListPage} />
+            <Route path="/books/:param" component={BooksListPage} />
+            <Route path='/BooksList/Book/:id' component={BooksDetailPage}/>
+            <Route path='/CoffeeList/Coffee/:id' component={CoffeeDetailsPage} />
+            <Route path="/login" component={Login} />
+            <Route path="/SingUp" component={singup} />
+            <Route path='/abouteus' component={AbouteUs} />
+            <Route path='/profile' component={Profile}/>
+            <Route path='/card' component={ShoppingCard}/>
+            <Route path='/buy' component={CreditCard}/>
+            <Route path='/reservebook' component={ReserveBook}/>
+            <Route path='/createbooks' component={managebooks}/>
+            <Route path='/editebook/:id' component={managebooks}/>
+            <Route path='/createcoffees' component={managecoffees}/>
+            <Route path='/editecoffee/:id' component={managecoffees}/>
+          </Switch>
+        </Route>
+      </div>
+    </Router>
   </Provider>
 )};
 
 };
 
-export default App;
+export default App ;

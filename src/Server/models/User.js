@@ -6,6 +6,7 @@ var secret = require('../config').secret;
 var passport = require('passport');
 
 var UserSchema = new mongoose.Schema({
+  id:Number,
   username: String,
   email: String,
   image: String,
@@ -14,7 +15,8 @@ var UserSchema = new mongoose.Schema({
   dni: String,
   date_birthday: String,
   hash: String,
-  salt: String
+  salt: String,
+  type: String,
 }, {timestamps: true});
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
@@ -43,6 +45,7 @@ UserSchema.methods.generateJWT = function() {
 
 UserSchema.methods.toAuthJSON = function(){
   return {
+    id:this.id,
     username: this.username,
     email: this.email,
     token: this.generateJWT(),
@@ -56,7 +59,9 @@ UserSchema.methods.toAuthJSON = function(){
 
 UserSchema.methods.toProfileJSONFor = function(user){
   return {
+    id:this.id,
     username: this.username,
+    email: this.email,
     image: this.image || 'https://static.productionready.io/images/smiley-cyrus.jpg',
     name: this.name,
     apellidos: this.apellidos,
