@@ -49,7 +49,7 @@ class CoffeeListPage extends React.Component {
         return (
           <div id="listcoffee">
             <div className="grid-main">
-              <div>{ this.state.detail.lenght <=0?'No hay cafes':detail }</div>
+              <div>{ this.state.detail.lenght <= 0?'No hay cafes':detail }</div>
             </div>
           </div>
         )

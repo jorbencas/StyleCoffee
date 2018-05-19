@@ -58,28 +58,7 @@ router.put('/user', auth.required, function(req, res, next){
     });
   }).catch(next);
 });
-/*
-router.post('/users', function(req, res, next){
-  
-  let memorystore = req.sessionStore;
-  let sessions = memorystore.sessions;
-  let sessionUser;
-  for(var key in sessions){
-    sessionUser = (JSON.parse(sessions[key]).passport.user);
-  }
-    var user = new User();
-    user.email = sessionUser.email;
-    user.username = sessionUser.username;
 
-    if(user){
-      user.token = user.generateJWT();
-      return res.json({user: user.toAuthJSON()});
-    } else {
-      return res.status(422).json('fail');
-    }
-})
-;
-*/
 router.post('/users/login', function(req, res, next){
 console.log(req.body.user.username + " " + req.body.user.password);
   
@@ -112,29 +91,8 @@ console.log(req.body.user.username + " " + req.body.user.password);
       })(req, res, next);
     }
   }).catch(next);
-
-  
 });
-/*
-router.post('/users', function(req, res, next){
 
-    console.log(req.body.user);
-  var user = new User();
-
-  user.username = req.body.user.username;
-  user.email = req.body.user.email;
-  user.setPassword(req.body.user.password);
-  user.image = '';
-  user.dni = '';
-  user.date_birthday = '';
-  user.name = req.body.user.username;
-  user.apellidos = '';
-
-  user.save().then(function(){
-    return res.json({user: user.toAuthJSON});
-  }).catch(next);
-});
-*/
 router.post('/users', function(req, res, next){
   var user = new User();
 
@@ -152,10 +110,15 @@ router.post('/users', function(req, res, next){
 router.get('/SigUpGoogle',passport.authenticate('google',{scope: 'profile'}));//passport.authenticate('google'));
 router.get('/auth/google/callback',
   passport.authenticate('google'),
-   function(req, res) {
-   
-    return res.redirect('/');
+   function(req, res, next) {
+    let user = res.req.user.username;
+   console.log(user);
+   return res.redirect('/');
   });
+
+router.get('/:user', function(req,res,next){
+  return res.redirect('/');
+}),
 
 /*----TWITTER----*/
 router.get('/api/twitter', passport.authenticate('twitter'));
@@ -169,17 +132,17 @@ router.post("/charge", (req, res) => {
     console.log(cart);
     stripe.customers.create({
       email:'jorbencas@gmail.com',
-      source: cart[1].token
+      source: cart[0].token
     })
     .then(customer => {
-        console.log(cart[1].kind);
+        console.log(cart[0].kind);
         let i = 0;
         cart.forEach((element) => {
           console.log(element);
           if(element.kind === 'books'){
             console.log('Hola Mundo');
             console.log(i);
-            Books.find({id: element.id}).then(function(book){
+            /*Books.find({id: element.id}).then(function(book){
               if(!book){
                 console.log('Error');
               }else{
@@ -195,8 +158,8 @@ router.post("/charge", (req, res) => {
                    customer: customer.id
               }).then(
                  Books.update({stock:element.stock}, {$desc:1})  
-              )*/
-            });
+              )
+            });*/
             i++;
           }else if(element.kind === 'coffee'){
             //coffee.findById().then()

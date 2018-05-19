@@ -33,16 +33,16 @@ passport.use(new GoogleStrategy({
   callbackURL:'http://localhost:3001/api/auth/google/callback'
 },
 function(req, accessToken, refreshToken, profile, done) {
-  console.log(profile);
+  //console.log(profile);
   User.findOne({email: profile.id}).then(function(user){
-    console.log(user);
+    //console.log(user);
     if(user){
       return done(null, user);
     }else{
       var nUser=new User();
       nUser.username=profile.name.givenName;
       nUser.email= profile.id;
-      console.log(nUser);
+      //console.log(nUser);
       nUser.save().then(function(){
         return done(null, user);
       }).catch(done);

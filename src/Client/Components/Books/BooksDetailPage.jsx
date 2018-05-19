@@ -53,7 +53,7 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
                   <section className="buttons-details">
                     <p className="detail-price">{item.price}€</p>
                     <Link to='/reservebook' className="btn-search">Reserva-lo</Link>
-                    <Link  id="addtocard" to='/card' onClick={()=>{AddtoCard(kind,item)}} className="btn-search">Añadir al carrito</Link>
+                    <Link to='/card' onClick={()=>{AddtoCard(kind,item)}} className="btn-search">Añadir al carrito</Link>
                   </section>
                 </article>
               </section>
@@ -63,7 +63,7 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
     return (
       <div>
         <div className="grid-main">
-          <div>{ detail == undefined?'':render()}</div>
+          <div>{ detail.lenght == 0 ?'No se ha podido cargar el libro':render()}</div>
         </div>
       </div>
     );

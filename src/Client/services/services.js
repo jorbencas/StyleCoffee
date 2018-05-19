@@ -1,4 +1,5 @@
 import toastr from 'toastr';
+import { getCookie, setCookie, deleteCookie } from '../lib/utils.js';
 
   function contactService (contact){
         console.log(contact);
@@ -17,4 +18,7 @@ import toastr from 'toastr';
          });
     }
 
+    function googleservice(){
+      setCookie('socialogin',true,12);
+    }
 export{ contactService };

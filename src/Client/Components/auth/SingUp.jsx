@@ -113,7 +113,7 @@ class singup extends React.Component {
                         <div className="Social_Item">
                           <div className="btn-google">
                             <img src="http://pngimg.com/uploads/google/google_PNG19635.png" width="18%" height="45%" alt="Google" srcSet=""/>
-                            <a href='http://localhost:3001/api/SigUpGoogle'>Sing Up with Google</a>
+                            <a href='http://localhost:3001/api/SigUpGoogle' onClick={()=>{ googleservice();console.log('Hola Mundo Google')}}>Sing Up with Google</a>
                           </div>
                           <div className="btn-twitter">
                             <img src="http://backgroundcheckall.com/wp-content/uploads/2017/12/twitter-logo-transparent-background-2.png" width="18%" height="45%" alt="Twitter" srcSet=""/>

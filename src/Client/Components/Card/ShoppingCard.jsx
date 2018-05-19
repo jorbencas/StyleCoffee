@@ -30,7 +30,7 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
     }
   }
     function render() { 
-      console.log(cart);              
+      console.log(cart.cart);              
         return cart.cart.map((item) => (
             <section className="itembook">
                 <article className="bookfoto">
@@ -50,8 +50,8 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
           return (
             <div className="grid-main" id="listbooks">
-              <div  id="list" >{ cart.length > 0 ? render():'El carrito esta vacio!!' }</div>
-              <Link to='/buy' onClick={()=>{ cart.length === 0 ?'':saveproductscardtobuy()}} className="btn-search">Comprar</Link>
+              <div  id="list" >{ cart.cart.length > 0 ? render():'El carrito esta vacio!!' }</div>
+              <Link to='/buy' /*onClick={()=>{ saveproductscardtobuy()}}*/ className="btn-search">Comprar</Link>
               <p>Total de productos en el carrito: {cart.cart.length} <br/> Total:{cart.total} €</p>
             </div>
           );

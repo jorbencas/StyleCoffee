@@ -15,11 +15,10 @@ const mapDispatchToProps = dispatch =>{
 }
 
 class BooksListPage extends React.Component {
-  constructor({props,loadListBooks,books,booksdetail,deletebooks}) {
+  constructor({props,loadListBooks,booksdetail,deletebooks}) {
     super(props);
     this.state = {
-      listbooks:[],
-      kind:'books'
+      listbooks:[]
     };
     this.mangment = this.mangment.bind(this);
     this.editable = this.editable.bind(this);
@@ -31,6 +30,7 @@ class BooksListPage extends React.Component {
 
   componentWillReceiveProps(nextProps){
     this.setState({listbooks:nextProps.books});
+    console.log(this.state);
   }
 
        mangment(){
@@ -82,7 +82,7 @@ class BooksListPage extends React.Component {
         return(
           <div className="grid-main" id="listbooks">
               {this.mangment()}
-              <div id="list" >{ this.state.listbooks.length >0 ? Books:'No hay Libros!!' }</div>
+              <div id="list" >{ this.state.listbooks.length > 0 ? Books:'No hay Libros!!' }</div>
             </div>
         ) 
       } 
