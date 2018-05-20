@@ -6,10 +6,10 @@ const initialState = {
 export const BooksReducers = (state = initialState, action) => {
   switch (action.type) {
     case 'CHANGE_LIST':
-      return [...state.productsList.list,action.list][0];
+      return [...state.productsList,action.list][0];
       break;
     case 'BOOKS_DETAIL':
-      return [...state.booksdetail.detail,action.detail][0];
+      return [...state.booksdetail,action.detail][0];
       break;
     default:
       return state;

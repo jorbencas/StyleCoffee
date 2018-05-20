@@ -34,12 +34,14 @@ import { ShoppingCardReducers } from '../../src/Client/reducers/CardReducers';
             cart:{cart:[],total:0}
         });
     });
-    /*
     
-    it('returns the initial state', () => {});
+    
+    it('returns the initial state', () => {
+        
+    });
 
     it('returns the initial state', () => {});
 
     it('returns the initial state', () => {});
-    */
+    
 //});

@@ -93,6 +93,7 @@
     "favicons-webpack-plugin": "0.0.9",
     "jest": "^22.4.3",
     "mkdirp": "^0.5.1",
+    "moxios": "^0.4.0",
     "ncp": "^2.0.0",
     "node-sass": "^4.9.0",
     "npm-run-all": "^1.8.0",

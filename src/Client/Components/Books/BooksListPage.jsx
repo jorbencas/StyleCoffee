@@ -15,7 +15,7 @@ const mapDispatchToProps = dispatch =>{
 }
 
 class BooksListPage extends React.Component {
-  constructor({props,loadListBooks,booksdetail,deletebooks}) {
+  constructor({props,loadListBooks,books,booksdetail,deletebooks}) {
     super(props);
     this.state = {
       listbooks:[]

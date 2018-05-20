@@ -25,7 +25,7 @@ const detail = {
 }
 
 it('renders BoookDetails', () => {
-    const store = mockStore({ booksdetails: {detail: detail}});
+    const store = mockStore({ booksdetails: {detail: [detail]}});
     const wrapper = render(<ConnectedBooksDetailsPage store={store}/>)
     expect(wrapper.find(".itembook").length).toBe(0);
 });

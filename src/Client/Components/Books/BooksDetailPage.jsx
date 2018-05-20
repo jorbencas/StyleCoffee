@@ -63,7 +63,7 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
     return (
       <div>
         <div className="grid-main">
-          <div>{ detail.lenght == 0 ?'No se ha podido cargar el libro':render()}</div>
+          <div>{ detail.lenght === 0 ?'No se ha podido cargar el libro':render()}</div>
         </div>
       </div>
     );
