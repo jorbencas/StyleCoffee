@@ -1,3 +1,4 @@
+var setTimeout = require('timers');
 var mongoose = require('mongoose');
 var router = require('express').Router();
 var passport = require('passport');
@@ -116,10 +117,6 @@ router.get('/auth/google/callback',
    return res.redirect('/');
   });
 
-router.get('/:user', function(req,res,next){
-  return res.redirect('/');
-}),
-
 /*----TWITTER----*/
 router.get('/api/twitter', passport.authenticate('twitter'));
 router.get('/auth/twitter/callback',
@@ -130,42 +127,37 @@ router.get('/auth/twitter/callback',
 router.post("/charge", (req, res) => {
     let cart =req.body.carrito;
     console.log(cart);
+    let pricestripe = 0;
     stripe.customers.create({
       email:'jorbencas@gmail.com',
       source: cart[0].token
     })
     .then(customer => {
-        console.log(cart[0].kind);
-        let i = 0;
         cart.forEach((element) => {
-          console.log(element);
-          if(element.kind === 'books'){
-            console.log('Hola Mundo');
-            console.log(i);
-            /*Books.find({id: element.id}).then(function(book){
-              if(!book){
-                console.log('Error');
-              }else{
-                console.log(book.stock);
-                console.log(book[i].stock);
-                console.log('Adeu Andreu');
-              }
-             
-              /*stripe.charges.create({
-                amount: nook.price,
-                description: "Sample Charge",
-                   currency: "eur",
-                   customer: customer.id
-              }).then(
-                 Books.update({stock:element.stock}, {$desc:1})  
-              )
-            });*/
-            i++;
-          }else if(element.kind === 'coffee'){
-            //coffee.findById().then()
-          }
-        });
-    })
+          element.kind === 'books' ?
+            Books.find({id: element.id}).then(function(book){
+                console.log(book[0].price)
+                pricestripe = pricestripe + book[0].price;
+                console.log( 'Hola' + pricestripe);
+            })
+            :
+              coffee.find({id: element.id}).then((coffee) => {
+                //console.log(coffee.price)
+              })
+        })
+
+          console.log('Adeu');
+        stripe.charges.create({
+          amount: pricestripe,
+          description: "Sample Charge",
+             currency: "eur",
+             customer: customer.id
+        }).then(
+          console.log('El pago se ha hecho satisfactoriamente!!!')
+          //Books.update({stock:element.stock}, {$desc:1})  
+        )
+    }
+  )
     .then( );
   });
 

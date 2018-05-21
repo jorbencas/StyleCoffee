@@ -82,6 +82,7 @@ export function BuyProduct(cart){
       localStorage.setItem('item',JSON.stringify(itemes));
     });
     let carrito = JSON.parse(localStorage.getItem('item'));
+    console.log(carrito);
     return(dispatch) => {
       return axios.post(`http://localhost:3001/api/charge`, {carrito})
       .then(res => {

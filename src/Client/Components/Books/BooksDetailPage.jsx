@@ -20,8 +20,7 @@ const mapDispatchToProps = dispatch =>{
 
 const BooksDetailPage  = ({detail,AddtoCard}) => {
 
-    function render() {   
-      console.log(detail);            
+    function render() {             
           return detail.map( (item) => 
             <section className="itembook">
               <article className="bookfoto">
