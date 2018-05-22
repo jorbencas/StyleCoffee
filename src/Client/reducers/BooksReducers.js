@@ -3,20 +3,8 @@ const initialState = {
     booksdetail:{detail:[]}
   };
 
-export const BooksReducers = (state = initialState, action) => {
-  switch (action.type) {
-    case 'CHANGE_LIST':
-      return [...state.productsList,action.list][0];
-      break;
-    case 'BOOKS_DETAIL':
-      return [...state.booksdetail,action.detail][0];
-      break;
-    default:
-      return state;
-      break;
-  }
-}
-/*
+
+
 export function productsListReducer (state = initialState.productsList, action) {
     if(action.type==='CHANGE_LIST'){
       return [...state,action.list][0];
@@ -32,4 +20,4 @@ export function productsListReducer (state = initialState.productsList, action) 
       return state
     }
   }
-  */
+  

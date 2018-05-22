@@ -3,20 +3,7 @@ const initialState = {
     coffeesdetail:{detail:[]}
   };
 
-export const CoffeesReducers = (state = initialState, action) => {
-  switch(action.type){
-    case'CHANGE_OFFER':
-      return [...state.productsOffer.productsOffer,action.list][0]; 
-      break;
-    case'COFFEE_DETAIL':
-      return [...state.coffeesdetail,action.detail][0];
-      break;
-    default:
-      return state;
-      break;
-  }
-}
-/*
+
 export function productsOfferReducer (state = initialState.productsOffer, action) {
     if(action.type==='CHANGE_OFFER'){
       return [...state,action.list][0]; 
@@ -33,4 +20,3 @@ export function productsOfferReducer (state = initialState.productsOffer, action
       return state
     }
   }
-*/

@@ -9,8 +9,6 @@ export const ShoppingCardReducers = (state = initialState,action) => {
     case'ADD_TO_CART':
       var cartState = JSON.parse(localStorage.getItem('cart'));
       cartState = cartState ? cartState : [];
-      console.log('Hola');
-      debugger;
       localStorage.setItem('cart', JSON.stringify([...cartState, action.cart]));
       return {
           cart: JSON.parse(localStorage.getItem('cart'))

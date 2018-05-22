@@ -1,13 +1,9 @@
-var setTimeout = require('timers');
 var mongoose = require('mongoose');
 var router = require('express').Router();
 var passport = require('passport');
 var User = mongoose.model('User');
-var coffee = mongoose.model('Coffee');
-var Books = mongoose.model('Books');
 var auth = require('../auth');
-var stripe = require("stripe")(process.env.STRYPE_API_KEY);
-console.log('Users');
+
 
 router.get('/users',auth.required, function(req, res, next){
   res.send('Hola Users');
@@ -122,44 +118,6 @@ router.get('/api/twitter', passport.authenticate('twitter'));
 router.get('/auth/twitter/callback',
     passport.authenticate('twitter',
     { successRedirect: 'http://localhost:3001/', failureRedirect: '/' }));
-
-
-router.post("/charge", (req, res) => {
-    let cart =req.body.carrito;
-    console.log(cart);
-    let pricestripe = 0;
-    stripe.customers.create({
-      email:'jorbencas@gmail.com',
-      source: cart[0].token
-    })
-    .then(customer => {
-        cart.forEach((element) => {
-          element.kind === 'books' ?
-            Books.find({id: element.id}).then(function(book){
-                console.log(book[0].price)
-                pricestripe = pricestripe + book[0].price;
-                console.log( 'Hola' + pricestripe);
-            })
-            :
-              coffee.find({id: element.id}).then((coffee) => {
-                //console.log(coffee.price)
-              })
-        })
-
-          console.log('Adeu');
-        stripe.charges.create({
-          amount: pricestripe,
-          description: "Sample Charge",
-             currency: "eur",
-             customer: customer.id
-        }).then(
-          console.log('El pago se ha hecho satisfactoriamente!!!')
-          //Books.update({stock:element.stock}, {$desc:1})  
-        )
-    }
-  )
-    .then( );
-  });
 
 
 module.exports = router;

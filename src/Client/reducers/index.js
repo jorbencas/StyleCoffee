@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
-import { BooksReducers } from './BooksReducers';
-import { CoffeesReducers } from './CoffeeReducers';
+import { booksdetails, productsListReducer } from './BooksReducers';
+import { productsOfferReducer, coffeedetails } from './CoffeeReducers';
 import { AuthReducers } from './AuthReducers';
 import { ShoppingCardReducers } from './CardReducers';
 
@@ -18,10 +18,10 @@ export function printerrors(state = initialState.errors,action){
 }
 
 const rootReducer = combineReducers({
-  productsOffer: CoffeesReducers,
-  productsList: BooksReducers,
-  booksdetails: BooksReducers,
-  coffeedetails: CoffeesReducers,
+  productsOffer: productsOfferReducer,
+  productsList: productsListReducer,
+  booksdetails: booksdetails,
+  coffeedetails: coffeedetails,
   loginReducer:AuthReducers,
   ShoppingCardReducer:ShoppingCardReducers,
   ProfileReducer:AuthReducers,
