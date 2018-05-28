@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
       element.kind === 'books' ?
         Books.find({id: element.id}).then(function(book){
             console.log(book[0].price)
-            pricestripe = pricestripe + book[0].price +'.00';
+            pricestripe = pricestripe + book[0].price;
             console.log( 'Hola' + pricestripe);
         }):
         coffee.find({id: element.id}).then((coffee) => {
@@ -42,8 +42,11 @@ router.post("/", (req, res) => {
           }).then(
             console.log('El pago se ha hecho satisfactoriamente!!!'), 
             cart.forEach((element) => {
-              element.kind === 'books' 
+              console.log('Gereted');
+              if(element.kind === 'books'){
+                console.log(element.id);
                 Books.update({id: element.id},{$desc:{stock:1}});
+              } 
             })
           )
       }

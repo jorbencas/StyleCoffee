@@ -15,9 +15,9 @@ router.get('/users',auth.required, function(req, res, next){
 });
 
 router.put('/user', auth.required, function(req, res, next){
-  //console.log(req.body.user);
-  User.findById(req.payload.id).then(function(user){
-    //console.log(user);
+  console.log(req.body.user);
+  User.find({id:req.body.user.id}).then(function(user){
+
     if(!user){ return res.status(422)}
     
     // only update fields that were actually passed...
@@ -35,6 +35,10 @@ router.put('/user', auth.required, function(req, res, next){
       user.setPassword(req.body.user.password);
     }
 
+    if (typeof req.body.user.role !== 'undefined') {
+      user.role = req.body.user.role;
+    }
+    
     if(typeof req.body.user.date_birthday !== 'undefined'){
       user.date_birthday = req.body.user.date_birthday;
     }

@@ -4,6 +4,7 @@ import { booksdetails, productsListReducer } from './BooksReducers';
 import { productsOfferReducer, coffeedetails } from './CoffeeReducers';
 import { AuthReducers } from './AuthReducers';
 import { ShoppingCardReducers } from './CardReducers';
+import { ReserveReducers } from './ReserveReducer';
 
 const initialState = {
   errors:{error:[]}
@@ -27,7 +28,7 @@ const rootReducer = combineReducers({
   ProfileReducer:AuthReducers,
   printerrors:printerrors,
   SingUpReducer:AuthReducers,
-  routing: routerReducer
+  ReserveReducers:ReserveReducers
 });
 
 export default rootReducer;

@@ -6,7 +6,8 @@ import { bindActionCreators } from 'redux';
 
 const mapStateToProps = state => {
   return { 
-    books: state.productsList.books
+    books: state.productsList.books,
+    user: state.SingUpReducer.user.user.role
   };
 }
 
@@ -15,7 +16,7 @@ const mapDispatchToProps = dispatch =>{
 }
 
 class BooksListPage extends React.Component {
-  constructor({props,loadListBooks,books,booksdetail,deletebooks}) {
+  constructor({props,loadListBooks,books,user,booksdetail,deletebooks}) {
     super(props);
     this.state = {
       listbooks:[]
@@ -34,7 +35,8 @@ class BooksListPage extends React.Component {
   }
 
        mangment(){
-        if(localStorage.getItem('token')){
+         console.log(this.props.user);
+        if( this.props.user === 'admin'){
           return(
             <section>
               <Link className="button" to='/createbooks'>Crear un nuevo libro</Link>
@@ -46,7 +48,7 @@ class BooksListPage extends React.Component {
       }
 
        editable (item){
-        if(localStorage.getItem('token')){
+        if(this.props.user === 'admin'){
           return(
             <section>
               <Link className="button" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
@@ -56,7 +58,7 @@ class BooksListPage extends React.Component {
         }else{
           return(
             <section>
-              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(this.state.kind,item.id)}} >Leer Más</Link>
+              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Leer Más</Link>
             </section>
           ) 
         }

@@ -29,10 +29,8 @@ module.exports = {
   ] ,
   module: {
     loaders: [
-      { test: /(\.js|.jsx)$/, loader: 'babel-loader', exclude: '/node_modules/', query: { presets: ['es2015', 'react']},options: {
-        // This is a feature of `babel-loader` for Webpack (not Babel itself).
-        // It enables caching results in ./node_modules/.cache/babel-loader/
-        // directory for faster rebuilds.
+      { test: /(\.js|.jsx)$/, loader: 'babel-loader', exclude: '/node_modules/', 
+        query: { presets: ['es2015', 'react']},options: {
         cacheDirectory: true,
         plugins: ['react-hot-loader/babel'],
       }},

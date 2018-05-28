@@ -77,12 +77,14 @@ const mapStateToProps= state => {
         //let newgenere = this.state.genere.push(value);
         this.setState({genere:value});
       }
-      let newid = hashcode(this.state.title);
-      if(newid !== 0){
-        this.setState({id: newid});
-        console.log(this.state);
-      }
       
+      if (this.state.id === 0) {
+        let newid = hashcode(this.state.title);
+        if(newid !== 0){
+          this.setState({id: newid});
+          console.log(this.state);
+        } 
+      }
 
       console.log(this.state);
   }

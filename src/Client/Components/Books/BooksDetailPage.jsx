@@ -5,7 +5,8 @@ import { Link } from "react-router";
 const  kind = 'books';
 const mapStateToProps= state => {
   return {
-    detail:state.booksdetails.books
+    detail:state.booksdetails.books,
+    user: state.SingUpReducer.user.user.role
   };
 }
 
@@ -18,7 +19,7 @@ const mapDispatchToProps = dispatch =>{
 }
 
 
-const BooksDetailPage  = ({detail,AddtoCard}) => {
+const BooksDetailPage  = ({detail,user,AddtoCard}) => {
 
     function render() {             
           return detail.map( (item) => 
@@ -51,8 +52,8 @@ const BooksDetailPage  = ({detail,AddtoCard}) => {
                   </section>
                   <section className="buttons-details">
                     <p className="detail-price">{item.price}€</p>
-                    <Link to='/reservebook' className="btn-search">Reserva-lo</Link>
-                    <Link to='/card' onClick={()=>{AddtoCard(kind,item)}} className="btn-search">Añadir al carrito</Link>
+                    <Link to= {'/reservebook/' + item.id } className="btn-search">Reserva-lo</Link>
+                    <Link to= {user === 'user'?'/card':'/login'} onClick={()=>{AddtoCard(kind,item)}} className="btn-search">Añadir al carrito</Link>
                   </section>
                 </article>
               </section>

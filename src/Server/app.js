@@ -51,6 +51,7 @@ require('./models/books');
 require('./models/coffee');
 require('./models/User');
 require('./config/passport');
+require('./models/reserves');
 
 app.use(passport.initialize());
 app.use(passport.session());

@@ -4,8 +4,8 @@ import { setCookie } from '../lib/utils';
 import _ from 'underscore';
 let item = [];
 let Item = [];
-import store from '../Store';import { debug } from 'util';
-;
+import store from '../Store';
+
 export function loadlistCoffees(){
     return(dispatch)=>{
       return axios.get(`http://localhost:3001/api/coffees`)
@@ -42,7 +42,7 @@ export function categoriescoffee(param){
   }
 }
 
-export function booksdetail(kind,id){
+export function booksdetail(id){
   return dispatch =>{
     return axios.get(`http://localhost:3001/api/books/` + id)
     .then(res => {
@@ -61,7 +61,6 @@ export function coffeesdetails(id){
 }
 
 export function AddtoCard(kind,cart){
-
   return dispatch =>{
     item.push({'kind':kind,'id':cart.id,'token':0});
     localStorage.setItem('item',JSON.stringify(item));
@@ -79,6 +78,7 @@ export function BuyProduct(cart){
     _.each(p, function (item) {
       item.token = cart;
       itemes.push(item);
+      console.log(itemes);
       localStorage.setItem('item',JSON.stringify(itemes));
     });
     let carrito = JSON.parse(localStorage.getItem('item'));
@@ -86,17 +86,43 @@ export function BuyProduct(cart){
     return(dispatch) => {
       return axios.post(`http://localhost:3001/api/charge`, {carrito})
       .then(res => {
-        dispatch({type:"BOOKS_DETAIL",detail:res.data});
-      })
+          toastr.success('Revisa tu correo para obtener información sobre','')
+          localStorage.removeItem('item');
+          localStorage.removeItem('cart');
+        }
+    );
     }
   }
-  
 }
 
 export function RemoveFromcard(cart){
   return (dispatch) => {
     dispatch({type:'REMOVE_TO_CART',cart:cart});
     toastr.info('El producto ' +cart.title + 'se ha eliminado a tu cesta','Bienvenido');
+  }
+}
+
+export function reserve(reserve){
+  let token = localStorage.getItem('token');
+  console.log(reserve);
+  return (dispatch) => {
+    return axios.put('http://localhost:3001/api/reserve/', {reserve},{headers: { Authorization: 'Token ' + token}})
+    .then(
+      (res)=>{ dispatch({ type:"EDIT_PRODUCT",list:res.data});
+    });
+  }
+}
+
+export function removereserve(id) {
+  
+}
+
+export function listreserves() {
+  return(dispatch)=>{
+    return axios.get(`http://localhost:3001/api/reserve/`)
+    .then(res => {
+      dispatch({type:"RESERVE_PRODUCT",list:res.data});
+    })
   }
 }
 
@@ -151,6 +177,7 @@ export function SingUp(user){
 
 export function updateprofile(user){
   let token = localStorage.getItem('token');
+  console.log(user);
   return(dispatch)=>{
     return axios.put('http://localhost:3001/api/user',{user},{headers: { Authorization: 'Token ' + token} }
     ).then(

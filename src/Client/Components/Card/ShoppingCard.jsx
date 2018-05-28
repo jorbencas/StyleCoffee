@@ -6,7 +6,7 @@ import {RemoveFromcard,getCart} from '../../actions/index';
 import _ from 'underscore';
 let item = [];
 
-const mapStateToProps= state => {
+const mapStateToProps = state => {
   console.log(state);
   return { 
     cart: getCart(state.ShoppingCardReducer.cart)
@@ -22,18 +22,20 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
   function saveproductscardtobuy(){
     let cartitem = JSON.parse(localStorage.getItem('item'));
+    console.log( cartitem.length + '   ' + cart.cart.length)
     if(cartitem.length !== cart.cart.length){
       cart.cart.forEach(element => {
        let kind = '';
-        element.genere ? kind = 'Books':kind = 'coffe';
-        if (element[0] !== element) {
+        element.genere ? kind = 'books':kind = 'coffe';
+        if ((cartitem[0] !== element)) {
           cartitem.push( {'kind':kind,'id':element.id,'token':0});
           console.log(cartitem);
-        //localStorage.setItem('item',JSON.stringify(cartitem));
+          localStorage.setItem('item',JSON.stringify(cartitem));
         }
       });
     }
   }
+
     function render() { 
       console.log(cart.cart);              
         return cart.cart.map((item) => (
@@ -48,7 +50,7 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
                   <p>{item.edition}</p>
                   <h2>{item.price}€</h2>
                 </article>
-                <Link  to='/card' className="btn-search" onClick={()=>{RemoveFromcard(item)}}>Eliminar</Link>
+                <Link  to='/card' role="eliminar un elemento del carrito" className="btn-search" onClick={()=>{RemoveFromcard(item)}}>Eliminar</Link>
             </section>
           ));
         }

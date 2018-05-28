@@ -205,7 +205,7 @@ router.delete('/',auth.required, function(req,res,next){
     if (error) {
       res.status(401).send('Ertro els borrar el libro!!');
     }else{
-      res.status(200).send('Swe ha borrado correctamente.');
+      res.status(200).send('Se han borrado todos los libros correctamente.');
     }
   });
 });
@@ -216,7 +216,7 @@ router.delete('/book/:book',auth.required, function(req,res,next){
     if (err) {
       res.status(401).send('Ertro els borrar el libro!!');
     }else{
-      res.status(200).send('Swe ha borrado correctamente.');
+      res.status(200).send('Se ha borrado correctamente.');
     }
   });
 

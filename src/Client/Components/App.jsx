@@ -20,13 +20,16 @@ import ShoppingCard from './Card/ShoppingCard';
 import CreditCard from './Card/CreaditCard';
 import managebooks from './Books/EditBooks';
 import managecoffees from './Coffees/EditCoffee';
-import ReserveBook from './common/ReservePage';
+import ReserveBook from './Reserves/ReservePage';
+import ListReserve from './Reserves/ListResrve';
 
 import store from '../Store';
 const token = localStorage.getItem('token');
 const user = store.getState().loginReducer.user;
 if (user.lenght > 0 && token) {
    store.dispatch({type:"AUTH_USER", user:user});
+}else{
+  localStorage.removeItem('token');
 }
 
 export class App extends React.Component{  
@@ -52,7 +55,8 @@ render() {
             <Route path='/profile' component={Profile}/>
             <Route path='/card' component={ShoppingCard}/>
             <Route path='/buy' component={CreditCard}/>
-            <Route path='/reservebook' component={ReserveBook}/>
+            <Route path='/reservebook/:id' component={ReserveBook}/>
+            <Route path='/listreserve' component={ListReserve}/>
             <Route path='/createbooks' component={managebooks}/>
             <Route path='/editebook/:id' component={managebooks}/>
             <Route path='/createcoffees' component={managecoffees}/>

@@ -5,7 +5,7 @@
   "main": "app",
   "scripts": {
     "test": "jest --config jest/config.json",
-    "start": "nodemon ./src/Server/app.js",
+    "start": " npm test && nodemon ./src/Server/app.js",
     "build:html": "babel-node ./tools/buildHTML.js",
     "build:css": "babel-node ./tools/buildCSS.js",
     "clean-dist": "npm run remove-dist && mkdir dist",

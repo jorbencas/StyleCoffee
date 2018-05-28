@@ -19,8 +19,9 @@ const mapDispatchToProps = (dispatch) =>{
 
 class Profile extends React.Component {
     constructor(props){
-        super(props);  
-        this.state = {                
+        super(props); 
+        this.state = { 
+            id: '',               
             username:'',
             email:'',
             dni:'',
@@ -29,10 +30,12 @@ class Profile extends React.Component {
             apellidos:'',
             image:'',
             token:'',
+            role:'',
             formErrors: {username:'',email: '', password: ''},
             emailValid: false,
             formValid: false
           };
+          
           this.handleInputChange = this.handleInputChange.bind(this); 
           this.handleSubmit = this.handleSubmit.bind(this); 
           this.validateField = this.validateField.bind(this);
@@ -41,12 +44,12 @@ class Profile extends React.Component {
 
     componentWillMount(){
       this.props.profile();
+      console.log(this.props.user);
     }
 
     componentWillReceiveProps(nextProps){
-      console.log(nextProps.user);
+      console.log(nextProps.user[0].email);
       this.setState({
-        id:nextProps.user.id,
         username:nextProps.user.username, 
         dni:nextProps.user.dni, 
         email:nextProps.user.email,
@@ -56,6 +59,7 @@ class Profile extends React.Component {
         image:nextProps.user.image
       });
       console.log(this.state);
+      console.log('Hola')
     }
 
     handleInputChange(event) {
@@ -138,9 +142,16 @@ class Profile extends React.Component {
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
                           <label htmlFor="apellidos" htmlFor="apellidos">Apellidos</label>
                           <input type="text" name="apellidos" id="apellidos" onChange={this.handleInputChange} required/>
+                        </div>
+                        <div className="contact_item">
+                            <label className="inputSubject" htmlFor="inputSubject">Elegidos</label><br/>
+                            <select className="" id="inputSubject" name="role" title="Choose your role" onChange={this.handleInputChange}>
+                                <option value="user">Usuario Normal</option>
+                                <option value="Admin">Administrador</option>
+                            </select>
                         </div> <br/><br/><br/>
                         <div className="contact_item" disabled={!this.state.formValid} >
-                          <Link to="/" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
+                          <Link to="/" className="btn-search" onClick={this.handleSubmit} >Actualiza tu perfile</Link>
                         </div>
               </form>
               </div>
