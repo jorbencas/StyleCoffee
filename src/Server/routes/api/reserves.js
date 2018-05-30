@@ -2,6 +2,7 @@ var router = require('express').Router();
 var mongoose = require('mongoose');
 var Reserves = mongoose.model('Reservas');
 var auth = require('../auth');
+const sgMail = require('@sendgrid/mail');
 
 console.log('Reserves');
 
@@ -87,7 +88,23 @@ router.put('/',auth.required, function(req,res,next){
   
   reserves.save((err, reserveStored) => {
     if(err) res.status(500).send(`Ha ocurrido un error al registrar el libro en la base de datos. $(err)`);
-    res.status(200).send(reserveStored);
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      const msg = {
+        to: 'jorbencas@gmail.com',
+        from: "jorbencas@gmail.com",
+        subject: 'Reserva realizada',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: `<strong>Estimado cliente. <br> Gracias por confiar en nosotros, su pedido ha sido de realizado, puede pasar a recoguer lo cuando quieras </strong>`,
+        };
+        sgMail.send(msg, function(error, info) {
+            if (error) {
+              res.status('401').json({err: info});
+            } else {
+              res.status('200').json({success: true})
+              res.redirect('http://localhost:3001')
+            }
+          })
+    //res.status(200).send(reserveStored);
   });
 });
 

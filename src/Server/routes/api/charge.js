@@ -8,6 +8,7 @@ var Books = mongoose.model('Books');
 var stripe = require("stripe")(process.env.STRYPE_API_KEY);
 console.log('Users');
 let numeral = require('numeral');
+const sgMail = require('@sendgrid/mail');
 
 router.post("/", (req, res) => {
     let cart =req.body.carrito;
@@ -51,7 +52,25 @@ router.post("/", (req, res) => {
           )
       }
     )
-      .then( () => {res.redirect('/')} );
+      .then( () => {
+  
+      sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+      const msg = {
+        to: 'jorbencas@gmail.com',
+        from: "jorbencas@gmail.com",
+        subject: 'Notificación del cobro de su pedido hecho ha Stylecoffee',
+        text: 'and easy to do anywhere, even with Node.js',
+        html: `<strong>Gracias por confiar en nosotros, tu pedido ha sido de ` + pricestripe + '€' + ` puedes pasar ha recoguer lo cuando quieras </strong>`,
+        };
+        sgMail.send(msg, function(error, info) {
+            if (error) {
+              res.status('401').json({err: info});
+            } else {
+              res.status('200').json({success: true})
+              res.redirect('http://localhost:3001')
+            }
+          })
+        } );
     });
   
     module.exports = router;

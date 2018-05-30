@@ -68,13 +68,13 @@ const Categorys = ({categoriesbook, categoriescoffee}) => {
                     <li className="item"><Link className="book" to={'/books/capuchino'} onClick={()=>{categoriesbook('capuchino')}}>
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/> Comedia</Link></li>
-                    <li className="item"><Link className="book" to={'/books/capuchino'} onClick={()=>{categoriesbook('capuchino')}}>
+                    <li className="item"><Link className="book" to={'/books/Thriller'} onClick={()=>{categoriesbook('capuchino')}}>
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/>  Thriller</Link></li>
-                    <li className="item"><Link className="book" to={'/books/capuchino'} onClick={()=>{categoriesbook('capuchino')}}>
+                    <li className="item"><Link className="book" to={'/books/accion'} onClick={()=>{categoriesbook('capuchino')}}>
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/> Acción</Link></li>
-                    <li className="item"><Link className="book" to={'/books/capuchino'} onClick={()=>{categoriesbook('capuchino')}}>
+                    <li className="item"><Link className="book" to={'/books/romantica'} onClick={()=>{categoriesbook('capuchino')}}>
                     <img src="./assets/photos/libro.png" width="185px" height="170px" alt=""/>
                     <br/> Romance</Link></li>
                     <li className="item"><Link className="book" to={'/books/Drama'} onClick={()=>{categoriesbook('Drama')}}>

@@ -86,7 +86,8 @@ export function BuyProduct(cart){
     return(dispatch) => {
       return axios.post(`http://localhost:3001/api/charge`, {carrito})
       .then(res => {
-          toastr.success('Revisa tu correo para obtener información sobre','')
+          console.log(res.data);
+          toastr.success('Revisa tu correo para obtener información sobre','Aviso importante')
           localStorage.removeItem('item');
           localStorage.removeItem('cart');
         }
@@ -128,6 +129,8 @@ export function listreserves() {
 
 export function logout(){
   localStorage.removeItem('token');
+  console.log('hola');
+  debugger;
   dispatch({type:"LOGOUT_USER"});
 }
 

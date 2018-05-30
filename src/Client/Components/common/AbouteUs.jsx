@@ -1,6 +1,6 @@
 import React from 'react';
 import {Gmaps, Marker, InfoWindow, Circle} from 'react-gmaps';
-const params = {v: '3.exp', key: process.env.GOOGLEMAPS};
+const params = {v: '3.exp', key: 'AIzaSyBuOneXLbqgEab2tSMuiUUEwgx2O9jTp3Y'};
 
 class AbouteUs extends React.Component {
     constructor(props){

@@ -74,33 +74,30 @@ class ReserveBook extends React.Component {
                 <div className="Contact">
                     <form id="contact_form" name="contact_form" className="form-contact">
                         <h1 className="contact_item">Reserva un libro</h1>
-                        <div className="contact_item">
-                            <label htmlFor="title">Titulo</label><br/>
-                            <input required type="text" id="title" name="title" placeholder="Nombre" onChange={this.handleInputChange} value={this.state.title} required/>
-                        </div>
+                       
                         <div className={`contact_item`}>
                             <label htmlFor="email">Correo electronico</label><br/>
                             <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`contact_item `}>
                             <label htmlFor="dni">Dni</label><br/>
-                            <input required type="dni" id="dni" name="dni" placeholder="Email *" onChange={this.handleInputChange} required/>
+                            <input required type="dni" id="dni" name="dni" placeholder="Dni *" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`contact_item`}>
-                            <label htmlFor="timestart">Hora de la reserva</label><br/>
-                            <input required type="timestart" id="timestart" name="timestart" placeholder="Email *" onChange={this.handleInputChange} required/>
+                            <label htmlFor="timestart">Hora inicial de la reserva</label><br/>
+                            <input required type="timestart" id="timestart" name="timestart" placeholder="Ha quiera quiere hacer su reserva ? *" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`contact_item `}>
-                            <label htmlFor="timeend">Hora de la reserva</label><br/>
-                            <input required type="timeend" id="timeend" name="timeend" placeholder="Email *" onChange={this.handleInputChange} required/>
+                            <label htmlFor="timeend">Hora final de la reserva</label><br/>
+                            <input required type="timeend" id="timeend" name="timeend" placeholder="reservar el libro hasta la hora *" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`contact_item`}>
-                            <label htmlFor="datestart">Hora de la reserva</label><br/>
-                            <input required type="datestart" id="datestart" name="datestart" placeholder="Email *" onChange={this.handleInputChange} required/>
+                            <label htmlFor="datestart">fecha inicial de la reserva</label><br/>
+                            <input required type="datestart" id="datestart" name="datestart" placeholder="Fecha de inicio de la reserva *" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`contact_item`}>
-                            <label htmlFor="dateend">Hora de la reserva</label><br/>
-                            <input required type="dateend" id="dateend" name="dateend" placeholder="Email *" onChange={this.handleInputChange} required/>
+                            <label htmlFor="dateend">fecha final de la reserva</label><br/>
+                            <input required type="dateend" id="dateend" name="dateend" placeholder="Fecha final de la reserva*" onChange={this.handleInputChange} required/>
                         </div>
                         <div className="contact_item">
                             <input className="contact_Item" type="submit" name="submit" id="submit" value="Enviar" onClick={this.handleSubmit}/>
