@@ -67,7 +67,7 @@ class CoffeeListPage extends React.Component {
           <section className="itembook">
           <article className="bookfoto">
            <div className="state"><p>{item.state}</p></div>
-            <img src='./assets/photos/cafe.png' width="140px" height="215px" alt="./assets/photos/libro.png"/>
+            <img src='./photos/cafe.png' width="140px" height="215px" alt="./assets/photos/libro.png"/>
           </article>
           <article className="bookinfo">
             <p>{ item.name }</p>

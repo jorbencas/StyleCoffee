@@ -7,7 +7,7 @@ import colors from 'colors';
 import ncp from 'ncp';
 
 var mkdirp = require('mkdirp');
-let assets = require('../thirdparty.config.json');
+let assets = require('../../thirdparty.config.json');
 
 mkdirp('dist/lib' , function (err) {
   if (err) console.error(err)
@@ -57,22 +57,12 @@ for (let value of assets) {
 
 }
 
-/*ncp('./src/client/templates', './dist/templates', function (err) {
-  if (err) {
-    return console.error(err);
-  }
-  console.log('done!');
- });
-*/
 fs.readFile('src/Client/public/index.html', 'utf8', (err, markup) => {
   if (err) {
     return console.log(err);
   }
 
   const $ = cheerio.load(markup);
-
-  // since a separate spreadsheet is only utilized for the production build, need to dynamically add this here.
-  //$('head').prepend('<link rel="stylesheet" href="styles.css">');
 
   for (let value of assets) {
     if (value.type==='css'){

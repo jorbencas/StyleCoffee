@@ -67,7 +67,7 @@ class Header extends React.Component {
           <div id="rankinglist"></div>
           <Link title="App StyleCoffee" title="link" aria-valuetext="Ranking List" to="/">
             <h1> 
-              <img title="img" src="./assets/photos/logo.png" width="50px"  alt="Logo del Ranking Students"/>
+              <img title="img" src="./photos/logo.png" width="50px"  alt="Logo del Ranking Students"/>
               <span className="header-title"> StyleCoffee</span>
             </h1>
           </Link>  

@@ -6,12 +6,11 @@
   "scripts": {
     "test": "jest --config jest/config.json",
     "start": " npm test && nodemon ./src/Server/app.js",
-    "build:html": "babel-node ./tools/buildHTML.js",
-    "build:css": "babel-node ./tools/buildCSS.js",
+    "build:html": "babel-node ./webpack/tools/buildHTML.js",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "prebuild": " npm-run-all clean-dist build:html",
-    "build": " babel-node tools/build.js",
+    "build": " babel-node ./webpack/tools/build.js",
     "postbuild": "node ./src/Server/app.js"
   },
   "repository": {
