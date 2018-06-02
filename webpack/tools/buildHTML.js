@@ -63,7 +63,7 @@ fs.readFile('src/Client/public/index.html', 'utf8', (err, markup) => {
   }
 
   const $ = cheerio.load(markup);
-
+/*
   for (let value of assets) {
     if (value.type==='css'){
       $('head').prepend('<link rel="stylesheet" href="./'+ value.file +'">');
@@ -71,7 +71,7 @@ fs.readFile('src/Client/public/index.html', 'utf8', (err, markup) => {
       $('head').prepend('<script src="lib/' + value.file +'"></script>');      
     }
   }
-
+  */
   fs.writeFile('dist/index.html', $.html(), 'utf8', function (err) {
     if (err) {
       return console.log(err);
