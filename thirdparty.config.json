@@ -1,0 +1,18 @@
+ [
+    {"type":"font","base_path":"./src/Client/public/assets/fonts/","file":"Hitchhiker b.ttf"},
+    {"type":"font","base_path":"./src/Client/public/assets/fonts/","file":"Hitchhiker.ttf"},
+    {"type":"font","base_path":"./src/Client/public/assets/fonts/","file":"Johanna.ttf"},
+    {"type":"font","base_path":"./src/Client/public/assets/fonts/","file":"Johanna Italic.ttf"},
+    {"type":"font","base_path":"./src/Client/public/assets/fonts/","file":"nougatine.ttf"},
+    {"type":"css","base_path":"./src/Client/public/","file":"styles.css"},
+    {"type":"js","base_path":"node_modules/bootstrap/dist/js/","file":"bootstrap.min.js"},
+    {"type":"js","base_path":"node_modules/popper/dist/umd/","file":"popper.min.js"},    
+    {"type":"js","base_path":"node_modules/jquery/dist/","file":"jquery.min.js"}, 
+    {"type":"photo","base_path":"./src/Client/public/assets/photos/","file":"cafe.png"},
+    {"type":"photo","base_path":"./src/Client/public/assets/photos/","file":"f1.jpg"},
+    {"type":"photo","base_path":"./src/Client/public/assets/photos/","file":"f2.jpg"},
+    {"type":"photo","base_path":"./src/Client/public/assets/photos/","file":"f3.jpg"},
+    {"type":"photo","base_path":"./src/Client/public/assets/photos/","file":"libro.png"},
+    {"type":"photo","base_path":"./src/Client/public/assets/photos/","file":"logo.png"},
+    {"type":"photo","base_path":"./src/Client/public/assets/photos/","file":"portada.jpeg"}    
+]
