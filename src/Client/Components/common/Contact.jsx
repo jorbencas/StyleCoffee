@@ -72,40 +72,38 @@ validateField(fieldName, value) {
     render() {               
         return (
             <div className="grid-main">
-                <div className="Contact">
                     <form id="contact_form" name="contact_form" className="form-contact">
-                        <h1 className="contact_item">Contacto</h1>
+                        <h1 className="form-contact-heading">Contacto</h1>
                         <div><FormErrors formErrors={this.state.formErrors} /></div>
-                        <div className="contact_item">
+                        <div className="form-group">
                             <label htmlFor="name">name</label><br/>
-                            <input required type="text" id="name" name="name" placeholder="Nombre" onChange={this.handleInputChange} required/>
+                            <input required className="form-control" type="text" id="name" name="name" placeholder="Nombre" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item  ${this.errorClass(this.state.formErrors.email)}`}>
+                        <div className={`form-group  ${this.errorClass(this.state.formErrors.email)}`}>
                             <label htmlFor="email">Email</label><br/>
-                            <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} required/>
+                            <input required type="email" className="form-control" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className="contact_item">
+                        <div className="dropdown">
                             <label className="inputSubject" htmlFor="inputSubject">Tema de Consulta</label><br/>
-                            <select className="" id="inputSubject" name="subject" title="Choose subject" onChange={this.handleInputChange}>
-                                <option value="">- Por favor, seleccione un tema de consulta -</option>
-                                <option value="actividad">Info relativa a alguna actividad</option>
-                                <option value="dpto">Contacta con nuestro dpto de actividades</option>
-                                <option value="trabaja">Trabaja con nosotros</option>
-                                <option value="sugerencias">Haznos sugerencias</option>
-                                <option value="reclamaciones">Atendemos tus reclamaciones</option>
-                                <option value="novedades">Te avisamos de nuestras novedades</option>
-                                <option value="diferente">Algo diferente</option>
+                            <select className="btn btn-primary dropdown-toggle " id="inputSubject" name="subject" title="Choose subject" onChange={this.handleInputChange}>
+                                <option  value="">- Por favor, seleccione un tema de consulta -</option>
+                                <option  value="actividad">Info relativa a alguna actividad</option>
+                                <option  value="dpto">Contacta con nuestro dpto de actividades</option>
+                                <option  value="trabaja">Trabaja con nosotros</option>
+                                <option  value="sugerencias">Haznos sugerencias</option>
+                                <option  value="reclamaciones">Atendemos tus reclamaciones</option>
+                                <option  value="novedades">Te avisamos de nuestras novedades</option>
+                                <option  value="diferente">Algo diferente</option>
                             </select>
                         </div>
-                        <div className="contact_item">
+                        <div className="form-group">
                             <label htmlFor="recomendation">Hace Aqui tu recomendación</label><br/>
-                            <textarea required className="contact_item" id="recomendation" name="message" placeholder="Introduzca aqui su mensaje *" onChange={this.handleInputChange} required></textarea>
+                            <textarea required className="form-control" id="recomendation" name="message" placeholder="Introduzca aqui su mensaje *" onChange={this.handleInputChange} required></textarea>
                         </div>
                         <div className="contact_item"  disabled={!this.state.formValid}>
                             <input className="contact_Item" type="submit" name="submit" id="submit" value="Enviar" onClick={this.handleSubmit}/>
                         </div>
                     </form>
-                </div> 
             </div>
         );
     }

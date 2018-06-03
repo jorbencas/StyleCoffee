@@ -82,7 +82,7 @@ class Home extends React.Component {
                         <a id="rdb2" className="checkbox" onClick={this.handleClick} id="coffees"> Coffes</a>
                     </section>
                     <input id="search" placeholder="Search everything that you find" onKeyPress={this.handleInputChange} type="text"/>
-                    <Link className="btn-search" to={param} onClick={()=>{this.state.action==='loadListBooks'?this.props.loadListBooks(this.state.subject):this.props.loadlistCoffees(this.state.subject)}}>Search</Link>
+                    <Link className="btn btn-success btn-xs" to={param} onClick={()=>{this.state.action==='loadListBooks'?this.props.loadListBooks(this.state.subject):this.props.loadlistCoffees(this.state.subject)}}>Search</Link>
                 </section>
             <Categorys/>
         </div>

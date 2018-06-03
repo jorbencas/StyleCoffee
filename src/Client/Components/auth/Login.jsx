@@ -40,25 +40,51 @@ class Login extends React.Component {
 
     render() {
       return (
-        <div className="grid-main">
-          <div className="Contact">
-                    <form id="contact_form" name="contact_form" className="form-contact">
-                    <h1 id="heading">Iniciar Sesión</h1>
-                        <div className="contact_item">
-                          <label htmlFor="username">name</label><br/>
-                          <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div className="contact_item">
-                          <label htmlFor="password">Password</label><br/>
-                          <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <br/><br/>
-                        <div>
-                          <Link to="/" className="btn-search" onClick={()=>{this.props.login(this.state)}}>Iniciar Sesion</Link>
-                        </div>
-                    </form>
-                </div> 
+        <div class="container-fluid main-content">
+        <div class="">
+          <div class="login-content">
+      
+            <div class="text-center">
+              <h2>Login</h2>
+      
+              <div class="alert">
+                <div>An Error would go here</div>
+              </div>
+            </div>
+            <div >
+              <div >
+                <form class="form-horizontal">
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="email">Email:</label>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="control-label col-sm-2" for="pwd"/>Password:</label>
+                  <div class="col-sm-10">          
+                    <input type="password" class="form-control" id="pwd" placeholder="Enter password" name="pwd">
+                  </div>
+                </div>
+                <div class="form-group">        
+                  <div class="col-sm-offset-2 col-sm-10">
+                    <div class="checkbox">
+                      <label><input type="checkbox" name="remember"/> Remember me</label>
+                    </div>
+                  </div>
+                </div>
+                    <div class="control-group">
+                      <div class="controls">
+                      <Link to="/" className="btn btn-primary" onClick={()=>{this.props.login(this.state)}}>Iniciar Sesion</Link>
+                        <a id="forgotPasswordLink" href="#">Forgot Password</a>
+                      </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
       );
     }
 }
