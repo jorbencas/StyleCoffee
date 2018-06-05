@@ -71,7 +71,7 @@ validateField(fieldName, value) {
 
     render() {               
         return (
-            <div className="grid-main">
+            <div className="container-fluid main-content">
                     <form id="contact_form" name="contact_form" className="form-contact">
                         <h1 className="form-contact-heading">Contacto</h1>
                         <div><FormErrors formErrors={this.state.formErrors} /></div>
@@ -100,8 +100,8 @@ validateField(fieldName, value) {
                             <label htmlFor="recomendation">Hace Aqui tu recomendación</label><br/>
                             <textarea required className="form-control" id="recomendation" name="message" placeholder="Introduzca aqui su mensaje *" onChange={this.handleInputChange} required></textarea>
                         </div>
-                        <div className="contact_item"  disabled={!this.state.formValid}>
-                            <input className="contact_Item" type="submit" name="submit" id="submit" value="Enviar" onClick={this.handleSubmit}/>
+                        <div className="form-group"  disabled={!this.state.formValid}>
+                            <input className="btn btn-primary" type="submit" name="submit" id="submit" value="Enviar" onClick={this.handleSubmit}/>
                         </div>
                     </form>
             </div>

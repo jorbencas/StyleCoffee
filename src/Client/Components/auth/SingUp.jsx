@@ -85,31 +85,57 @@ class singup extends React.Component {
 
     render() {
       return (
-        <div className="grid-main">
-          <div className="Contact">
-                    <form id="contact_form" name="contact_form" className="form-contact">
-                      <h1 id="heading">Registrar se</h1>
-                      <div><FormErrors formErrors={this.state.formErrors} /></div>
-                        <div className="contact_item">
-                          <label htmlFor="username">name</label><br/>
-                          <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div className={`contact_item  ${this.errorClass(this.state.formErrors.email)}`}>
-                          <label htmlFor="email">Email</label><br/>
-                          <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
-                          <label htmlFor="password">Password</label><br/>
-                          <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <br/>
-                        <br/><br/>
-                        <div className="contact_item" disabled={!this.state.formValid} >
-                          <Link to="/" className="btn btn-info btn-block" onClick={() => {this.props.SingUp(this.state)}} >Resgistrar se</Link>
-                        </div>
-                    </form>
-                </div> 
+        <div className="container-fluid main-content">
+        <div className="">
+          <div className="login-content">
+      
+            <div className="text-center">
+              <h2>Sing Up</h2>
+      
+              <div className="alert">
+                <div>An Error would go here</div>
+              </div>
+            </div>
+            <div >
+              <div >
+                <form className="form-horizontal">
+                <div className="form-group">
+                  <label className="control-label col-sm-2" htmlFor="username">Username:</label>
+                  <div className="col-sm-10">
+                    <input type="text" className="form-control" id="username" placeholder="Enter username" name="username"  onChange={this.handleInputChange}/>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label className="control-label col-sm-2" htmlFor="email">Email:</label>
+                  <div className="col-sm-10">
+                    <input type="email" className="form-control" id="email" placeholder="Enter email" name="email"  onChange={this.handleInputChange}/>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <label className="control-label col-sm-2" htmlFor="pwd">Password:</label>
+                  <div className="col-sm-10">          
+                    <input type="password" className="form-control" id="pwd" placeholder="Enter password" name="password"  onChange={this.handleInputChange}/>
+                  </div>
+                </div>
+                <div className="form-group">        
+                  <div className="col-sm-offset-2 col-sm-10">
+                    <div className="checkbox">
+                      <label><input type="checkbox" name="remember"/> Remember me</label>
+                    </div>
+                  </div>
+                </div>
+                    <div className="control-group">
+                      <div className="controls">
+                      <Link to="/" className="btn btn-primary btn-xs" onClick={() => {this.props.SingUp(this.state)}}>Resgistrar se <i className="fa fa-arrow-circle-right"></i></Link>
+                        <a id="forgotPasswordLink" href="#">Forgot Password</a>
+                      </div>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
       );
     }
 }

@@ -25,6 +25,8 @@ export function loadListBooks(){
 }
 
 export function categoriesbook(param){
+  console.log(param);
+  debugger;
   return(dispatch)=>{
     return axios.post(`http://localhost:3001/api/books/` + param)
     .then(res => {
@@ -34,6 +36,8 @@ export function categoriesbook(param){
 }
 
 export function categoriescoffee(param){
+  console.log(param);
+  debugger;
   return(dispatch)=>{
     return axios.get(`http://localhost:3001/api/coffees/` + param)
     .then(res => {

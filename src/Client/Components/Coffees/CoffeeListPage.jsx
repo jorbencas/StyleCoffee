@@ -37,8 +37,8 @@ class CoffeeListPage extends React.Component {
    if( this.props.user === 'admin'){
      return(
        <section>
-         <Link className="button" to='/createbooks'>Crear un nuevo libro</Link>
-         <Link className="button" to='/BooksList' onClick={() => {this.props.deletebooks()}}>Eliminar todos</Link>
+         <Link className="btn btn-primary" to='/createbooks'>Crear un nuevo libro</Link>
+         <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletebooks()}}>Eliminar todos</Link>
          <br/><br/>
        </section>
      );
@@ -49,14 +49,14 @@ class CoffeeListPage extends React.Component {
    if(this.props.user === 'admin'){
      return(
        <section>
-         <Link className="button" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
-         <Link className="button" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} >Borrar</Link>
+         <Link className="btn btn-success" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
+         <Link className="btn btn-danger" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} >Borrar</Link>
        </section>
      )
    }else{
      return(
        <section>
-         <Link className="button" to={'/CoffeeList/Coffee/'+item.id}  onClick={() => { this.props.coffeesdetails(item.id)}} >Leer Más</Link>
+         <Link className="btn btn-primary" to={'/CoffeeList/Coffee/'+item.id} onClick={() => { this.props.coffeesdetails(item.id)}}><i className="fa fa-plus-circle"></i> Leer Más</Link>
        </section>
      ) 
    }
@@ -64,12 +64,12 @@ class CoffeeListPage extends React.Component {
 
       render() {
         const detail = this.state.detail.map((item, i) => (
-          <section className="itembook">
-          <article className="bookfoto">
+          <section className="row">
+          <article className="col-sm-2">
            <div className="state"><p>{item.state}</p></div>
-            <img src='./photos/cafe.png' width="140px" height="215px" alt="./assets/photos/libro.png"/>
+            <img src='./photos/cafe.png' width="140px" height="215px" alt="./photos/cafe.png"/>
           </article>
-          <article className="bookinfo">
+          <article className="col-sm-5">
             <p>{ item.name }</p>
             <h2>{item.price}€</h2>
             {this.editable(item)}
@@ -78,7 +78,7 @@ class CoffeeListPage extends React.Component {
         ));
       
         return (
-              <div className="grid-main" id="listbooks">
+              <div className="container-fluid" id="listbooks">
               {this.mangment()}
               <div id="list" >{ this.state.detail.lenght <= 0?'No hay cafes':detail }</div>
             </div>

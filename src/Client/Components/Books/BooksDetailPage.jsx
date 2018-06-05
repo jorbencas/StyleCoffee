@@ -23,47 +23,47 @@ const BooksDetailPage  = ({detail,user,AddtoCard}) => {
 
     function render() {             
           return detail.map( (item) => 
-            <section className="itembook">
-              <article className="bookfoto">
+            <section className="row">
+              <article className="col-md-15 text-center">
                 <p>{item.state}</p>
                 <img src={item.image} width="320px" height="380px" alt="./assets/photos/libro.png"/>
               </article>
-              <article className="bookinfo-details">
+              <article className="col-md-8">
                 <section className="booksheader">
                   <article>
                     <p className="booktitle">{item.title} ({item.format}) </p>
                     <p className="booktitle">Autor: {item.author}</p>
                   </article>
                   <article>
-                    <a className="button">Favoritos</a>
+                    <button className="btn btn-primary"><i className="fa fa-heartbeat"></i> Favoritos</button> 
                   </article>
                 </section>
-                  <section className="Bookdetails"> 
-                    <article className="d2">
+                  <section className="row"> 
+                    <article className="col-md-5 text-left">
                       <p>Año de publicación:{item.yearpublication}</p>
                       <p>Idioma: {item.languaje}</p>
                       <p>Edición: {item.edition}</p>
                       <p>Genero: {item.genere}</p>
                       <p>ISBN: {item.isbn}</p>
+                      <p className="detail-price">{item.price}€</p>
                     </article>
-                    <article className="d1">
+                    <article className="col-sm-7">
                       <p>{item.description}</p>
                     </article> 
                   </section>
-                  <section className="buttons-details">
-                    <p className="detail-price">{item.price}€</p>
-                    <Link to= {'/reservebook/' + item.id } className="btn-search">Reserva-lo</Link>
-                    <Link to= {user === 'user'?'/card':'/login'} onClick={()=>{AddtoCard(kind,item)}} className="btn-search">Añadir al carrito</Link>
+                    <section className="buttons-details">
+                    <Link to= {'/reservebook/' + item.id } className="btn btn-primary"><i className="fa fa-bookmark"></i> Reserva-lo</Link>
+                    <Link to= {user === 'user'?'/card':'/login'} onClick={()=>{AddtoCard(kind,item)}} className="btn btn-primary"><i className="fa fa-cart-plus"></i> Añadir al carrito</Link>
                   </section>
                 </article>
-              </section>
+            </section>
           )
     }
 
     return (
       <div>
-        <div className="grid-main">
-          <div>{ detail == undefined ?'No se ha podido cargar el libro':render()}</div>
+        <div className="container-fluid">
+          <div className="list">{ detail == undefined ?'No se ha podido cargar el libro':render()}</div>
         </div>
       </div>
     );

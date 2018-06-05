@@ -33,16 +33,20 @@ for (let value of assets) {
   let dst = '';
   switch (value.type) {
     case 'js':
-      dst = './dist/lib/'+value.file;            
+      dst = './dist/lib/'+value.file;
+      console.log( dst .green);            
       break;
     case 'css':
-      dst = './dist/css/'+value.file;      
+      dst = './dist/css/'+value.file;
+      console.log( dst .blue);
       break;
     case 'font':
       dst = './dist/fonts/'+value.file;
+      console.log( dst .yellow);
       break;
     case'photo':
       dst = './dist/photos/'+value.file;
+      console.log( dst .magenta);
       break;
     default:
       break;
@@ -52,7 +56,7 @@ for (let value of assets) {
     if (err) {
       return console.error(err);
     }
-    console.log('done!');
+    //console.log(value.file + ` written to /dist`+ dst .green);
   });
 
 }
@@ -63,19 +67,19 @@ fs.readFile('src/Client/public/index.html', 'utf8', (err, markup) => {
   }
 
   const $ = cheerio.load(markup);
-/*
+
   for (let value of assets) {
     if (value.type==='css'){
-      $('head').prepend('<link rel="stylesheet" href="./'+ value.file +'">');
+      $('head').prepend('<link type="text/css" rel="stylesheet" href="./css/'+ value.file +'">');
     }else if (value.type === 'js'){
       $('head').prepend('<script src="lib/' + value.file +'"></script>');      
     }
   }
-  */
+  
   fs.writeFile('dist/index.html', $.html(), 'utf8', function (err) {
     if (err) {
       return console.log(err);
     }
-    console.log('index.html written to /dist'.green);
+    console.log('index.html written to /dist'.rainbow);
   });
 });

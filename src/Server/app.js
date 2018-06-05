@@ -7,7 +7,7 @@ var http = require('http'),
     cors = require('cors'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
     dotenv= require('dotenv').config();
 const open = require('open');
 var isProduction = process.env.NODE_ENV === 'production';
@@ -29,6 +29,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static('./dist'));
 app.use(express.static('./'));
 app.use(session({ secret: 'StyleCoffee', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
+app.set('port', process.env.PORT || 3001);
+
 
 if (!isProduction) {
   app.use(errorhandler());
@@ -59,7 +61,7 @@ app.use(passport.session());
 app.use(require('./routes'));
 
 /// error handlers
-
+/*
 if (!isProduction) {
   app.use(function(err, req, res, next) {
     console.log(err.stack);
@@ -72,7 +74,7 @@ if (!isProduction) {
     }});
   });
 }
-
+*/
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
@@ -82,7 +84,6 @@ app.use(function(err, req, res, next) {
     error: {}
   }});
 });
-
 
 app.listen(port, () => {
   console.log(`Servidor corriendo por http://localhost/:${port}`.green);

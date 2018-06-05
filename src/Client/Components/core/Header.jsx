@@ -1,28 +1,34 @@
 import React from 'react';
 import { Link } from "react-router";
-import { logout, listreserves } from '../../actions/index';
+import { getCookie, setCookie } from '../../lib/utils.js';
+import { logout, listreserves, categoriesbook, categoriescoffee } from '../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
 
 const mapStateToProps = (state) => {
     return { authenticated: state.loginReducer.authenticated,username: state.loginReducer.user }
   };
   
-  const mapDispatchToProps = dispatch =>{
-    return bindActionCreators({logout,listreserves}, dispatch);
+  const mapDispatchToProps = (dispatch) =>{
+    return bindActionCreators({logout,listreserves, categoriesbook, categoriescoffee}, dispatch);
   }
   
   class Header extends React.Component {
-      constructor({props, authenticated, username, logout, listreserves}){
+      constructor(props){
           super(props);  
           
           this.state = {
             authenticated:'',
-            username:''
+            username:'',
+            subject:'',
+            path:'/books/',
+            action:'loadListBooks'
           }
-          
+
+          this.handleInputChange = this.handleInputChange.bind(this); 
+          this.handleClick = this.handleClick.bind(this);  
           this.menulogin = this.menulogin.bind(this); 
+          this.handleSubmit = this.handleSubmit.bind(this);
       }    
   
       componentWillReceiveProps(nextProps){
@@ -32,56 +38,119 @@ const mapStateToProps = (state) => {
           });
       }
   
+      componentDidMount(){
+        $('.rdb1').removeClass('btn-default').addClass('btn-primary');
+        setCookie('kindsearch','true',12);
+    }
+
+    handleInputChange(event) {
+        const target = event.target;
+        const value = target.value;
+        const name = target.name;
+       
+        this.setState({
+            subject: value
+        });
+        console.log(this.state);
+
+    }
+
+    handleClick(event){
+        event.preventDefault();
+        if ($('.rdb1').hasClass('btn-primary') && (getCookie('kindsearch') == 'false')) {
+            $('.rdb1').removeClass('btn-primary').addClass('btn-default');
+        }
+        let that = this;
+
+        $('#books').on('click', function(){
+            if (getCookie('kindsearch') == 'false'){
+                console.log(getCookie('kindsearch'));
+                $('.rdb2').removeClass('btn-primary').addClass('btn-default');
+                $('.rdb1').removeClass('btn-default').addClass('btn-primary');
+                setCookie('kindsearch','true',12);  
+                that.setState({path:'/books/'});
+                that.setState({action:'loadListBooks'});
+            }
+        });
+    
+        $('#coffees').on('click', function() {
+            if (getCookie('kindsearch') == 'true') {
+                console.log(getCookie('kindsearch'));
+                $('.rdb1').removeClass('btn-primary').addClass('btn-default');
+                $('.rdb2').removeClass('btn-default').addClass('btn-primary');
+                setCookie('kindsearch','false',12); 
+                that.setState({path:'/coffees/'});
+                that.setState({action:'loadlistCoffees'});
+            }
+        });
+    }
+  
+    handleSubmit(event){
+        event.preventDefault();
+        if (this.state.action==='loadListBooks') {
+            this.props.categoriesbook(this.state.subject)
+        }else if(this.state.action==='loadlistCoffees'){
+            this.props.categoriescoffee(this.state.subject)
+        }
+    }
+
       menulogin(){
         if(this.state.authenticated == true ){
             return(
               <ul className="nav">
                 <li className="listado-item" title="Botón para acceder al contacto"><Link to="/Contact">Contacto</Link></li>
-                <li className="listado-item" title="Haz click para acceder a la lista de cafes"><Link to="/CoffeeList">Cafes</Link></li>
-                <li className="listado-item" title="Haz click para acceder a la lista de libros"><Link to="/BooksList">Libros</Link></li>
-                <li className="listado-item" title="Haz click sobre este boton para saber mas sobre StyleCoffee"><Link to="/abouteus">Quienes somos</Link></li>
-                <li className="listado-item" title="con este boton podres ver tu perfil de usuario"><Link to="/profile">{ this.state.username}</Link></li>
-                <li className="listado-item" title="Para salir de la sesión"><Link to="/" onClick={ () => {console.log(props); props.logout();}}>Logout</Link></li>
-                <li className="listado-item" title="Al hacer clic aqui podras ver tu carrito"><Link to='/card'>Añadir al carrito</Link></li>
-                <li className="listado-item" title="Para ver todas tus reservas"><Link to='/listreserve' onClick={() => {console.log(props); props.listreserves();}}>Mis libros reservados</Link></li>
+                <li className="listado-item" title="Haz click para acceder a la lista de cafes"><Link to="/CoffeeList"><i className="fa fa-coffee"></i>Cafes</Link></li>
+                <li className="listado-item" title="Haz click para acceder a la lista de libros"><Link to="/BooksList"><i className="fa fa-book"></i>Libros</Link></li>
+                <li className="listado-item" title="Haz click sobre este boton para saber mas sobre StyleCoffee"><Link to="/abouteus"><i className="fa fa-users">AbouteUs</i></Link></li>
+                <li className="listado-item" title="con este boton podres ver tu perfil de usuario"><Link to="/profile"><i className="fa fa-user"></i>{ this.state.username}</Link></li>
+                <li className="listado-item" title="Para salir de la sesión"><Link to="/" onClick={ () => {this.props.logout();}}> <i className='fa fa-sign-out'></i></Link></li>
+                <li className="listado-item" title="Al hacer clic aqui podras ver tu carrito"><Link to='/card'><i className="fa fa-cart-arrow-down"></i></Link></li>
+                <li className="listado-item" title="Para ver todas tus reservas"><Link to='/listreserve' onClick={() => {this.props.listreserves();}}><i className="fa fa-bookmark"></i></Link></li>
               </ul>
             );
         }else{
           return(
             <ul className="nav">
               <li className="listado-item" title="Botón para acceder al contacto" ><Link to="/Contact">Contact</Link></li>
-              <li className="listado-item" title="Haz click para acceder a la lista de cafes" ><Link to="/CoffeeList">Cafes</Link></li>
-              <li className="listado-item" title="Haz click para acceder a la lista de libros" ><Link to="/BooksList">Books</Link></li>
+              <li className="listado-item" title="Haz click para acceder a la lista de cafes" ><Link to="/CoffeeList"><i className="fa fa-coffee"></i>Cafes</Link></li>
+              <li className="listado-item" title="Haz click para acceder a la lista de libros" ><Link to="/BooksList"><i className="fa fa-book"></i>Books</Link></li>
               <li className="listado-item" title="Haz click sobre este boton para saber mas sobre StyleCoffee" ><Link to="/abouteus">Quienes somos</Link></li>
-              <li className="listado-item"><Link to="/SingUp">Registrarse</Link></li>
-              <li className="listado-item"><Link to="/login">Iniciar Sesión</Link></li>
+              <li className="listado-item"><Link to="/SingUp"> <i className="fa fa-user"> </i> Registrarse</Link></li>
+              <li className="listado-item"><Link to="/login"> <i className="fa fa-user-circle"> </i> Iniciar Sesión</Link></li>
             </ul>
           );
         }
       }
   
-      render() {   
+      render() {  
+        const param = this.state.path + this.state.subject; 
           return (
-          <div>
-            <header id="header" title="header" className="grid-header">
-                <nav class="navbar navbar-inverse navbar-fixed-top">
-                    <div class="container-fluid">
-                        <div id="rankinglist" class="navbar-header">
-                        <Link class="navbar-brand" title="App StyleCoffee" title="link" aria-valuetext="Ranking List" to="/">
-                            <h1><img title="img" src="./photos/logo.png" width="50px"  alt="Logo del Ranking Students"/>
-                            <span className="header-title"> StyleCoffee</span> </h1>
+          <div className="grid-header">
+            <header id="header" title="header">
+                <nav className="navbar navbar-inverse navbar-fixed-top">
+                    <div className="container-fluid">
+                        <div id="rankinglist" className="navbar-header">
+                        <Link className="navbar-brand" title="App StyleCoffee" title="link" aria-valuetext="Ranking List" to="/">
+                            <h5><img title="img" src="./photos/logo.png" width="20px"  alt="Logo del Ranking Students"/>
+                            <span> StyleCoffee</span> </h5>
                         </Link>
                         </div>
                         <nav id="menu" role="menu" title="menu">
                             {this.menulogin()}
                             {this.props.children}
                         </nav>
-                        <form class="navbar-form navbar-right" action="/action_page.php">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Search" name="search"/>
-                                <div class="input-group-btn">
-                                <button class="btn btn-default" type="submit">
-                                    <i class="fa fa-search"></i>
+                        <form className="navbar-form navbar-right">
+                            <div className="input-group">
+                                <section className="input-group-btn">
+                                    <button  className=" rdb1 btn btn-default fa fa-book" onClick={this.handleClick} id="books"></button>
+                                    <button  className=" rdb2 btn btn-default fa fa-coffee" onClick={this.handleClick} id="coffees"></button>
+                                </section>
+                                <input type="text" className="form-control" placeholder="Search" name="search" onChange={this.handleInputChange}/>
+                                <div className="input-group-btn">
+                                <button className="btn btn-default" type="submit">
+                                    <Link to={param} onClick={this.handleSubmit}>
+                                        <i className="fa fa-search"></i>
+                                    </Link>
                                 </button>
                                 </div>
                             </div>
@@ -95,4 +164,4 @@ const mapStateToProps = (state) => {
   
   }
 
-export default connect(mapStateToProps)(Header);
+export default connect(mapStateToProps,mapDispatchToProps)(Header);

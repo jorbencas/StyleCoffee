@@ -39,8 +39,8 @@ class BooksListPage extends React.Component {
         if( this.props.user === 'admin'){
           return(
             <section>
-              <Link className="button" to='/createbooks'>Crear un nuevo libro</Link>
-              <Link className="button" to='/BooksList' onClick={() => {this.props.deletebooks()}}>Eliminar todos</Link>
+              <Link className="btn btn-primary" to='/createbooks'>Crear un nuevo libro</Link>
+              <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletebooks()}}>Eliminar todos</Link>
               <br/><br/>
             </section>
           );
@@ -51,14 +51,14 @@ class BooksListPage extends React.Component {
         if(this.props.user === 'admin'){
           return(
             <section>
-              <Link className="button" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
-              <Link className="button" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} >Borrar</Link>
+              <Link className="btn btn-success" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
+              <Link className="btn btn-danger" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} >Borrar</Link>
             </section>
           )
         }else{
           return(
             <section>
-              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Leer Más</Link>
+              <Link className="btn btn-primary" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}}><i className="fa fa-plus-circle"></i> Leer Más</Link>
             </section>
           ) 
         }
@@ -66,12 +66,12 @@ class BooksListPage extends React.Component {
 
      render() {
       const Books = this.state.listbooks.map( item => (
-        <section className="itembook">
-            <article className="bookfoto">
+        <section className="col-md-4">
+            <article className="col-md-12 text-center">
              <div className="state"><p>{item.state}</p></div>
               <img src={item.image} width="140px" height="215px" alt="./assets/photos/libro.png"/>
             </article>
-            <article className="bookinfo">
+            <article className="col-md-12 text-center">
               <p>{ item.title }</p>
               <p>{item.author}</p>
               <p>{item.edition}</p>
@@ -82,9 +82,9 @@ class BooksListPage extends React.Component {
         ));
 
         return(
-          <div className="grid-main" id="listbooks">
+          <div className="container-fluid" id="listbooks">
               {this.mangment()}
-              <div id="list" >{ this.state.listbooks.length > 0 ? Books:'No hay Libros!!' }</div>
+              <div className="row" >{ this.state.listbooks.length > 0 ? Books:'No hay Libros!!' }</div>
             </div>
         ) 
       } 

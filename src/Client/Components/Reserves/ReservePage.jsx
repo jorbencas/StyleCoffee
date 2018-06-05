@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch =>{
 } 
 
 class ReserveBook extends React.Component {
-    constructor({props, reserve, detail}){
+    constructor(props){
         super(props);
         this.state = {
             id:0,
@@ -63,6 +63,8 @@ class ReserveBook extends React.Component {
 
   handleSubmit(event) {
         event.preventDefault();
+        console.log(this.props);
+        debugger;
         this.props.reserve(this.state);
     }
 
@@ -70,37 +72,36 @@ class ReserveBook extends React.Component {
     render() {  
         console.log(this.state);             
         return (
-            <div className="grid-main">
-                <div className="Contact">
-                    <form id="contact_form" name="contact_form" className="form-contact">
-                        <h1 className="contact_item">Reserva un libro</h1>
-                       
-                        <div className={`contact_item`}>
+            <div className="container-fluid main-content">
+                <div className="">
+                <h1 className="form-group">Reserva un libro</h1>
+                    <form id="contact_form" name="contact_form" className="form-contact">                       
+                        <div className={`form-group`}>
                             <label htmlFor="email">Correo electronico</label><br/>
                             <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item `}>
+                        <div className={`form-group `}>
                             <label htmlFor="dni">Dni</label><br/>
                             <input required type="dni" id="dni" name="dni" placeholder="Dni *" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                             <label htmlFor="timestart">Hora inicial de la reserva</label><br/>
                             <input required type="timestart" id="timestart" name="timestart" placeholder="Ha quiera quiere hacer su reserva ? *" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item `}>
+                        <div className={`form-group `}>
                             <label htmlFor="timeend">Hora final de la reserva</label><br/>
                             <input required type="timeend" id="timeend" name="timeend" placeholder="reservar el libro hasta la hora *" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                             <label htmlFor="datestart">fecha inicial de la reserva</label><br/>
                             <input required type="datestart" id="datestart" name="datestart" placeholder="Fecha de inicio de la reserva *" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                             <label htmlFor="dateend">fecha final de la reserva</label><br/>
                             <input required type="dateend" id="dateend" name="dateend" placeholder="Fecha final de la reserva*" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className="contact_item">
-                            <input className="contact_Item" type="submit" name="submit" id="submit" value="Enviar" onClick={this.handleSubmit}/>
+                        <div className="form-group">
+                            <input className="btn btn-primary" type="submit" name="submit" id="submit" value="Enviar" onClick={this.handleSubmit}/>
                         </div>
                     </form>
                 </div> 

@@ -96,7 +96,7 @@ const mapStateToProps= state => {
     editableimg(){
       //if(this.state.image === ''){
         return(
-          <div className="contact_item">
+          <div className="form-group">
             <input type="text" id="image" name="image" value={this.state.image} placeholder="Image *" onChange={this.handleInputChange}/>
           </div>
         )
@@ -109,48 +109,49 @@ const mapStateToProps= state => {
     render() {      
           return (
             <div>
-              <div className="grid-main">
-              <div className="Contact">
+              <div className="container-fluid main-content">
+              <div className="">
+              <h1 id="text-center">Crea un libro</h1>
                <form id="contact_form" name="contact_form" className="form-contact">
-                      <h1 id="heading">Crea un libro</h1>
+                      
                       {this.editableimg()}
-                        <div className="contact_item">
+                        <div className="form-group">
                           <label htmlFor="title">Titulo</label><br/>
-                          <input type="text" id="title" name="title" placeholder="title *" onChange={this.handleInputChange} value={this.state.title} required/>
+                          <input type="text" className="form-control" id="title" name="title" placeholder="title *" onChange={this.handleInputChange} value={this.state.title} required/>
                         </div>
                         <div>
                           <label htmlFor="autor"></label>
-                          <input type="text" id="autor" name="author" placeholder="autor *" onChange={this.handleInputChange} value={this.state.author} required/>
+                          <input type="text" className="form-control" id="autor" name="author" placeholder="autor *" onChange={this.handleInputChange} value={this.state.author} required/>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                           <label htmlFor="description">Descrpcion</label><br/>
-                          <input type="text" id="description" name="description" placeholder="Description *" onChange={this.handleInputChange} value={this.state.description}required/>
+                          <input type="text" className="form-control" id="description" name="description" placeholder="Description *" onChange={this.handleInputChange} value={this.state.description}required/>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                           <label htmlFor="edition">edition</label><br/>
-                          <input type="text" id="edition" name="edition" placeholder="edition *" onChange={this.handleInputChange} required/>
+                          <input type="text" className="form-control" id="edition" name="edition" placeholder="edition *" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                           <label htmlFor="formato">formato</label><br/>
-                          <input type="text" id="formato" name="formato" placeholder="formato *" onChange={this.handleInputChange} required/>
+                          <input type="text" className="form-control" id="formato" name="formato" placeholder="formato *" onChange={this.handleInputChange} required/>
                         </div>
                         <div>
                           <label htmlFor="yearpublication">Fecha de nacimiento</label>
-                          <input type="date" id="yearpublication" name="yearpublication" placeholder="yearpublication" onChange={this.handleInputChange} required/>
+                          <input type="date" className="form-control" id="yearpublication" name="yearpublication" placeholder="yearpublication" onChange={this.handleInputChange} required/>
                         </div>
                         <div>
                           <label htmlFor="languaje">languaje</label>
-                          <input type="text" name="languaje" id="languaje" onChange={this.handleInputChange} required/>
+                          <input type="text"className="form-control" name="languaje" id="languaje" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                           <label htmlFor="state" >state</label>
-                          <input type="text" name="state" id="state" onChange={this.handleInputChange} required/>
+                          <input type="text" className="form-control" name="state" id="state" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                           <label htmlFor="numpages" >numpages</label>
                           <input type="number" name="numpages" id="numpages" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                           <label htmlFor="price" >price</label>
                           <input type="number" name="price" id="price" onChange={this.handleInputChange} required/>
                         </div>
@@ -164,12 +165,12 @@ const mapStateToProps= state => {
                           <input type='checkbox' name="genere" className="genere" id="drama" value="drama" onChange={this.handleInputChange} />	
 					                <label className="terminos" htmlFor="genero">Drama</label>
                         </div>
-                        <div className={`contact_item`}>
+                        <div className={`form-group`}>
                           <label htmlFor="stock" >stock</label>
                           <input type="number" name="stock" id="stock" onChange={this.handleInputChange} required/>
                         </div> <br/><br/><br/>
-                        <div className="contact_item" disabled={!this.state.formValid} >
-                          <Link to="/BooksList" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
+                        <div className="form-group" disabled={!this.state.formValid} >
+                          <Link to="/BooksList" className="btn btn-primary" onClick={this.handleSubmit} >Resgistrar se</Link>
                         </div>
               </form>
               </div>

@@ -27,10 +27,11 @@ class AbouteUs extends React.Component {
 
     render() {   
         return (
-        <div className="grid-main">
+          <div className="container-fluid">
+        <div className="row">
+        <div className="col-sm-6 text-center">
           <h2>Conozenos</h2>
-          <div className="abouteus">
-          <p><strong>Somos un pequeño grupo innovador y con ganas de llevar a cabo un arriesgado negocio
+          <p className="abouteus">Somos un pequeño grupo innovador y con ganas de llevar a cabo un arriesgado negocio
               que fusione un ambiente de relax y calma en el que tomar un buen café y acompañarlo con una 
               lectura amena y personalizada.
               La intención de este negocio nace una tarde de invierno en la que un grupo de incipientes 
@@ -40,18 +41,12 @@ class AbouteUs extends React.Component {
               o compartir un espacio de cultura.
               En nuestra idea de negocio, queremos que sea posible que el cliente decida si quiere estar en el entorno del bibliocafé 
               o prefiere irse a otro espacio en el que se sienta más a gusto y hacer el pedido o reserva de su café y libro.
-              </strong>
               </p>
-
-              <p id="bye"><strong>Gracias por confiar en nosotros.</strong></p>
+              <br/>
+              <p id="bye">Gracias por confiar en nosotros.</p>
           </div>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <br/>
-          <div>
+          <div className="mycontent-left"></div>
+          <div className="col-sm-5">
               <h1>Donde puedes encontrarnos</h1>
               <div className="maps">
                 <Gmaps
@@ -80,6 +75,7 @@ class AbouteUs extends React.Component {
           </div>
         
        
+        </div>
         </div>
         );
     }
