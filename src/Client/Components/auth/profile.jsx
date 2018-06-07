@@ -1,27 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormErrors } from '../../lib/FormErrors';
-import { updateprofile, profile } from '../../actions';
+import { updateprofile } from '../../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ListErrors from '../errors/errors';
 
-const mapStateToProps= (state) => {
+const mapStateToProps = state => {
+  console.log(state);
   return {
-    user:state.ProfileReducer.profile
+    user:state.ProfileReducer.user
   };
 }
 
-const mapDispatchToProps = (dispatch) =>{
-  return bindActionCreators({profile,updateprofile}, dispatch);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({updateprofile}, dispatch);
 }
 
 
 class Profile extends React.Component {
-    constructor(props){
+    constructor({props,user}){
         super(props); 
         this.state = { 
-            id: '',               
+            id: 0,               
             username:'',
             email:'',
             dni:'',
@@ -42,24 +43,19 @@ class Profile extends React.Component {
           this.validateForm = this.validateForm.bind(this);
     }    
 
-    componentWillMount(){
-      this.props.profile();
-      console.log(this.props.user);
-    }
-
     componentWillReceiveProps(nextProps){
-      console.log(nextProps.user[0].email);
+      console.log(nextProps);
+      debugger;
       this.setState({
-        username:nextProps.user.username, 
-        dni:nextProps.user.dni, 
-        email:nextProps.user.email,
-        date_birthday:nextProps.user.date_birthday,
-        name:nextProps.user.name,
-        apellidos:nextProps.user.apellidos,
-        image:nextProps.user.image
+        username:nextProps.user.username?nextProps.user.username:'', 
+        dni:nextProps.user.dni?nextProps.user.dni:'', 
+        email:nextProps.user.email?nextProps.user.email:'',
+        date_birthday:nextProps.user.date_birthday?nextProps.user.date_birthday:'',
+        name:nextProps.user.name?nextProps.user.name:'',
+        apellidos:nextProps.user.apellidos?nextProps.user.apellidos:'',
+        image:nextProps.user.image?nextProps.user.image:''
       });
       console.log(this.state);
-      console.log('Hola')
     }
 
     handleInputChange(event) {
@@ -110,7 +106,7 @@ class Profile extends React.Component {
             <div>
               <div className="grid-main">
               <div className="Contact">
-              <ListErrors/>
+              <ListErrors className='alert'/>
                <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
                       <div><FormErrors formErrors={this.state.formErrors} /></div>
@@ -143,11 +139,11 @@ class Profile extends React.Component {
                           <label htmlFor="apellidos" htmlFor="apellidos">Apellidos</label>
                           <input type="text" name="apellidos" id="apellidos" onChange={this.handleInputChange} required/>
                         </div>
-                        <div className="contact_item">
+                        <div className="dropdown">
                             <label className="inputSubject" htmlFor="inputSubject">Elegidos</label><br/>
-                            <select className="" id="inputSubject" name="role" title="Choose your role" onChange={this.handleInputChange}>
+                            <select className="btn btn-primary dropdown-toggle " id="inputSubject" name="role" title="Choose your role" onChange={this.handleInputChange}>
                                 <option value="user">Usuario Normal</option>
-                                <option value="Admin">Administrador</option>
+                                <option value="admin">Administrador</option>
                             </select>
                         </div> <br/><br/><br/>
                         <div className="contact_item" disabled={!this.state.formValid} >

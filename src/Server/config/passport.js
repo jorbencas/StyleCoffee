@@ -6,21 +6,13 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
 var dotenv = require('dotenv').config();
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function (user, done) {
-      done(null, user);
-  });
-
 passport.use(new LocalStrategy({
-  usernameField: 'user[email]',
+  usernameField: 'user[username]',
   passwordField: 'user[password]'
-}, function(email, password, done) {
-  User.findOne({email: email}).then(function(user){
+}, function(username, password, done) {
+  User.findOne({username: username}).then(function(user){
     if(!user || !user.validPassword(password)){
-      return done(null, false, {errors: {'email or password': 'is invalid'}});
+      return done(null, false, {errors: {error:'email or password is invalid'}});
     }
 
     return done(null, user);

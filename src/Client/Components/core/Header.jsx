@@ -1,20 +1,21 @@
 import React from 'react';
 import { Link } from "react-router";
 import { getCookie, setCookie } from '../../lib/utils.js';
-import { logout, listreserves, categoriesbook, categoriescoffee } from '../../actions/index';
+import { logout, listreserves, categoriesbook, categoriescoffee, profile } from '../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (state) => {
-    return { authenticated: state.loginReducer.authenticated,username: state.loginReducer.user }
+    return { authenticated: state.loginReducer.authenticated,
+            username: state.SingUpReducer.user.username }
   };
   
   const mapDispatchToProps = (dispatch) =>{
-    return bindActionCreators({logout,listreserves, categoriesbook, categoriescoffee}, dispatch);
+    return bindActionCreators({profile, logout,listreserves, categoriesbook, categoriescoffee}, dispatch);
   }
   
   class Header extends React.Component {
-      constructor(props){
+      constructor({props, username, authenticated}){
           super(props);  
           
           this.state = {
@@ -28,13 +29,12 @@ const mapStateToProps = (state) => {
           this.handleInputChange = this.handleInputChange.bind(this); 
           this.handleClick = this.handleClick.bind(this);  
           this.menulogin = this.menulogin.bind(this); 
-          this.handleSubmit = this.handleSubmit.bind(this);
       }    
   
       componentWillReceiveProps(nextProps){
         this.setState({
-          authenticated: nextProps.authenticated,
-          username:nextProps.username.user.username
+          authenticated: nextProps.authenticated?nextProps.authenticated:'',
+          username:nextProps.username?nextProps.username:''
           });
       }
   
@@ -84,15 +84,6 @@ const mapStateToProps = (state) => {
             }
         });
     }
-  
-    handleSubmit(event){
-        event.preventDefault();
-        if (this.state.action==='loadListBooks') {
-            this.props.categoriesbook(this.state.subject)
-        }else if(this.state.action==='loadlistCoffees'){
-            this.props.categoriescoffee(this.state.subject)
-        }
-    }
 
       menulogin(){
         if(this.state.authenticated == true ){
@@ -102,7 +93,7 @@ const mapStateToProps = (state) => {
                 <li className="listado-item" title="Haz click para acceder a la lista de cafes"><Link to="/CoffeeList"><i className="fa fa-coffee"></i>Cafes</Link></li>
                 <li className="listado-item" title="Haz click para acceder a la lista de libros"><Link to="/BooksList"><i className="fa fa-book"></i>Libros</Link></li>
                 <li className="listado-item" title="Haz click sobre este boton para saber mas sobre StyleCoffee"><Link to="/abouteus"><i className="fa fa-users">AbouteUs</i></Link></li>
-                <li className="listado-item" title="con este boton podres ver tu perfil de usuario"><Link to="/profile"><i className="fa fa-user"></i>{ this.state.username}</Link></li>
+                <li className="listado-item" title="con este boton podres ver tu perfil de usuario"><Link to="/profile" onClick={() => {this.props.profile();}}><i className="fa fa-user"></i>{ this.state.username}</Link></li>
                 <li className="listado-item" title="Para salir de la sesión"><Link to="/" onClick={ () => {this.props.logout();}}> <i className='fa fa-sign-out'></i></Link></li>
                 <li className="listado-item" title="Al hacer clic aqui podras ver tu carrito"><Link to='/card'><i className="fa fa-cart-arrow-down"></i></Link></li>
                 <li className="listado-item" title="Para ver todas tus reservas"><Link to='/listreserve' onClick={() => {this.props.listreserves();}}><i className="fa fa-bookmark"></i></Link></li>
@@ -148,7 +139,7 @@ const mapStateToProps = (state) => {
                                 <input type="text" className="form-control" placeholder="Search" name="search" onChange={this.handleInputChange}/>
                                 <div className="input-group-btn">
                                 <button className="btn btn-default" type="submit">
-                                    <Link to={param} onClick={this.handleSubmit}>
+                                    <Link to={param} onClick={ () => {this.state.action==='loadListBooks'?this.props.categoriesbook(this.state.subject):this.props.categoriescoffee(this.state.subject);}}>
                                         <i className="fa fa-search"></i>
                                     </Link>
                                 </button>

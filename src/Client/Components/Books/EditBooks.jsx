@@ -7,7 +7,7 @@ import ListErrors from '../errors/errors';
 import { FormErrors } from '../../lib/FormErrors';
 import {hashcode} from '../../lib/utils';
 
-const mapStateToProps= state => {
+const mapStateToProps = state => {
     return {
       detail:state.booksdetails.books
     };

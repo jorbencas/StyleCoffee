@@ -3,6 +3,7 @@ import { Link } from "react-router";
 import {connect} from 'react-redux';
 import {loadlistCoffees,coffeesdetails} from '../../actions/index';
 import { bindActionCreators } from 'redux';
+import { getCookie, setCookie } from '../../lib/utils.js';
 
 const mapStateToProps= state => {
   return {
@@ -33,8 +34,7 @@ class CoffeeListPage extends React.Component {
   }
 
   mangment(){
-    console.log(this.props.user);
-   if( this.props.user === 'admin'){
+   if( getCookie('role') === 'admin'){
      return(
        <section>
          <Link className="btn btn-primary" to='/createbooks'>Crear un nuevo libro</Link>

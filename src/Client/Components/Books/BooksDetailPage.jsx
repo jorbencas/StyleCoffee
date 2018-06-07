@@ -6,7 +6,7 @@ const  kind = 'books';
 const mapStateToProps= state => {
   return {
     detail:state.booksdetails.books,
-    user: state.SingUpReducer.user.user.role
+    user: state.SingUpReducer.user.role
   };
 }
 

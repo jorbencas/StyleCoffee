@@ -25,12 +25,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(require('method-override')());
-app.use(express.static(__dirname + '/public'));
 app.use(express.static('./dist'));
 app.use(express.static('./'));
 app.use(session({ secret: 'StyleCoffee', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
-app.set('port', process.env.PORT || 3001);
-
 
 if (!isProduction) {
   app.use(errorhandler());
@@ -85,7 +82,7 @@ app.use(function(err, req, res, next) {
   }});
 });
 
-app.listen(port, () => {
+app.listen(port || 3001, () => {
   console.log(`Servidor corriendo por http://localhost/:${port}`.green);
   open(`http://localhost:${port}/`);
 });

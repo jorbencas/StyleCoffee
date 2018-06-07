@@ -8,7 +8,7 @@ import {hashcode} from '../../lib/utils';
 
 const mapStateToProps= state => {
   return {
-    user:state.SingUpReducer.user
+    user:state.loginReducer.user
   };
 }
 
@@ -25,6 +25,7 @@ class singup extends React.Component {
           username: '',
           email:'',
           password: '',
+          role:'',
           formErrors: {username:'',email: '', password: ''},
           emailValid: false,
           formValid: false
@@ -123,6 +124,13 @@ class singup extends React.Component {
                       <label><input type="checkbox" name="remember"/> Remember me</label>
                     </div>
                   </div>
+                </div>
+                <div className="dropdown">
+                  <label className="control-label col-sm-2" htmlFor="role">Elegidos</label><br/>
+                  <select className="btn btn-primary dropdown-toggle " id="role" name="role" title="Choose your role" onChange={this.handleInputChange}>
+                    <option value="user">Usuario Normal</option>
+                    <option value="admin">Administrador</option>
+                  </select>
                 </div>
                     <div className="control-group">
                       <div className="controls">

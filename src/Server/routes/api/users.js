@@ -61,38 +61,30 @@ router.put('/user', auth.required, function(req, res, next){
 });
 
 router.post('/users/login', function(req, res, next){
-console.log(req.body.user.username + " " + req.body.user.password);
-  
+  console.log(req.body.user.username + " " + req.body.user.password);
+
   if(!req.body.user.username){
-    return res.status(422).json({errors: {Username: "can't be blank"}});
+    return res.status(422).json({errors: {error: "Email can't be blank"}});
   }
 
   if(!req.body.user.password){
-    return res.status(422).json({errors: {password: "can't be blank"}});
+    return res.status(422).json({errors: {error: "Password can't be blank"}});
   }
 
-  User.find({password: req.body.user.password}).then(function(user){
-    //console.log(user);
-    if(!user){ 
-      return res.sendStatus(401); 
-    }else{
-      passport.authenticate('local', {session: false}, function(err, user, info){
-        user = new User();
-        user.username = req.body.user.username;
-        user.setPassword(req.body.user.password);
+  passport.authenticate('local', {session: false}, function(err, user, info){
 
-        if(err){ return next(err); }
-        if(user){
-          //console.log(user);
-          user.token = user.generateJWT();
-          return res.json({user: user.toAuthJSON()});
-        } else {
-          return res.status(422).json(info);
-        }
-      })(req, res, next);
+    if(err){ return next(err); }
+   
+    if(user){
+      user.token = user.generateJWT();
+      console.log(user);
+      return res.json({user: user});
+    } else {
+      return res.status(422).json(info);
     }
-  }).catch(next);
+  })(req, res, next);
 });
+
 
 router.post('/users', function(req, res, next){
   var user = new User();
@@ -100,15 +92,18 @@ router.post('/users', function(req, res, next){
   user.id = req.body.user.id;
   user.username = req.body.user.username;
   user.email = req.body.user.email;
+  user.role = req.body.user.role,
   user.setPassword(req.body.user.password);
 
+  console.log(user);
+  
   user.save().then(function(){
     return res.json({user: user.toAuthJSON()});
   }).catch(next);
 });
 
 /*----GOOGLE------*/
-router.get('/SigUpGoogle',passport.authenticate('google',{scope: 'profile'}));//passport.authenticate('google'));
+/*router.get('/SigUpGoogle',passport.authenticate('google',{scope: 'profile'}));//passport.authenticate('google'));
 router.get('/auth/google/callback',
   passport.authenticate('google'),
    function(req, res, next) {
@@ -116,12 +111,12 @@ router.get('/auth/google/callback',
    console.log(user);
    return res.redirect('/');
   });
-
+*/
 /*----TWITTER----*/
-router.get('/api/twitter', passport.authenticate('twitter'));
+/*router.get('/api/twitter', passport.authenticate('twitter'));
 router.get('/auth/twitter/callback',
     passport.authenticate('twitter',
     { successRedirect: 'http://localhost:3001/', failureRedirect: '/' }));
-
+*/
 
 module.exports = router;

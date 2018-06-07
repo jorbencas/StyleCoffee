@@ -5,6 +5,7 @@ import _ from 'underscore';
 let item = [];
 let Item = [];
 import store from '../Store';
+import { error } from 'util';
 
 export function loadlistCoffees(){
     return(dispatch)=>{
@@ -25,8 +26,6 @@ export function loadListBooks(){
 }
 
 export function categoriesbook(param){
-  console.log(param);
-  debugger;
   return(dispatch)=>{
     return axios.post(`http://localhost:3001/api/books/` + param)
     .then(res => {
@@ -36,8 +35,6 @@ export function categoriesbook(param){
 }
 
 export function categoriescoffee(param){
-  console.log(param);
-  debugger;
   return(dispatch)=>{
     return axios.get(`http://localhost:3001/api/coffees/` + param)
     .then(res => {
@@ -64,6 +61,20 @@ export function coffeesdetails(id){
   }
 }
 
+/*cARD ENDPOITNS*/
+
+export function getCart(states) {
+	var cartItems = JSON.parse(localStorage.getItem('cart'));
+	var total = 0.00;
+	_.each(cartItems, function (item) {
+		total += item.price;
+	});
+	return {
+		total: total.toFixed(2),
+		cart: cartItems ? cartItems : 0
+	};
+}
+
 export function AddtoCard(kind,cart){
   return dispatch =>{
     item.push({'kind':kind,'id':cart.id,'token':0});
@@ -75,22 +86,18 @@ export function AddtoCard(kind,cart){
 
 export function BuyProduct(cart){
   let cartitem = localStorage.getItem('item');
-  console.log(cartitem);
   if (cartitem) {
     let p = JSON.parse(cartitem);
     let itemes = [];
     _.each(p, function (item) {
       item.token = cart;
       itemes.push(item);
-      console.log(itemes);
       localStorage.setItem('item',JSON.stringify(itemes));
     });
     let carrito = JSON.parse(localStorage.getItem('item'));
-    console.log(carrito);
     return(dispatch) => {
       return axios.post(`http://localhost:3001/api/charge`, {carrito})
       .then(res => {
-          console.log(res.data);
           toastr.success('Revisa tu correo para obtener información sobre','Aviso importante')
           localStorage.removeItem('item');
           localStorage.removeItem('cart');
@@ -107,9 +114,11 @@ export function RemoveFromcard(cart){
   }
 }
 
+/* RESERVES ENDPOINT*/
+
+
 export function reserve(reserve){
   let token = localStorage.getItem('token');
-  console.log(reserve);
   return (dispatch) => {
     return axios.put('http://localhost:3001/api/reserve/', {reserve},{headers: { Authorization: 'Token ' + token}})
     .then(
@@ -131,52 +140,50 @@ export function listreserves() {
   }
 }
 
+export function authError (error){
+  return {type: 'AUTH_ERROR', payload: error.message};
+};
+
+// Auth endpoints
+
 export function logout(){
   localStorage.removeItem('token');
-  console.log('hola');
-  debugger;
   dispatch({type:"LOGOUT_USER"});
 }
 
 export function login(user){
   return(dispatch)=>{
     return axios.post('http://localhost:3001/api/users/login',{user})
-    .then(
-      response => {dispatch({type:"AUTH_USER",user:response.data});
+    .then(response => {dispatch({type:"AUTH_USER",user:response.data.user});
         localStorage.setItem('token',response.data.user.token);
+        setCookie('role',response.data.user.role,12);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
-      }
-    ).catch(err => {authError(err),
-      toastr.error('Error al registrar-se','Error')
+      })
+    .catch(error => {console.log(error.response.data.errors.error); authError(error.response.data.errors.error),
+      toastr.error(error.response.data.errors.error,'Error')
     });
   };
 }
 
 export function profile(){
-  const username = store.getState().loginReducer.user.user.username;
+  const username = store.getState().loginReducer.user.username;
   let token = localStorage.getItem('token');
   return(dispatch)=>{
-    return axios.get('http://localhost:3001/api/profiles/' + username,{headers: {Authorization: 'Token ' + token}}
-        )
-       .then(
-         res =>{dispatch({type:"PROFILE_USER",profile:res.data.profile})}
-      ).catch(err => {authError(err)});
+    return axios.get('http://localhost:3001/api/profiles/' + username,{headers: {Authorization: 'Token ' + token}})
+       .then( res =>{dispatch({type:"PROFILE_USER",profile:res.data.profile})})
+      .catch(err => {authError(err)});
   }
 }
-
-export function authError (error){
-   return {type: 'AUTH_ERROR',payload: error};
-};
 
 export function SingUp(user){
   return(dispatch)=>{
     return axios.post('http://localhost:3001/api/users',{user})
-    .then(
-      res => {
+    .then( res => {
         dispatch({type:"SINGUP_USER",user:res.data.user})
         localStorage.setItem('token',res.data.user.token);
+        setCookie('role',res.data.user.role,12);
         toastr.success('Hola ' +res.data.user.username + 'te has registrado correctamente','Bienvenido');
-      } ,
+      },
       err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
     );
   };
@@ -184,7 +191,6 @@ export function SingUp(user){
 
 export function updateprofile(user){
   let token = localStorage.getItem('token');
-  console.log(user);
   return(dispatch)=>{
     return axios.put('http://localhost:3001/api/user',{user},{headers: { Authorization: 'Token ' + token} }
     ).then(
@@ -278,17 +284,4 @@ export function deletebooks(){
     toastr.error( 'Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')
     });
   };
-}
-
-
-export function getCart(states) {
-	var cartItems = JSON.parse(localStorage.getItem('cart'));
-	var total = 0.00;
-	_.each(cartItems, function (item) {
-		total += item.price;
-	});
-	return {
-		total: total.toFixed(2),
-		cart: cartItems ? cartItems : 0
-	};
 }

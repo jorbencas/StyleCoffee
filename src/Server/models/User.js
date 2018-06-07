@@ -16,7 +16,7 @@ var UserSchema = new mongoose.Schema({
   date_birthday: String,
   hash: String,
   salt: String,
-  role: {type:String, default:'user'},
+  role: String,
 }, {timestamps: true});
 
 UserSchema.plugin(uniqueValidator, {message: 'is already taken.'});
@@ -39,22 +39,23 @@ UserSchema.methods.generateJWT = function() {
   return jwt.sign({
     id: this._id,
     username: this.username,
+    role:this.role,
     exp: parseInt(exp.getTime() / 1000),
   }, secret);
 };
 
 UserSchema.methods.toAuthJSON = function(){
   return {
-    id:this.id,
-    username: this.username,
-    email: this.email,
-    token: this.generateJWT(),
-    name: this.name,
-    apellidos: this.apellidos,
-    dni: this.dni,
-    date_birthday: this.date_birthday,
-    image: this.image,
-    role: this.role
+    id:user.id,
+    username: user.username,
+    email: user.email,
+    token: user.generateJWT(),
+    name: user.name,
+    apellidos: user.apellidos,
+    dni: user.dni,
+    date_birthday: user.date_birthday,
+    image: user.image,
+    role: user.role
   };
 };
 

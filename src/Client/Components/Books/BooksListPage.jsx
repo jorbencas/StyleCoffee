@@ -3,11 +3,13 @@ import { Link } from "react-router";
 import {connect} from 'react-redux';
 import {loadListBooks,booksdetail, deletebooks,deletebook} from '../../actions/index';
 import { bindActionCreators } from 'redux';
+import { getCookie, setCookie } from '../../lib/utils.js';
 
 const mapStateToProps = state => {
+  console.log(state);
   return { 
     books: state.productsList.books,
-    user: state.SingUpReducer.user.user.role
+    user: state.SingUpReducer.user.role
   };
 }
 
@@ -35,8 +37,7 @@ class BooksListPage extends React.Component {
   }
 
        mangment(){
-         console.log(this.props.user);
-        if( this.props.user === 'admin'){
+        if( getCookie('role') === 'admin'){
           return(
             <section>
               <Link className="btn btn-primary" to='/createbooks'>Crear un nuevo libro</Link>
@@ -48,7 +49,7 @@ class BooksListPage extends React.Component {
       }
 
        editable (item){
-        if(this.props.user === 'admin'){
+        if(getCookie('role') === 'admin'){
           return(
             <section>
               <Link className="btn btn-success" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
