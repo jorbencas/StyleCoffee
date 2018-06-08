@@ -94,17 +94,17 @@ const mapStateToProps = state => {
     }
 
     editableimg(){
-      //if(this.state.image === ''){
+      if(this.state.image === ''){
         return(
           <div className="contact_item">
             <input type="text" id="image" name="image" value={this.state.image} placeholder="Image *" onChange={this.handleInputChange}/>
           </div>
         )
-      /*}else{
+      }else{
         <div>
           <img src={this.state.image} alt="" srcSet=""/>
          </div>
-      }*/
+      }
     }
     render() {      
           return (

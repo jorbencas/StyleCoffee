@@ -1,6 +1,7 @@
 import React from 'react';
 import { contactService } from '../../services/services';
 import { FormErrors } from '../../lib/FormErrors';
+import ListErrors from '../errors/errors';
 
 class Contact extends React.Component {
     constructor(props){
@@ -74,7 +75,7 @@ validateField(fieldName, value) {
             <div className="container-fluid main-content">
                     <form id="contact_form" name="contact_form" className="form-contact">
                         <h1 className="form-contact-heading">Contacto</h1>
-                        <div><FormErrors formErrors={this.state.formErrors} /></div>
+                        <ListErrors/>
                         <div className="form-group">
                             <label htmlFor="name">name</label><br/>
                             <input required className="form-control" type="text" id="name" name="name" placeholder="Nombre" onChange={this.handleInputChange} required/>

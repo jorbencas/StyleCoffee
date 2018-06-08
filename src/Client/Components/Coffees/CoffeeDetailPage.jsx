@@ -2,11 +2,13 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {AddtoCard} from '../../actions/index';
 import { Link } from "react-router";
+import { getCookie, setCookie } from '../../lib/utils.js';
 const  kind = 'coffees';
+
 const mapStateToProps= state => {
   return {
     detail:state.coffeedetails.Coffee,
-    user:state.loginReducer.user.user.role
+    user:state.loginReducer.user.role
   };
 }
 

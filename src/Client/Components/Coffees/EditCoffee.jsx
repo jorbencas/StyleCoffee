@@ -7,9 +7,9 @@ import ListErrors from '../errors/errors';
 import { FormErrors } from '../../lib/FormErrors';
 import {hashcode} from '../../lib/utils';
 
-const mapStateToProps= state => {
+const mapStateToProps = state => {
     return {
-      detail:state.coffeesdetail.detail
+      detail:state.coffeedetails.detail
     };
   }
   
@@ -94,26 +94,25 @@ const mapStateToProps= state => {
     }
 
     editableimg(){
-      //if(this.state.image === ''){
+      if(this.state.image === ''){
         return(
           <div className="form-group">
             <input type="text" id="image" name="image" value={this.state.image} placeholder="Image *" onChange={this.handleInputChange}/>
           </div>
         )
-      /*}else{
+      }else{
         <div>
           <img src={this.state.image} alt="" srcSet=""/>
          </div>
-      }*/
+      }
     }
     render() {      
           return (
             <div>
               <div className="container-fluid main-content">
               <div className="">
-              <h1 id="text-center">Crea un libro</h1>
+              <h1 id="text-center">Crea un cafe</h1>
                <form id="contact_form" name="contact_form" className="form-contact">
-                      
                       {this.editableimg()}
                         <div className="form-group">
                           <label htmlFor="title">Titulo</label><br/>

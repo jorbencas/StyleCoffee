@@ -3,7 +3,6 @@ import { Link } from "react-router";
 import {connect} from 'react-redux';
 import {loadListBooks,booksdetail, deletebooks,deletebook} from '../../actions/index';
 import { bindActionCreators } from 'redux';
-import { getCookie, setCookie } from '../../lib/utils.js';
 
 const mapStateToProps = state => {
   console.log(state);
@@ -37,10 +36,10 @@ class BooksListPage extends React.Component {
   }
 
        mangment(){
-        if( getCookie('role') === 'admin'){
+        if( this.props.user === 'admin'){
           return(
-            <section>
-              <Link className="btn btn-primary" to='/createbooks'>Crear un nuevo libro</Link>
+            <section className="text-center">
+              <Link className="btn btn-primary" to='/createbooks'>Crear un nuevo libro</Link>&nbsp;&nbsp;&nbsp;
               <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletebooks()}}>Eliminar todos</Link>
               <br/><br/>
             </section>
@@ -49,14 +48,14 @@ class BooksListPage extends React.Component {
       }
 
        editable (item){
-        if(getCookie('role') === 'admin'){
+        if( this.props.user === 'admin'){
           return(
             <section>
-              <Link className="btn btn-success" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
+              <Link className="btn btn-success" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>&nbsp;&nbsp;&nbsp;
               <Link className="btn btn-danger" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} >Borrar</Link>
             </section>
           )
-        }else{
+        }else if(this.props.user === 'user'){
           return(
             <section>
               <Link className="btn btn-primary" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}}><i className="fa fa-plus-circle"></i> Leer Más</Link>
@@ -77,16 +76,16 @@ class BooksListPage extends React.Component {
               <p>{item.author}</p>
               <p>{item.edition}</p>
               <h2>{item.price}€</h2>
-              {this.editable(item)}
+              {this.props.user == undefined ?<section><Link className="btn btn-primary" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}}><i className="fa fa-plus-circle"></i> Leer Más</Link></section>:this.editable(item)}
             </article>
         </section> 
         ));
 
         return(
           <div className="container-fluid" id="listbooks">
-              {this.mangment()}
+            { this.props.user == undefined ?'':this.mangment()}
               <div className="row" >{ this.state.listbooks.length > 0 ? Books:'No hay Libros!!' }</div>
-            </div>
+          </div>
         ) 
       } 
 }

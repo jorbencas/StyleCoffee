@@ -1,22 +1,22 @@
 import React from 'react';
 import { Link } from "react-router";
 import {connect} from 'react-redux';
-import {loadlistCoffees,coffeesdetails} from '../../actions/index';
+import {loadlistCoffees,coffeesdetails, deletecoffees, deletecoffee} from '../../actions/index';
 import { bindActionCreators } from 'redux';
-import { getCookie, setCookie } from '../../lib/utils.js';
 
 const mapStateToProps= state => {
   return {
-    detail:state.productsOffer.Coffee
+    detail:state.productsOffer.Coffee,
+    user:state.loginReducer.user.role
   };
 }
 
 const mapDispatchToProps = dispatch =>{
-  return bindActionCreators({loadlistCoffees, coffeesdetails}, dispatch);
+  return bindActionCreators({loadlistCoffees, coffeesdetails, deletecoffees, deletecoffee}, dispatch);
 }
 
 class CoffeeListPage extends React.Component {
-  constructor({props, coffeesdetails, loadlistCoffees}){
+  constructor({props, coffeesdetails, loadlistCoffees, deletecoffees}){
     super(props)
     this.state = {
       detail:[]
@@ -34,11 +34,11 @@ class CoffeeListPage extends React.Component {
   }
 
   mangment(){
-   if( getCookie('role') === 'admin'){
+   if( this.props.user === 'admin'){
      return(
-       <section>
-         <Link className="btn btn-primary" to='/createbooks'>Crear un nuevo libro</Link>
-         <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletebooks()}}>Eliminar todos</Link>
+       <section className="text-center">
+         <Link className="btn btn-primary" to='/createcoffees'>Crear un nuevo cafe</Link>&nbsp;&nbsp;&nbsp;
+         <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletecoffees()}}>Eliminar todos</Link>
          <br/><br/>
        </section>
      );
@@ -49,11 +49,11 @@ class CoffeeListPage extends React.Component {
    if(this.props.user === 'admin'){
      return(
        <section>
-         <Link className="btn btn-success" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
-         <Link className="btn btn-danger" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} >Borrar</Link>
+         <Link className="btn btn-success" to={'/editecoffee/'+item.id}  onClick={() => { this.props.coffeesdetails(item.id)}} >Editar</Link>&nbsp;&nbsp;&nbsp;
+         <Link className="btn btn-danger" to={'/CoffeeList'}  onClick={() => { this.props.deletecoffee(item.id)}} >Borrar</Link>
        </section>
      )
-   }else{
+   }else if(this.props.user === 'user'){
      return(
        <section>
          <Link className="btn btn-primary" to={'/CoffeeList/Coffee/'+item.id} onClick={() => { this.props.coffeesdetails(item.id)}}><i className="fa fa-plus-circle"></i> Leer Más</Link>
@@ -72,14 +72,14 @@ class CoffeeListPage extends React.Component {
           <article className="col-sm-5">
             <p>{ item.name }</p>
             <h2>{item.price}€</h2>
-            {this.editable(item)}
+            {this.props.user == undefined ? <section><Link className="btn btn-primary" to={'/CoffeeList/Coffee/'+item.id} onClick={() => { this.props.coffeesdetails(item.id)}}><i className="fa fa-plus-circle"></i> Leer Más</Link></section>:this.editable(item)}
           </article>
       </section> 
         ));
       
         return (
               <div className="container-fluid" id="listbooks">
-              {this.mangment()}
+              {this.props.user == undefined ?'':this.mangment()}
               <div id="list" >{ this.state.detail.lenght <= 0?'No hay cafes':detail }</div>
             </div>
         )

@@ -156,7 +156,6 @@ export function login(user){
     return axios.post('http://localhost:3001/api/users/login',{user})
     .then(response => {dispatch({type:"AUTH_USER",user:response.data.user});
         localStorage.setItem('token',response.data.user.token);
-        setCookie('role',response.data.user.role,12);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       })
     .catch(error => {console.log(error.response.data.errors.error); authError(error.response.data.errors.error),
@@ -181,7 +180,6 @@ export function SingUp(user){
     .then( res => {
         dispatch({type:"SINGUP_USER",user:res.data.user})
         localStorage.setItem('token',res.data.user.token);
-        setCookie('role',res.data.user.role,12);
         toastr.success('Hola ' +res.data.user.username + 'te has registrado correctamente','Bienvenido');
       },
       err => toastr.error('Error al registrar-se compruebe que ha escrito bien su nombre de usuario y contraseña ','Error')

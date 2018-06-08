@@ -64,6 +64,7 @@ class Profile extends React.Component {
       const name = target.name;
 
       this.setState({[name]: value}, () => { this.validateField(name, value) });
+      console.log(this.state);
   }
 
     validateField(fieldName, value) {
@@ -106,7 +107,7 @@ class Profile extends React.Component {
             <div>
               <div className="grid-main">
               <div className="Contact">
-              <ListErrors className='alert'/>
+              <ListErrors/>
                <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
                       <div><FormErrors formErrors={this.state.formErrors} /></div>

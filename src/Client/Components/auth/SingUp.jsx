@@ -5,6 +5,7 @@ import { FormErrors } from '../../lib/FormErrors';
 import { SingUp } from '../../actions/index';
 import { bindActionCreators } from 'redux';
 import {hashcode} from '../../lib/utils';
+import ListErrors from '../errors/errors';
 
 const mapStateToProps= state => {
   return {
@@ -92,10 +93,7 @@ class singup extends React.Component {
       
             <div className="text-center">
               <h2>Sing Up</h2>
-      
-              <div className="alert">
-                <div>An Error would go here</div>
-              </div>
+              <ListErrors/>
             </div>
             <div >
               <div >

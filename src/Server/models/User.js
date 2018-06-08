@@ -46,16 +46,16 @@ UserSchema.methods.generateJWT = function() {
 
 UserSchema.methods.toAuthJSON = function(){
   return {
-    id:user.id,
-    username: user.username,
-    email: user.email,
-    token: user.generateJWT(),
-    name: user.name,
-    apellidos: user.apellidos,
-    dni: user.dni,
-    date_birthday: user.date_birthday,
-    image: user.image,
-    role: user.role
+    id:this.id,
+    username: this.username,
+    email: this.email,
+    token: this.generateJWT(),
+    name: this.name,
+    apellidos: this.apellidos,
+    dni: this.dni,
+    date_birthday: this.date_birthday,
+    image: this.image,
+    role: this.role
   };
 };
 
