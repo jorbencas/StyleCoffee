@@ -104,7 +104,7 @@ class singup extends React.Component {
                     <input type="text" className="form-control" id="username" placeholder="Enter username" name="username"  onChange={this.handleInputChange}/>
                   </div>
                 </div>
-                <div className="form-group">
+                <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
                   <label className="control-label col-sm-2" htmlFor="email">Email:</label>
                   <div className="col-sm-10">
                     <input type="email" className="form-control" id="email" placeholder="Enter email" name="email"  onChange={this.handleInputChange}/>
