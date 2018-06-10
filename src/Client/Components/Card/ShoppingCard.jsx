@@ -19,7 +19,18 @@ const mapDispatchToProps = dispatch =>{
 
 const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
-
+  function handleviewtext(){
+    var caracteresAMostrar = 300;
+var contenido = $(".comentario").html();
+ console.log( $(".comentario").next().val());
+ /*if (contenido.length > caracteresAMostrar) {
+  var resumen = contenido.substr(0, caracteresAMostrar);
+  var todo = contenido.substr(caracteresAMostrar, contenido.length - caracteresAMostrar);
+  
+  var nuevocontenido = resumen + '<span class="complete">' + todo + '</span><br><span class="more">Leer mas...</span>';
+   $(".comentario").html(nuevocontenido);				
+}*/
+  }
   function saveproductscardtobuy(){
     let cartitem = JSON.parse(localStorage.getItem('item'));
     console.log( cartitem.length + '   ' + cart.cart.length)
@@ -39,27 +50,58 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
     function render() { 
       console.log(cart.cart);              
         return cart.cart.map((item) => (
-            <section className="itembook">
-                <article className="bookfoto">
-                 <div className="state"><p>{item.state}</p></div>
-                  <img src={item.image} width="140px" height="215px" alt="./assets/photos/libro.png"/>
-                </article>
-                <article className="bookinfo">
-                  <p>{ item.title }</p>
-                  <p>{item.author}</p>
-                  <p>{item.edition}</p>
-                  <h2>{item.price}€</h2>
-                </article>
-                <Link  to='/card' role="eliminar un elemento del carrito" className="btn-search" onClick={()=>{RemoveFromcard(item)}}>Eliminar</Link>
-            </section>
+						<tr>
+							<td data-th="Product">
+								<div class="row">
+									<div class="col-sm-2 hidden-xs"><img src={item.image == undefined ?"http://placehold.it/100x100":item.image } width="100px" height="185px" alt="..." class="img-responsive"/></div>
+									<div class="col-sm-10">
+										<h4 class="nomargin">{ item.title }</h4>
+										<p className="comentario"  onLoadStart={handleviewtext()}>{item.description}<br/> </p>
+									</div>
+								</div>
+							</td>
+							<td data-th="Price">{item.price}€</td>
+							<td data-th="Quantity">
+								<input type="number" class="form-control text-center" value="1"/>
+							</td>
+							<td data-th="Subtotal" class="text-center">{item.price}</td>
+							<td class="actions" data-th="">
+								<button class="btn btn-info btn-sm"><i class="fa fa-refresh"></i></button>
+								<button class="btn btn-danger btn-sm">
+                <Link to='/card' role="eliminar un elemento del carrito" className="btn-search" onClick={()=>{RemoveFromcard(item)}}><i class="fa fa-trash-o"></i></Link>
+                </button>								
+							</td>
+						</tr>
           ));
         }
 
           return (
             <div className="grid-main" id="listbooks">
-              <div  id="list" >{ cart.cart.length > 0 ? render():'El carrito esta vacio!!' }</div>
-              <Link to='/buy' onClick={()=>{ saveproductscardtobuy()}} className="btn-search">Comprar</Link>
-              <p>Total de productos en el carrito: {cart.cart.length} <br/> Total:{cart.total} €</p>
+            	<table id="cart" class="table table-hover table-condensed">
+    				<thead>
+						<tr>
+							<th Style="width:50%">Product</th>
+							<th Style="width:10%">Price</th>
+							<th Style="width:8%">Quantity</th>
+							<th Style="width:22%" class="text-center">Subtotal</th>
+							<th Style="width:10%"></th>
+						</tr>
+					</thead>
+          <tbody>
+            { cart.cart.length > 0 ? render():'El carrito esta vacio!!' }
+					</tbody>
+					<tfoot>
+						<tr class="visible-xs">
+							<td class="text-center"><strong>Total de productos en el carrito: {cart.cart.length}</strong></td>
+						</tr>
+						<tr>
+							<td><a href="#" class="btn btn-warning"><i class="fa fa-angle-left"></i> Continue Shopping</a></td>
+							<td colspan="2" class="hidden-xs"></td>
+							<td class="hidden-xs text-center"><strong>Total {cart.total} €</strong></td>
+							<td><Link to='/buy' class="btn btn-success btn-block" onClick={()=>{ saveproductscardtobuy()}}>Checkout <i class="fa fa-angle-right"></i></Link> </td>
+						</tr>
+					</tfoot>
+				</table>
             </div>
           );
 }
