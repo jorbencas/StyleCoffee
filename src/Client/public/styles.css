@@ -78,6 +78,9 @@
     src: url(./assets/fonts/nougatine.ttf);
 }
 
+.row i, .btn-search i{
+    color: #ffffff;
+}
 
 .mycontent-left {
     border-right: 1px solid #333;

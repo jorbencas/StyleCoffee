@@ -21,15 +21,14 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
   function handleviewtext(){
     var caracteresAMostrar = 300;
-var contenido = $(".comentario").html();
- console.log( $(".comentario").next().val());
- /*if (contenido.length > caracteresAMostrar) {
-  var resumen = contenido.substr(0, caracteresAMostrar);
-  var todo = contenido.substr(caracteresAMostrar, contenido.length - caracteresAMostrar);
-  
-  var nuevocontenido = resumen + '<span class="complete">' + todo + '</span><br><span class="more">Leer mas...</span>';
-   $(".comentario").html(nuevocontenido);				
-}*/
+		var contenido = $(".comentario").html();
+ 		console.log( $(".comentario").html());
+		/*if (contenido.length > caracteresAMostrar) {
+			var resumen = contenido.substr(0, caracteresAMostrar);
+			var todo = contenido.substr(caracteresAMostrar, contenido.length - caracteresAMostrar);
+			var nuevocontenido = resumen + '<span class="complete">' + todo + '</span><br><span class="more">Leer mas...</span>';
+			$(".comentario").html(nuevocontenido);				
+		}*/
   }
   function saveproductscardtobuy(){
     let cartitem = JSON.parse(localStorage.getItem('item'));
@@ -56,7 +55,7 @@ var contenido = $(".comentario").html();
 									<div class="col-sm-2 hidden-xs"><img src={item.image == undefined ?"http://placehold.it/100x100":item.image } width="100px" height="185px" alt="..." class="img-responsive"/></div>
 									<div class="col-sm-10">
 										<h4 class="nomargin">{ item.title }</h4>
-										<p className="comentario"  onLoadStart={handleviewtext()}>{item.description}<br/> </p>
+										<span className="comentario" onChange={handleviewtext()}>{item.description}<br/> </span>
 									</div>
 								</div>
 							</td>

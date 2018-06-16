@@ -41,6 +41,7 @@ const mapStateToProps = (state) => {
       componentDidMount(){
         $('.rdb1').removeClass('btn-default').addClass('btn-primary');
         setCookie('kindsearch','true',12);
+        setCookie('modal','false',12); 
     }
 
     handleInputChange(event) {
@@ -89,19 +90,19 @@ const mapStateToProps = (state) => {
         if(this.state.authenticated == true ){
             return(
               <ul className="nav">
-                <li className="listado-item" title="Botón para acceder al contacto"><Link to="/Contact">Contacto</Link></li>
                 <li className="listado-item" title="Haz click para acceder a la lista de cafes"><Link to="/CoffeeList"><i className="fa fa-coffee"></i>Cafes</Link></li>
                 <li className="listado-item" title="Haz click para acceder a la lista de libros"><Link to="/BooksList"><i className="fa fa-book"></i>Libros</Link></li>
                 <li className="listado-item" title="Haz click sobre este boton para saber mas sobre StyleCoffee"><Link to="/abouteus"><i className="fa fa-users">AbouteUs</i></Link></li>
                 <li className="listado-item" title="con este boton podres ver tu perfil de usuario"><Link to="/profile" onClick={() => {this.props.profile();}}><i className="fa fa-user"></i>{ this.state.username}</Link></li>
-                <li className="listado-item" title="Para salir de la sesión"><Link to="/" onClick={ () => {this.props.logout();}}> <i className='fa fa-sign-out'></i></Link></li>
-                <li className="listado-item" title="Al hacer clic aqui podras ver tu carrito"><Link to='/card'><i className="fa fa-cart-arrow-down"></i></Link></li>
-                <li className="listado-item" title="Para ver todas tus reservas"><Link to='/listreserve' onClick={() => {this.props.listreserves();}}><i className="fa fa-bookmark"></i></Link></li>
+                <li className="listado-item" title="Para salir de la sesión"><Link to="/" onClick={ () => {this.props.logout();}}> <i className='fa fa-sign-out'></i>Logout</Link></li>
+                <li className="listado-item" title="Al hacer clic aqui podras ver tu carrito"><Link to='/card'><i className="fa fa-cart-arrow-down"></i>carrito</Link></li>
+                <li className="listado-item" title="Para ver todas tus reservas"><Link to='/listreserve' onClick={() => {this.props.listreserves();}}><i className="fa fa-bookmark"></i>Reserva tus libros</Link></li>
               </ul>
             );
         }else{
           return(
             <ul className="nav">
+              <li className="listado-item" title="Botón para acceder al contacto" ><Link to="/error">Error</Link></li>
               <li className="listado-item" title="Botón para acceder al contacto" ><Link to="/Contact">Contact</Link></li>
               <li className="listado-item" title="Haz click para acceder a la lista de cafes" ><Link to="/CoffeeList"><i className="fa fa-coffee"></i>Cafes</Link></li>
               <li className="listado-item" title="Haz click para acceder a la lista de libros" ><Link to="/BooksList"><i className="fa fa-book"></i>Books</Link></li>

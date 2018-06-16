@@ -37,8 +37,8 @@ class CoffeeListPage extends React.Component {
    if( this.props.user === 'admin'){
      return(
        <section className="text-center">
-         <Link className="btn btn-primary" to='/createcoffees'>Crear un nuevo cafe</Link>&nbsp;&nbsp;&nbsp;
-         <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletecoffees()}}>Eliminar todos</Link>
+         <Link className="btn btn-primary" to='/createcoffees'><i class="fa fa-plus"></i></Link>&nbsp;&nbsp;&nbsp;
+         <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletecoffees()}}><i class="fa fa-trash-o"></i></Link>
          <br/><br/>
        </section>
      );
@@ -49,8 +49,8 @@ class CoffeeListPage extends React.Component {
    if(this.props.user === 'admin'){
      return(
        <section>
-         <Link className="btn btn-success" to={'/editecoffee/'+item.id}  onClick={() => { this.props.coffeesdetails(item.id)}} >Editar</Link>&nbsp;&nbsp;&nbsp;
-         <Link className="btn btn-danger" to={'/CoffeeList'}  onClick={() => { this.props.deletecoffee(item.id)}} >Borrar</Link>
+         <Link className="btn btn-success" to={'/editecoffee/'+item.id}  onClick={() => { this.props.coffeesdetails(item.id)}} ><i className="fa fa-pencil"></i></Link>&nbsp;&nbsp;&nbsp;
+         <Link className="btn btn-danger" to={'/CoffeeList'}  onClick={() => { this.props.deletecoffee(item.id)}} ><i class="fa fa-trash-o"></i></Link>
        </section>
      )
    }else if(this.props.user === 'user'){

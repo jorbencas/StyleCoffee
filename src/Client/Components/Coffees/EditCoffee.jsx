@@ -9,7 +9,7 @@ import {hashcode} from '../../lib/utils';
 
 const mapStateToProps = state => {
     return {
-      detail:state.coffeedetails.detail
+      detail:state.coffeedetails.Coffee
     };
   }
   
@@ -22,20 +22,11 @@ const mapStateToProps = state => {
         super(props);  
         this.state = {                
             id:0,
-            title:'', 
-            author:'', 
-            description: '',
-            yearpublication:'',
-            edition:'',
-            formato:'',
+            name:'', 
             image:'',
-            languaje:'',
-            state:'',
-            numpages:0,
             price:0,
-            genere:{},
+            Kind:{},
             stock:0,
-            encuadernation:''
           };
           this.handleInputChange = this.handleInputChange.bind(this); 
           this.handleSubmit = this.handleSubmit.bind(this); 
@@ -43,21 +34,14 @@ const mapStateToProps = state => {
     }    
 
     componentWillReceiveProps(nextProps){
+      console.log(nextProps);
+      debugger;
       this.setState({
-        title:nextProps.detail[0].title?nextProps.detail[0].title:'', 
-        author:nextProps.detail[0].author?nextProps.detail[0].author:'', 
-        description:nextProps.detail[0].description?nextProps.detail[0].description:'',
-        yearpublication:nextProps.detail[0].yearpublication?nextProps.detail[0].yearpublication:'',
-        edition:nextProps.detail[0].edition?nextProps.detail[0].edition:'',
-        formato:nextProps.detail[0].formato?nextProps.detail[0].formato:'',
+        name:nextProps.detail[0].name?nextProps.detail[0].name:'', 
         image:nextProps.detail[0].image?nextProps.detail[0].image:'',
-        languaje:nextProps.detail[0].languaje?nextProps.detail[0].languaje:'',
-        state:nextProps.detail[0].state?nextProps.detail[0].state:'',
-        numpages:nextProps.detail[0].numpages?nextProps.detail[0].numpages:0,
         price:nextProps.detail[0].price?nextProps.detail[0].price:0,
-        genere:nextProps.detail[0].genere?nextProps.detail[0].genere:{},
-        stock:nextProps.detail[0].stock?nextProps.detail[0].stock:0,
-        encuadernation:nextProps.detail[0].encuadernation?nextProps.detail[0].encuadernation:''
+        kind:nextProps.detail[0].kind?nextProps.detail[0].kind:{},
+        stock:nextProps.detail[0].stock?nextProps.detail[0].stock:0
         });
         console.log(this.state);
     }
@@ -69,13 +53,11 @@ const mapStateToProps = state => {
 
       console.log(name);
 
-      
       this.setState({[name]: value});
 
-
-      if(name === 'genere'){
+      if(name === 'kind'){
         //let newgenere = this.state.genere.push(value);
-        this.setState({genere:value});
+        this.setState({kind:value});
       }
       
       if (this.state.id === 0) {
@@ -115,40 +97,8 @@ const mapStateToProps = state => {
                <form id="contact_form" name="contact_form" className="form-contact">
                       {this.editableimg()}
                         <div className="form-group">
-                          <label htmlFor="title">Titulo</label><br/>
-                          <input type="text" className="form-control" id="title" name="title" placeholder="title *" onChange={this.handleInputChange} value={this.state.title} required/>
-                        </div>
-                        <div>
-                          <label htmlFor="autor"></label>
-                          <input type="text" className="form-control" id="autor" name="author" placeholder="autor *" onChange={this.handleInputChange} value={this.state.author} required/>
-                        </div>
-                        <div className={`form-group`}>
-                          <label htmlFor="description">Descrpcion</label><br/>
-                          <input type="text" className="form-control" id="description" name="description" placeholder="Description *" onChange={this.handleInputChange} value={this.state.description}required/>
-                        </div>
-                        <div className={`form-group`}>
-                          <label htmlFor="edition">edition</label><br/>
-                          <input type="text" className="form-control" id="edition" name="edition" placeholder="edition *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div className={`form-group`}>
-                          <label htmlFor="formato">formato</label><br/>
-                          <input type="text" className="form-control" id="formato" name="formato" placeholder="formato *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div>
-                          <label htmlFor="yearpublication">Fecha de nacimiento</label>
-                          <input type="date" className="form-control" id="yearpublication" name="yearpublication" placeholder="yearpublication" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div>
-                          <label htmlFor="languaje">languaje</label>
-                          <input type="text"className="form-control" name="languaje" id="languaje" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div className={`form-group`}>
-                          <label htmlFor="state" >state</label>
-                          <input type="text" className="form-control" name="state" id="state" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div className={`form-group`}>
-                          <label htmlFor="numpages" >numpages</label>
-                          <input type="number" name="numpages" id="numpages" onChange={this.handleInputChange} required/>
+                          <label htmlFor="name">name</label><br/>
+                          <input type="text" className="form-control" id="name" name="name" placeholder="Nombre del cafe *" onChange={this.handleInputChange} value={this.state.title} required/>
                         </div>
                         <div className={`form-group`}>
                           <label htmlFor="price" >price</label>

@@ -13,6 +13,7 @@ class Main extends React.Component {
         return (
             <div>
                 <Header/>
+                <div id="modal"></div>
                 {this.props.children}
                 <Footer/>
             </div>
