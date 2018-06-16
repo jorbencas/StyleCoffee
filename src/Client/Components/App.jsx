@@ -71,7 +71,7 @@ render() {
         </Route>
     </Router>
   </Provider>
-)};
+  )};
 
 };
 

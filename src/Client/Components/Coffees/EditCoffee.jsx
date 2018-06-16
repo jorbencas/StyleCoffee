@@ -30,13 +30,13 @@ const mapStateToProps = state => {
           };
           this.handleInputChange = this.handleInputChange.bind(this); 
           this.handleSubmit = this.handleSubmit.bind(this); 
-         this.editableimg = this.editableimg.bind(this);
+          this.editableimg = this.editableimg.bind(this);
     }    
 
     componentWillReceiveProps(nextProps){
-      console.log(nextProps);
-      debugger;
+      console.log(nextProps.detail[0]);
       this.setState({
+        id:nextProps.detail[0].id?nextProps.detail[0].id:0,
         name:nextProps.detail[0].name?nextProps.detail[0].name:'', 
         image:nextProps.detail[0].image?nextProps.detail[0].image:'',
         price:nextProps.detail[0].price?nextProps.detail[0].price:0,
@@ -44,11 +44,12 @@ const mapStateToProps = state => {
         stock:nextProps.detail[0].stock?nextProps.detail[0].stock:0
         });
         console.log(this.state);
+        debugger;
     }
 
     handleInputChange(event) {
       const target = event.target;
-      const value = target.type === 'checkbox' ? target.value : target.value;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
 
       console.log(name);
@@ -72,7 +73,7 @@ const mapStateToProps = state => {
   }
 
     handleSubmit(event){
-      this.props.editcoffee(this.state);
+      window.location.pathname === '/editecoffee/'+this.state.id?this.props.editcoffee(this.state):this.props.createcoffee();
     }
 
     editableimg(){
@@ -93,16 +94,16 @@ const mapStateToProps = state => {
             <div>
               <div className="container-fluid main-content">
               <div className="">
-              <h1 id="text-center">Crea un cafe</h1>
+              <h1 id="text-center">{ window.location.pathname  === '/createcoffees'?'Crea':'Edita'} un cafe</h1>
                <form id="contact_form" name="contact_form" className="form-contact">
                       {this.editableimg()}
                         <div className="form-group">
                           <label htmlFor="name">name</label><br/>
-                          <input type="text" className="form-control" id="name" name="name" placeholder="Nombre del cafe *" onChange={this.handleInputChange} value={this.state.title} required/>
+                          <input type="text" className="form-control" id="name" name="name" placeholder="Nombre del cafe *" onChange={this.handleInputChange} value={this.state.name} required/>
                         </div>
                         <div className={`form-group`}>
                           <label htmlFor="price" >price</label>
-                          <input type="number" name="price" id="price" onChange={this.handleInputChange} required/>
+                          <input type="number" name="price" id="price" onChange={this.handleInputChange}  value={this.state.price} required/>
                         </div>
                         <div>
                           <input type='checkbox' name="genere" className="genere" id="accion" value="accion" onChange={this.handleInputChange}/>	
@@ -116,7 +117,7 @@ const mapStateToProps = state => {
                         </div>
                         <div className={`form-group`}>
                           <label htmlFor="stock" >stock</label>
-                          <input type="number" name="stock" id="stock" onChange={this.handleInputChange} required/>
+                          <input type="number" name="stock" id="stock" onChange={this.handleInputChange} value={this.state.stock} required/>
                         </div> <br/><br/><br/>
                         <div className="form-group" disabled={!this.state.formValid} >
                           <Link to="/BooksList" className="btn btn-primary" onClick={this.handleSubmit} >Resgistrar se</Link>

@@ -33,6 +33,7 @@ class singup extends React.Component {
         };
 
         this.handleInputChange = this.handleInputChange.bind(this); 
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.validateField = this.validateField.bind(this);
         this.validateForm = this.validateForm.bind(this);
     }
@@ -84,45 +85,42 @@ class singup extends React.Component {
       return(error.length === 0 ? 'Tu debes escribir algo' : 'has-error');
     }
 
+    handleSubmit(event){
+      this.props.SingUp(this.state)
+    }
 
     render() {
       return (
         <div className="container-fluid main-content">
-        <div className="">
           <div className="login-content">
       
             <div className="text-center">
               <h2>Sing Up</h2>
               <ListErrors/>
             </div>
-            <div >
-              <div >
                 <form className="form-horizontal">
                 <div className="form-group">
+                  <span className="input-group-addon"><i className="fa fa-user"></i></span>
                   <label className="control-label col-sm-2" htmlFor="username">Username:</label>
                   <div className="col-sm-10">
                     <input type="text" className="form-control" id="username" placeholder="Enter username" name="username"  onChange={this.handleInputChange}/>
                   </div>
                 </div>
                 <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
+                <span className="input-group-addon"><i className="fa fa-envelope"></i></span>
                   <label className="control-label col-sm-2" htmlFor="email">Email:</label>
                   <div className="col-sm-10">
                     <input type="email" className="form-control" id="email" placeholder="Enter email" name="email"  onChange={this.handleInputChange}/>
                   </div>
                 </div>
                 <div className="form-group">
+                  <span className="input-group-addon"><i className="fa fa-lock"></i></span>
                   <label className="control-label col-sm-2" htmlFor="pwd">Password:</label>
                   <div className="col-sm-10">          
                     <input type="password" className="form-control" id="pwd" placeholder="Enter password" name="password"  onChange={this.handleInputChange}/>
                   </div>
                 </div>
-                <div className="form-group">        
-                  <div className="col-sm-offset-2 col-sm-10">
-                    <div className="checkbox">
-                      <label><input type="checkbox" name="remember"/> Remember me</label>
-                    </div>
-                  </div>
-                </div>
+                <br/><br/>
                 <div className="dropdown">
                   <label className="control-label col-sm-2" htmlFor="role">Elegidos</label><br/>
                   <select className="btn btn-primary dropdown-toggle " id="role" name="role" title="Choose your role" onChange={this.handleInputChange}>
@@ -130,17 +128,15 @@ class singup extends React.Component {
                     <option value="admin">Administrador</option>
                   </select>
                 </div>
+                <br/><br/>
                     <div className="control-group">
                       <div className="controls">
-                      <Link to="/" className="btn btn-primary btn-xs" onClick={() => {this.props.SingUp(this.state)}}>Resgistrar se <i className="fa fa-arrow-circle-right"></i></Link>
+                      <Link to="/" className="btn btn-primary btn-xs" onClick={this.handleSubmit}>Resgistrar se <i className="fa fa-arrow-circle-right"></i></Link><br/>
                         <a id="forgotPasswordLink" href="#">Forgot Password</a>
                       </div>
                     </div>
                 </form>
-              </div>
-            </div>
           </div>
-        </div>
       </div>
       );
     }

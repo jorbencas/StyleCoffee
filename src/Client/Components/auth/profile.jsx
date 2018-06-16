@@ -45,7 +45,6 @@ class Profile extends React.Component {
 
     componentWillReceiveProps(nextProps){
       console.log(nextProps);
-      debugger;
       this.setState({
         username:nextProps.user.username?nextProps.user.username:'', 
         dni:nextProps.user.dni?nextProps.user.dni:'', 
@@ -111,7 +110,7 @@ class Profile extends React.Component {
                <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
                       <div><FormErrors formErrors={this.state.formErrors} /></div>
-                      <img src={this.state.image} alt="" srcSet=""/>
+                      <img src={this.state.image} alt=""/>
                         <div className="contact_item">
                           <label htmlFor="username">name</label><br/>
                           <input type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.username} required/>
