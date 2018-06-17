@@ -21,8 +21,8 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
   function handleviewtext(){
     var caracteresAMostrar = 300;
-		var contenido = $(".comentario").html();
- 		console.log( $(".comentario").html());
+		var contenido = $("#comentario").html();
+ 		console.log( $("#comentario").html());
 		/*if (contenido.length > caracteresAMostrar) {
 			var resumen = contenido.substr(0, caracteresAMostrar);
 			var todo = contenido.substr(caracteresAMostrar, contenido.length - caracteresAMostrar);
@@ -55,7 +55,7 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 									<div className="col-sm-2 hidden-xs"><img src={item.image == undefined ?"http://placehold.it/100x100":item.image } width="100px" height="185px" alt="..." className="img-responsive"/></div>
 									<div className="col-sm-10">
 										<h4 className="nomargin">{ item.title }</h4>
-										<span className="comentario" onChange={handleviewtext()}><p>{item.description}<br/></p></span>
+										<span id="comentario" onChange={this.handleviewtext}><p>{item.description}<br/></p></span>
 									</div>
 								</div>
 							</td>
@@ -79,11 +79,11 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
             	<table id="cart" className="table table-hover table-condensed">
     				<thead>
 						<tr>
-							<th style={"width:50%"}>Product</th>
-							<th style="width:10%">Price</th>
-							<th style="width:8%">Quantity</th>
-							<th style="width:22%" className="text-center">Subtotal</th>
-							<th style="width:10%"></th>
+							<th style={{width:'50%'}}>Product</th>
+							<th style={{width:'10%'}}>Price</th>
+							<th style={{width:'8%'}}>Quantity</th>
+							<th style={{width:'22%'}} className="text-center">Subtotal</th>
+							<th style={{width:'10%'}}></th>
 						</tr>
 					</thead>
           <tbody>

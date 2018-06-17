@@ -158,6 +158,9 @@ article{
     padding: 2px;
 }
 */
+.container ul li {
+    text-decoration: none;
+}
 .row{
     margin: 2%;
 }

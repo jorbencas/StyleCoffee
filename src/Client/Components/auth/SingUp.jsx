@@ -26,7 +26,7 @@ class singup extends React.Component {
           username: '',
           email:'',
           password: '',
-          role:'',
+          role:'user',
           formErrors: {username:'',email: '', password: ''},
           emailValid: false,
           formValid: false
