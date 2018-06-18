@@ -48,8 +48,8 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
     function render() { 
       console.log(cart.cart);              
-        return cart.cart.map((item) => (
-						<tr>
+        return cart.cart.map((item, i) => (
+						<tr key={i}>
 							<td data-th="Product">
 								<div className="row">
 									<div className="col-sm-2 hidden-xs"><img src={item.image == undefined ?"http://placehold.it/100x100":item.image } width="100px" height="185px" alt="..." className="img-responsive"/></div>

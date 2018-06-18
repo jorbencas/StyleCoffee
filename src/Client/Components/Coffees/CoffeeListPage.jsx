@@ -64,7 +64,7 @@ class CoffeeListPage extends React.Component {
 
       render() {
         const detail = this.state.detail.map((item, i) => (
-          <section className="row">
+          <section key={i} className="row">
           <article className="col-sm-2">
            <div className="state"><p>{item.state}</p></div>
             <img src='./photos/cafe.png' width="140px" height="215px" alt="./photos/cafe.png"/>

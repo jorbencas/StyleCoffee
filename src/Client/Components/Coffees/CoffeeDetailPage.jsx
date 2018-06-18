@@ -24,8 +24,8 @@ const CoffeeDetailPage = ({detail, user}) => {
 
    function render() { 
     console.log(user);
-      return detail.map(item =>
-          <section className="row">
+      return detail.map((item, i) =>
+          <section key={i} className="row">
               <article className="col-md-15 text-center">
                 <img src='./photos/cafe.png' width="320px" height="380px" alt="./photos/cafe.png"/>
               </article>

@@ -24,8 +24,8 @@ const mapDispatchToProps = dispatch =>{
 const BooksDetailPage  = ({detail,user,AddtoCard}) => {
 
     function render() {             
-          return detail.map( (item) => 
-            <section className="row">
+          return detail.map( (item, i) => 
+            <section key={i} className="row">
               <article className="col-md-15 text-center">
                 <p>{item.state}</p>
                 <img src={item.image} width="320px" height="380px" alt="./assets/photos/libro.png"/>

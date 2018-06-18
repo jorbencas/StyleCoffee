@@ -65,8 +65,8 @@ class BooksListPage extends React.Component {
       }
 
      render() {
-      const Books = this.state.listbooks.map( item => (
-        <section className="col-md-4">
+      const Books = this.state.listbooks.map( (item, i) => (
+        <section key={i} className="col-md-4">
             <article className="col-md-12 text-center">
              <div className="state"><p>{item.state}</p></div>
               <img src={item.image} width="140px" height="215px" alt="./assets/photos/libro.png"/>
