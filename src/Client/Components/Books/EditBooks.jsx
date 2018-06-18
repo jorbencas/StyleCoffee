@@ -6,7 +6,12 @@ import { bindActionCreators } from 'redux';
 import ListErrors from '../errors/errors';
 import { FormErrors } from '../../lib/FormErrors';
 import {hashcode} from '../../lib/utils';
-const mapStateToProps= state => {
+import Modal from 'react-bootstrap4-modal';
+import EditModal from '../common/EditModal';
+import { getCookie, setCookie } from '../../lib/utils.js';
+import ReactDOM  from 'react-dom';
+
+const mapStateToProps = state => {
     return {
       detail:state.booksdetails.books
     };
@@ -16,10 +21,10 @@ const mapStateToProps= state => {
     return bindActionCreators({createbook,editbook}, dispatch);
   }
 
-  class managebooks extends React.Component {
+  class Managebooks extends React.Component {
     constructor({props,detail}){
         super(props);  
-        this.state = {                
+        this.state = {               
             id:0,
             title:'', 
             author:'', 
@@ -38,13 +43,13 @@ const mapStateToProps= state => {
           };
           this.handleInputChange = this.handleInputChange.bind(this); 
           this.handleSubmit = this.handleSubmit.bind(this); 
-         this.editableimg = this.editableimg.bind(this);
+          this.editableimg = this.editableimg.bind(this);
+          this.modalBackdropClicked = this.modalBackdropClicked.bind(this);
     }    
 
     componentWillReceiveProps(nextProps){
-      console.log(nextProps.detail);
-      debugger;
       this.setState({
+        id:nextProps.detail[0].id?nextProps.detail[0].id:0,
         title:nextProps.detail[0].title?nextProps.detail[0].title:'', 
         author:nextProps.detail[0].author?nextProps.detail[0].author:'', 
         description:nextProps.detail[0].description?nextProps.detail[0].description:'',
@@ -70,75 +75,78 @@ const mapStateToProps= state => {
 
       console.log(name);
 
-      
       this.setState({[name]: value});
-
 
       if(name === 'genere'){
         //let newgenere = this.state.genere.push(value);
         this.setState({genere:value});
       }
-      let newid = hashcode(this.state.title);
-      if(newid !== 0){
-        this.setState({id: newid});
-        console.log(this.state);
-      }
       
+      if (this.state.id === 0) {
+        let newid = hashcode(this.state.title);
+        if(newid !== 0){
+          this.setState({id: newid});
+          console.log(this.state);
+        } 
+      }
 
       console.log(this.state);
   }
 
     handleSubmit(event){
-      this.props.editbook(this.state);
+      window.location.pathname === '/editebook/'+this.state.id?this.props.editbook(this.state):this.props.createbook();
     }
 
-    editableimg(){
-      //if(this.state.image === ''){
-        return(
-          <div className="contact_item">
-            <input type="text" id="image" name="image" value={this.state.image} placeholder="Image *" onChange={this.handleInputChange}/>
-          </div>
-        )
-      /*}else{
-        <div>
-          <img src={this.state.image} alt="" srcSet=""/>
-         </div>
-      }*/
+     /* Hide modal when closed or click background */
+   modalBackdropClicked(event) {        
+    this.setState({
+        visible: !this.state.visible
+      });       
     }
+
+
+    editableimg(){
+      setCookie('modal',true,12); 
+      console.log(getCookie('modal'));
+      ReactDOM.render(<EditModal/>,document.getElementById('modal'));
+    }
+
     render() {      
           return (
             <div>
-              <div className="grid-main">
-               <form id="contact_form" name="contact_form" className="form-contact">
-                      <h1 id="heading">Crea un libro</h1>
-                      {this.editableimg()}
-                        <div className="contact_item">
-                          <label htmlFor="title">Titulo</label><br/>
-                          <input type="text" id="title" name="title" placeholder="title *" onChange={this.handleInputChange} value={this.state.title} required/>
-                        </div>
-                        <div>
-                          <label htmlFor="autor"></label>
-                          <input type="text" id="autor" name="author" placeholder="autor *" onChange={this.handleInputChange} value={this.state.author} required/>
-                        </div>
-                        <div className={`contact_item`}>
-                          <label htmlFor="description">Descrpcion</label><br/>
-                          <input type="text" id="description" name="description" placeholder="Description *" onChange={this.handleInputChange} value={this.state.description}required/>
-                        </div>
+              <div className="container-fluid main-content">
+              <h1 id="text-center">{ window.location.pathname  === '/createbooks'?'Crea':'Edita'} un libro</h1>
+               <form id="contact_form" name="contact_form" className="form-horizontal">
+                <div className="imgavatar">
+                <img src={this.state.image} alt="http://placehold.it/100x100" /*srcSet="http://placehold.it/100x100"*/ onClick={ () => {this.editableimg()}} />
+                </div>
+                <div className="contact_item">
+                  <label htmlFor="title">Titulo</label><br/>
+                  <input type="text" className="form-control" id="title" name="title" placeholder="title *" onChange={this.handleInputChange} value={this.state.title} required/>
+                </div>
+                <div>
+                  <label htmlFor="autor"></label>
+                  <input type="text" className="form-control" id="autor" name="author" placeholder="autor *" onChange={this.handleInputChange} value={this.state.author} required/>
+                 </div>
+                <div className={`contact_item`}>
+                  <label htmlFor="description">Descrpcion</label><br/>
+                  <input type="text" className="form-control" id="description" name="description" placeholder="Description *" onChange={this.handleInputChange} value={this.state.description}required/>
+                </div>
                         <div className={`contact_item`}>
                           <label htmlFor="edition">edition</label><br/>
-                          <input type="text" id="edition" name="edition" placeholder="edition *" onChange={this.handleInputChange} required/>
+                          <input type="text" className="form-control" id="edition" name="edition" placeholder="edition *" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`contact_item`}>
                           <label htmlFor="formato">formato</label><br/>
-                          <input type="text" id="formato" name="formato" placeholder="formato *" onChange={this.handleInputChange} required/>
+                          <input type="text" className="form-control" id="formato" name="formato" placeholder="formato *" onChange={this.handleInputChange} required/>
                         </div>
                         <div>
                           <label htmlFor="yearpublication">Fecha de nacimiento</label>
-                          <input type="date" id="yearpublication" name="yearpublication" placeholder="yearpublication" onChange={this.handleInputChange} required/>
+                          <input type="date" className="form-control" id="yearpublication" name="yearpublication" placeholder="yearpublication" onChange={this.handleInputChange} required/>
                         </div>
                         <div>
                           <label htmlFor="languaje">languaje</label>
-                          <input type="text" name="languaje" id="languaje" onChange={this.handleInputChange} required/>
+                          <input type="text" className="form-control" name="languaje" id="languaje" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`contact_item`}>
                           <label htmlFor="state" >state</label>
@@ -146,11 +154,11 @@ const mapStateToProps= state => {
                         </div>
                         <div className={`contact_item`}>
                           <label htmlFor="numpages" >numpages</label>
-                          <input type="number" name="numpages" id="numpages" onChange={this.handleInputChange} required/>
+                          <input type="number" className="form-control" name="numpages" id="numpages" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`contact_item`}>
                           <label htmlFor="price" >price</label>
-                          <input type="number" name="price" id="price" onChange={this.handleInputChange} required/>
+                          <input type="number" className="form-control" name="price" id="price" onChange={this.handleInputChange} required/>
                         </div>
                         <div>
                           <input type='checkbox' name="genere" className="genere" id="accion" value="accion" onChange={this.handleInputChange}/>	
@@ -166,9 +174,9 @@ const mapStateToProps= state => {
                           <label htmlFor="stock" >stock</label>
                           <input type="number" name="stock" id="stock" onChange={this.handleInputChange} required/>
                         </div> <br/><br/><br/>
-                        <div className="contact_item" disabled={!this.state.formValid} >
-                          <Link to="/BooksList" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
-                        </div>
+                <div className="contact_item" disabled={!this.state.formValid} >
+                  <Link to="/BooksList" className="btn btn-primary" onClick={this.handleSubmit} >Resgistrar se</Link>
+                </div>
               </form>
               </div>
             </div>
@@ -177,4 +185,4 @@ const mapStateToProps= state => {
 }
 
 
-export default connect (mapStateToProps,mapDispatchToProps)(managebooks);
+export default connect (mapStateToProps,mapDispatchToProps)(Managebooks);

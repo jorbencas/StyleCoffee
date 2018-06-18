@@ -5,10 +5,11 @@ import { FormErrors } from '../../lib/FormErrors';
 import { SingUp } from '../../actions/index';
 import { bindActionCreators } from 'redux';
 import {hashcode} from '../../lib/utils';
+import ListErrors from '../errors/errors';
 
 const mapStateToProps= state => {
   return {
-    user:state.SingUpReducer.user
+    user:state.loginReducer.user
   };
 }
 
@@ -25,12 +26,14 @@ class singup extends React.Component {
           username: '',
           email:'',
           password: '',
+          role:'user',
           formErrors: {username:'',email: '', password: ''},
           emailValid: false,
           formValid: false
         };
 
         this.handleInputChange = this.handleInputChange.bind(this); 
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.validateField = this.validateField.bind(this);
         this.validateForm = this.validateForm.bind(this);
     }
@@ -82,47 +85,59 @@ class singup extends React.Component {
       return(error.length === 0 ? 'Tu debes escribir algo' : 'has-error');
     }
 
+    handleSubmit(event){
+      this.props.SingUp(this.state)
+    }
 
     render() {
       return (
-        <div className="grid-main">
-          <div className="Contact">
-                    <form id="contact_form" name="contact_form" className="form-contact">
-                      <h1 id="heading">Registrar se</h1>
-                      <div><FormErrors formErrors={this.state.formErrors} /></div>
-                        <div className="contact_item">
-                          <label htmlFor="username">name</label><br/>
-                          <input required type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div className={`contact_item  ${this.errorClass(this.state.formErrors.email)}`}>
-                          <label htmlFor="email">Email</label><br/>
-                          <input required type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
-                          <label htmlFor="password">Password</label><br/>
-                          <input required type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
-                        </div>
-                        <br/>
-                        <br/><br/>
-                        <div className="contact_item" disabled={!this.state.formValid} >
-                          <Link to="/" className="btn-search" onClick={() => {this.props.SingUp(this.state)}} >Resgistrar se</Link>
-                        </div>
-                        <br/>
-                        <br/>
-                        <hr/>
-                        <div className="Social_Item">
-                          <div className="btn-google">
-                            <img src="http://pngimg.com/uploads/google/google_PNG19635.png" width="18%" height="45%" alt="Google" srcSet=""/>
-                            <a href='http://localhost:3001/api/SigUpGoogle'>Sing Up with Google</a>
-                          </div>
-                          <div className="btn-twitter">
-                            <img src="http://backgroundcheckall.com/wp-content/uploads/2017/12/twitter-logo-transparent-background-2.png" width="18%" height="45%" alt="Twitter" srcSet=""/>
-                            <a href="http://localhost:3001/api/twitter">Sing Up with Twitter</a>
-                          </div>
-                        </div>
-                    </form>
-                </div> 
-        </div>
+        <div className="container-fluid main-content">
+          <div className="login-content">
+      
+            <div className="text-center">
+              <h2>Sing Up</h2>
+              <ListErrors/>
+            </div>
+                <form className="form-horizontal">
+                <div className="form-group">
+                  <span className="input-group-addon"><i className="fa fa-user"></i></span>
+                  <label className="control-label col-sm-2" htmlFor="username">Username:</label>
+                  <div className="col-sm-10">
+                    <input type="text" className="form-control" id="username" placeholder="Enter username" name="username"  onChange={this.handleInputChange}/>
+                  </div>
+                </div>
+                <div className={`form-group ${this.errorClass(this.state.formErrors.email)}`}>
+                <span className="input-group-addon"><i className="fa fa-envelope"></i></span>
+                  <label className="control-label col-sm-2" htmlFor="email">Email:</label>
+                  <div className="col-sm-10">
+                    <input type="email" className="form-control" id="email" placeholder="Enter email" name="email"  onChange={this.handleInputChange}/>
+                  </div>
+                </div>
+                <div className="form-group">
+                  <span className="input-group-addon"><i className="fa fa-lock"></i></span>
+                  <label className="control-label col-sm-2" htmlFor="pwd">Password:</label>
+                  <div className="col-sm-10">          
+                    <input type="password" className="form-control" id="pwd" placeholder="Enter password" name="password"  onChange={this.handleInputChange}/>
+                  </div>
+                </div>
+                <br/><br/>
+                <div className="dropdown">
+                  <label className="control-label col-sm-2" htmlFor="role">Elegidos</label><br/>
+                  <select className="btn btn-primary dropdown-toggle " id="role" name="role" title="Choose your role" onChange={this.handleInputChange}>
+                    <option value="user">Usuario Normal</option>
+                    <option value="admin">Administrador</option>
+                  </select>
+                </div>
+                <br/><br/>
+                    <div className="control-group">
+                      <div className="controls">
+                      <Link to="/" className="btn btn-primary btn-xs" onClick={this.handleSubmit}>Resgistrar se <i className="fa fa-arrow-circle-right"></i></Link><br/>
+                        <a id="forgotPasswordLink" href="#">Forgot Password</a>
+                      </div>
+                    </div>
+                </form>
+          </div>
+      </div>
       );
     }
 }

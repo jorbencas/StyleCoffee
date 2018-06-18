@@ -1,26 +1,28 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormErrors } from '../../lib/FormErrors';
-import { updateprofile, profile } from '../../actions';
+import { updateprofile } from '../../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ListErrors from '../errors/errors';
 
-const mapStateToProps= (state) => {
+const mapStateToProps = state => {
+  console.log(state);
   return {
-    user:state.ProfileReducer.profile
+    user:state.ProfileReducer.user
   };
 }
 
-const mapDispatchToProps = (dispatch) =>{
-  return bindActionCreators({profile,updateprofile}, dispatch);
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({updateprofile}, dispatch);
 }
 
 
 class Profile extends React.Component {
-    constructor(props){
-        super(props);  
-        this.state = {                
+    constructor({props,user}){
+        super(props); 
+        this.state = { 
+            id: 0,               
             username:'',
             email:'',
             dni:'',
@@ -29,31 +31,28 @@ class Profile extends React.Component {
             apellidos:'',
             image:'',
             token:'',
+            role:'',
             formErrors: {username:'',email: '', password: ''},
             emailValid: false,
             formValid: false
           };
+          
           this.handleInputChange = this.handleInputChange.bind(this); 
           this.handleSubmit = this.handleSubmit.bind(this); 
           this.validateField = this.validateField.bind(this);
           this.validateForm = this.validateForm.bind(this);
     }    
 
-    componentWillMount(){
-      this.props.profile();
-    }
-
     componentWillReceiveProps(nextProps){
-      console.log(nextProps.user);
+      console.log(nextProps);
       this.setState({
-        id:nextProps.user.id,
-        username:nextProps.user.username, 
-        dni:nextProps.user.dni, 
-        email:nextProps.user.email,
-        date_birthday:nextProps.user.date_birthday,
-        name:nextProps.user.name,
-        apellidos:nextProps.user.apellidos,
-        image:nextProps.user.image
+        username:nextProps.user.username?nextProps.user.username:'', 
+        dni:nextProps.user.dni?nextProps.user.dni:'', 
+        email:nextProps.user.email?nextProps.user.email:'',
+        date_birthday:nextProps.user.date_birthday?nextProps.user.date_birthday:'',
+        name:nextProps.user.name?nextProps.user.name:'',
+        apellidos:nextProps.user.apellidos?nextProps.user.apellidos:'',
+        image:nextProps.user.image?nextProps.user.image:''
       });
       console.log(this.state);
     }
@@ -64,6 +63,7 @@ class Profile extends React.Component {
       const name = target.name;
 
       this.setState({[name]: value}, () => { this.validateField(name, value) });
+      console.log(this.state);
   }
 
     validateField(fieldName, value) {
@@ -105,11 +105,12 @@ class Profile extends React.Component {
           return (
             <div>
               <div className="grid-main">
+              <div className="Contact">
               <ListErrors/>
                <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
                       <div><FormErrors formErrors={this.state.formErrors} /></div>
-                      <img src={this.state.image} alt="" srcSet=""/>
+                      <img src={this.state.image} alt=""/>
                         <div className="contact_item">
                           <label htmlFor="username">name</label><br/>
                           <input type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.username} required/>
@@ -137,11 +138,19 @@ class Profile extends React.Component {
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
                           <label htmlFor="apellidos" htmlFor="apellidos">Apellidos</label>
                           <input type="text" name="apellidos" id="apellidos" onChange={this.handleInputChange} required/>
+                        </div>
+                        <div className="dropdown">
+                            <label className="inputSubject" htmlFor="inputSubject">Elegidos</label><br/>
+                            <select className="btn btn-primary dropdown-toggle " id="inputSubject" name="role" title="Choose your role" onChange={this.handleInputChange}>
+                                <option value="user">Usuario Normal</option>
+                                <option value="admin">Administrador</option>
+                            </select>
                         </div> <br/><br/><br/>
                         <div className="contact_item" disabled={!this.state.formValid} >
-                          <Link to="/" className="btn-search" onClick={this.handleSubmit} >Resgistrar se</Link>
+                          <Link to="/" className="btn-search" onClick={this.handleSubmit} >Actualiza tu perfile</Link>
                         </div>
               </form>
+              </div>
               </div>
             </div>
           );

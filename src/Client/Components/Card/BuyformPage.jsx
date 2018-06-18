@@ -18,7 +18,7 @@ const mapDispatchToProps = dispatch =>{
 class StripeComponent extends React.Component{
 	constructor(props,BuyProduct) {
     super(props);
-      console.log(props);
+    console.log(props);
     this.state = {
     	card: {
       number: '',
@@ -52,13 +52,32 @@ class StripeComponent extends React.Component{
 
   render() {
     return(
-      <form onSubmit={ this.handleSubmit }>
-      <input type="text" size="20" name="number" onChange={this.handleChange} />
-      <input type="text" size="4" name="cvc" onChange={this.handleChange} />
-      <input type="text" size="2" name="exp_month" onChange={this.handleChange} />
-      <input type="text" size="4" name="exp_year" onChange={this.handleChange} />
-      <button type="submit">Pay</button>
-    </form>
+      <div className="grid-main">
+        <div className="Contact">
+          <form id="contact_form" name="contact_form" className="form-contact" onSubmit={this.handleSubmit}>
+          <h1 id="heading">Comprar un producto</h1>
+            <div className="contact_item">
+              <label htmlFor="number">Numero de cuenta</label><br/>
+              <input type="text" size="20" name="number" onChange={this.handleChange} required/>
+            </div>
+            <div className="contact_item">
+              <label htmlFor="exp_month">Expiration Month</label><br/>
+              <input type="text" size="2" name="exp_month" onChange={this.handleChange} required/>
+            </div>
+            <div className="contact_item">
+              <label htmlFor="exp_year">Expiration Year</label><br/>
+              <input type="text" size="4" name="exp_year" onChange={this.handleChange} required/>
+            </div>
+            <div className="contact_item">
+              <label htmlFor="cvc">CVC</label><br/>
+              <input type="text" size="4" name="cvc" onChange={this.handleChange} required/>
+            </div>
+            <div className="contact_item" /*disabled={!this.state.formValid}*/ >
+              <button className="btn-search" type="submit">Pay</button>
+            </div>
+          </form>
+        </div>
+      </div>
     ) 
   }
 }

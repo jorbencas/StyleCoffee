@@ -7,7 +7,7 @@ var http = require('http'),
     cors = require('cors'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
     dotenv= require('dotenv').config();
 const open = require('open');
 var isProduction = process.env.NODE_ENV === 'production';
@@ -25,7 +25,6 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 app.use(require('method-override')());
-app.use(express.static(__dirname + '/public'));
 app.use(express.static('./dist'));
 app.use(express.static('./'));
 app.use(session({ secret: 'StyleCoffee', cookie: { maxAge: 60000 }, resave: false, saveUninitialized: false  }));
@@ -51,17 +50,15 @@ require('./models/books');
 require('./models/coffee');
 require('./models/User');
 require('./config/passport');
+require('./models/reserves');
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(require('./routes'));
 
-
 /// error handlers
-
-// development error handler
-// will print stacktrace
+/*
 if (!isProduction) {
   app.use(function(err, req, res, next) {
     console.log(err.stack);
@@ -74,7 +71,7 @@ if (!isProduction) {
     }});
   });
 }
-
+*/
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {
@@ -85,8 +82,7 @@ app.use(function(err, req, res, next) {
   }});
 });
 
-
-app.listen(port, () => {
+app.listen(port || 3001, () => {
   console.log(`Servidor corriendo por http://localhost/:${port}`.green);
   open(`http://localhost:${port}/`);
 });

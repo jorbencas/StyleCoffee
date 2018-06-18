@@ -5,8 +5,10 @@ import {loadListBooks,booksdetail, deletebooks,deletebook} from '../../actions/i
 import { bindActionCreators } from 'redux';
 
 const mapStateToProps = state => {
+  console.log(state);
   return { 
-    books: state.productsList.books
+    books: state.productsList.books,
+    user: state.SingUpReducer.user.role
   };
 }
 
@@ -15,11 +17,10 @@ const mapDispatchToProps = dispatch =>{
 }
 
 class BooksListPage extends React.Component {
-  constructor({props,loadListBooks,books,booksdetail,deletebooks}) {
+  constructor({props,loadListBooks,books,user,booksdetail,deletebooks}) {
     super(props);
     this.state = {
-      listbooks:[],
-      kind:'books'
+      listbooks:[]
     };
     this.mangment = this.mangment.bind(this);
     this.editable = this.editable.bind(this);
@@ -31,14 +32,15 @@ class BooksListPage extends React.Component {
 
   componentWillReceiveProps(nextProps){
     this.setState({listbooks:nextProps.books});
+    console.log(this.state);
   }
 
        mangment(){
-        if(localStorage.getItem('token')){
+        if( this.props.user === 'admin'){
           return(
-            <section>
-              <Link className="button" to='/createbooks'>Crear un nuevo libro</Link>
-              <Link className="button" to='/BooksList' onClick={() => {this.props.deletebooks()}}>Eliminar todos</Link>
+            <section className="text-center">
+              <Link className="btn btn-primary" to='/createbooks'><i class="fa fa-plus"></i></Link>&nbsp;&nbsp;&nbsp;
+              <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletebooks()}}><i class="fa fa-trash-o"></i></Link>
               <br/><br/>
             </section>
           );
@@ -46,44 +48,44 @@ class BooksListPage extends React.Component {
       }
 
        editable (item){
-        if(localStorage.getItem('token')){
+        if( this.props.user === 'admin'){
           return(
             <section>
-              <Link className="button" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} >Editar</Link>
-              <Link className="button" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} >Borrar</Link>
+              <Link className="btn btn-success" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} ><i className="fa fa-pencil"></i></Link>&nbsp;&nbsp;&nbsp;
+              <Link className="btn btn-danger" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} ><i class="fa fa-trash-o"></i></Link>
             </section>
           )
-        }else{
+        }else if(this.props.user === 'user'){
           return(
             <section>
-              <Link className="button" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(this.state.kind,item.id)}} >Leer Más</Link>
+              <Link className="btn btn-primary" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}}><i className="fa fa-plus-circle"></i> Leer Más</Link>
             </section>
           ) 
         }
       }
 
      render() {
-      const Books = this.state.listbooks.map( item => (
-        <section className="itembook">
-            <article className="bookfoto">
+      const Books = this.state.listbooks.map( (item, i) => (
+        <section key={i} className="col-md-4">
+            <article className="col-md-12 text-center">
              <div className="state"><p>{item.state}</p></div>
               <img src={item.image} width="140px" height="215px" alt="./assets/photos/libro.png"/>
             </article>
-            <article className="bookinfo">
+            <article className="col-md-12 text-center">
               <p>{ item.title }</p>
               <p>{item.author}</p>
               <p>{item.edition}</p>
               <h2>{item.price}€</h2>
-              {this.editable(item)}
+              {this.props.user == undefined ?<section><Link className="btn btn-primary" to={'/BooksList/Book/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}}><i className="fa fa-plus-circle"></i> Leer Más</Link></section>:this.editable(item)}
             </article>
         </section> 
         ));
 
         return(
-          <div className="grid-main" id="listbooks">
-              {this.mangment()}
-              <div  id="list" >{ this.props.books !== undefined ? Books:'No hay Libros!!' }</div>
-            </div>
+          <div className="container-fluid" id="listbooks">
+            { this.props.user == undefined ?'':this.mangment()}
+              <div className="row" >{ this.state.listbooks.length > 0 ? Books:'No hay Libros!!' }</div>
+          </div>
         ) 
       } 
 }

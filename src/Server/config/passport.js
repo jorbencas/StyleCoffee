@@ -6,21 +6,13 @@ var TwitterStrategy = require('passport-twitter').Strategy;
 var GoogleStrategy = require('passport-google-oauth2').Strategy;
 var dotenv = require('dotenv').config();
 
-passport.serializeUser(function(user, done) {
-  done(null, user);
-});
-
-passport.deserializeUser(function (user, done) {
-      done(null, user);
-  });
-
 passport.use(new LocalStrategy({
-  usernameField: 'user[email]',
+  usernameField: 'user[username]',
   passwordField: 'user[password]'
-}, function(email, password, done) {
-  User.findOne({email: email}).then(function(user){
+}, function(username, password, done) {
+  User.findOne({username: username}).then(function(user){
     if(!user || !user.validPassword(password)){
-      return done(null, false, {errors: {'email or password': 'is invalid'}});
+      return done(null, false, {errors: {error:'email or password is invalid'}});
     }
 
     return done(null, user);
@@ -33,16 +25,16 @@ passport.use(new GoogleStrategy({
   callbackURL:'http://localhost:3001/api/auth/google/callback'
 },
 function(req, accessToken, refreshToken, profile, done) {
-  console.log(profile);
+  //console.log(profile);
   User.findOne({email: profile.id}).then(function(user){
-    console.log(user);
+    //console.log(user);
     if(user){
       return done(null, user);
     }else{
       var nUser=new User();
       nUser.username=profile.name.givenName;
       nUser.email= profile.id;
-      console.log(nUser);
+      //console.log(nUser);
       nUser.save().then(function(){
         return done(null, user);
       }).catch(done);

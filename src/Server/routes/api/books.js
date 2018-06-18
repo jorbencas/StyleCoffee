@@ -26,99 +26,99 @@ router.post('/:param', function(req, res, next) {
 
 
 router.put('/',auth.required, function(req,res,next){
-  console.log('Saveing book' + req.body.title);
+  console.log('Saveing book' + req.body.id);
 
   var book = new Books();
   
-  if(typeof req.body.book.id !== undefined){
+  //if(typeof req.body.book.id !== undefined){
     book.id = req.body.id;
-  }else{
+  /*}else{
     book.id = 0;
-  }
+  }*/
 
-  if(typeof req.body.book.title !== undefined){
+  //if(typeof req.body.book.title !== undefined){
     book.title = req.body.title;
-  }else{
+  /*}else{
     book.title = '';
-  }
+  }*/
 
-  if(typeof req.body.book.image === undefined){
+  //if(typeof req.body.book.image === undefined){
     book.image = req.body.image;
-  }else{
+  /*}else{
     book.image = '';
-  }
+  }*/
   
-  if(typeof req.body.book.genere === undefined){
+  //if(typeof req.body.book.genere === undefined){
     book.genere = req.body.genere;
-  }else{
+ /*}else{
     book.genere = [];
-  }
+  }*/
 
-  if(typeof req.body.book.description === undefined){
+  //if(typeof req.body.book.description === undefined){
     book.description = req.body.description;
-  }else{
+ /* }else{
     book.description = '';
-  }
+  }*/
 
-  if(typeof req.body.book.yearpublication === undefined){
+  //if(typeof req.body.book.yearpublication === undefined){
     book.yearpublication = req.body.yearpublication;
-  }else{
+  /*}else{
     book.yearpublication = '';
-  }
+  }*/
 
-  if(typeof req.body.book.author === undefined){
+ // if(typeof req.body.book.author === undefined){
     book.author = req.body.author
-  }else{
+ /* }else{
     book.author = '';
-  }
+  }*/
 
-  if(typeof req.body.book.price !== undefined){
+  //if(typeof req.body.book.price !== undefined){
     book.price = req.body.price
-  }else{
+  /*}else{
     book.price = 0;
-  }
+  }*/
   
-  if(typeof req.body.book.edition !== undefined){
+ // if(typeof req.body.book.edition !== undefined){
     book.edition = req.body.edition
-  }else{
+ /* }else{
     book.edition = '';
-  }
+  }*/
 
-  if(typeof req.body.book.languaje !== undefined){
+ // if(typeof req.body.book.languaje !== undefined){
     book.languaje = req.body.languaje
-  }else{
+ /* }else{
     book.languaje = '';    
-  }
+  }*/
   
-  if(typeof req.body.book.numpags !== undefined){
+ // if(typeof req.body.book.numpags !== undefined){
     book.numpags = req.body.numpags
-  }else{
+ /* }else{
     book.numpags = 0;    
-  }
+  }*/
   
-  if(typeof req.body.book.state !== undefined){
+//  if(typeof req.body.book.state !== undefined){
     book.state = req.body.state
-  }else{
+  /*}else{
     book.state = '';    
-  }
+  }*/
   
-  if(typeof req.body.book.format !== undefined){
+//  if(typeof req.body.book.format !== undefined){
     book.format = req.body.format;
-  }else{
+  /*}else{
     book.format = '';   
-  }
+  }*/
 
-  if(typeof req.body.book.isbn !== undefined){
+  //if(typeof req.body.book.isbn !== undefined){
     book.isbn = req.body.isbn;
-  }else{
+  /*}else{
     book.isbn = '';    
-  }
+  }*/
 
-  if(typeof req.body.book.encuadernation !== undefined){
+ // if(typeof req.body.book.encuadernation !== undefined){
     book.encuadernation=req.body.encuadernation
-  }else{
+ /* }else{
     book.encuadernation = '';    
-  }
+  }*/
   
   book.save((err, bookStored) => {
     if(err) res.status(500).send(`Ha ocurrido un error al registrar el libro en la base de datos. $(err)`);
@@ -205,7 +205,7 @@ router.delete('/',auth.required, function(req,res,next){
     if (error) {
       res.status(401).send('Ertro els borrar el libro!!');
     }else{
-      res.status(200).send('Swe ha borrado correctamente.');
+      res.status(200).send('Se han borrado todos los libros correctamente.');
     }
   });
 });
@@ -216,7 +216,7 @@ router.delete('/book/:book',auth.required, function(req,res,next){
     if (err) {
       res.status(401).send('Ertro els borrar el libro!!');
     }else{
-      res.status(200).send('Swe ha borrado correctamente.');
+      res.status(200).send('Se ha borrado correctamente.');
     }
   });
 

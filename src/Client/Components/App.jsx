@@ -1,10 +1,11 @@
 import React from "react";
-
+import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { Route, Switch } from "react-router-dom";
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-
+import { getCookie } from "../lib/utils";
+//Components
 import Home from './common/Home';
 import Contact from './common/Contact';
 import BooksListPage from './Books/BooksListPage';
@@ -18,38 +19,38 @@ import CoffeeListPage from './Coffees/CoffeeListPage';
 import Profile from './auth/profile';
 import ShoppingCard from './Card/ShoppingCard';
 import CreditCard from './Card/CreaditCard';
-import managebooks from './Books/EditBooks';
+import Managebooks from './Books/EditBooks';
 import managecoffees from './Coffees/EditCoffee';
-import ReserveBook from './common/ReservePage';
-
-import { loadlistCoffees, loadListBooks,profile } from '../actions';
+import ReserveBook from './Reserves/ReservePage';
+import ListReserve from './Reserves/ListResrve';
+import EditModal from './common/EditModal';
 import store from '../Store';
+import NotFound from './errors/NotFound';
 
+const isModal = getCookie('modal');
 const token = localStorage.getItem('token');
 const user = store.getState().loginReducer.user;
-if (token && user) {
+
+if (user.lenght > 0 && token) {
    store.dispatch({type:"AUTH_USER", user:user});
+}else{
+  localStorage.removeItem('token');
 }
 
-store.dispatch(loadlistCoffees());
-
-
-export class App extends React.Component{
-  
+export class App extends React.Component{  
 render() {
-    
+  console.log(getCookie('modal'));
   return (
     <Provider store={store}>
      <Router history={browserHistory}>
-      <div id="content">
         <Route component={Main}>
           <Switch>
             <Route exact path="/" component={Home}/>
-            <Route exact path="/Home" component={Home}/>
-            <Route exact path="/Contact" component={Contact} />
-            <Route exact path="/CoffeeList" component={CoffeeListPage} />
+            <Route path="/Home" component={Home}/>
+            <Route path="/Contact" component={Contact} />
+            <Route path="/CoffeeList" component={CoffeeListPage} />
             <Route path="/coffees/:param" component={CoffeeListPage} />
-            <Route exact path="/BooksList" component={BooksListPage} />
+            <Route path="/BooksList" component={BooksListPage} />
             <Route path="/books/:param" component={BooksListPage} />
             <Route path='/BooksList/Book/:id' component={BooksDetailPage}/>
             <Route path='/CoffeeList/Coffee/:id' component={CoffeeDetailsPage} />
@@ -59,17 +60,18 @@ render() {
             <Route path='/profile' component={Profile}/>
             <Route path='/card' component={ShoppingCard}/>
             <Route path='/buy' component={CreditCard}/>
-            <Route path='/reservebook' component={ReserveBook}/>
-            <Route path='/createbooks' component={managebooks}/>
-            <Route path='/editebook/:id' component={managebooks}/>
+            <Route path='/reservebook/:id' component={ReserveBook}/>
+            <Route path='/listreserve' component={ListReserve}/>
+            <Route path='/createbooks' component={Managebooks}/>
             <Route path='/createcoffees' component={managecoffees}/>
+            <Route path='/editebook/:id' component={Managebooks}/>
             <Route path='/editecoffee/:id' component={managecoffees}/>
+            <Route path='/error' component={NotFound}/>
           </Switch>
         </Route>
-      </div>
     </Router>
   </Provider>
-)};
+  )};
 
 };
 

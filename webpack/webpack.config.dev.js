@@ -27,14 +27,10 @@ export default {
   module: {
     loaders: [
       {test: /\.js$/, include: path.join(__dirname, 'src'), loaders: ['babel']},
-      {test: /(\.css)$/, loaders: ['style', 'css']},
-      {
-        test: /(\.js|.jsx)$/,
-        loader: 'babel',
-        query: {
-          presets: ['es2015', 'react']
-        }
-      }
+      {test: /(\.css)$/, loaders: ['style-loader', 'css-loader']},
+      {test: /\.(eot|ttf|otf|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" },
+      {test: /(\.js|.jsx)$/, loader: 'babel', query: { presets: ['es2015', 'react']}},
+      { test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "url-loader?limit=10000&mimetype=application/font-woff" },
     ]
   }
 };
