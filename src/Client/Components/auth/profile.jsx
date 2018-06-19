@@ -19,7 +19,7 @@ const mapDispatchToProps = dispatch => {
 
 
 class Profile extends React.Component {
-    constructor({props,user}){
+    constructor(props){
         super(props); 
         this.state = { 
             id: 0,               
@@ -36,7 +36,7 @@ class Profile extends React.Component {
             emailValid: false,
             formValid: false
           };
-          
+
           this.handleInputChange = this.handleInputChange.bind(this); 
           this.handleSubmit = this.handleSubmit.bind(this); 
           this.validateField = this.validateField.bind(this);
@@ -54,6 +54,7 @@ class Profile extends React.Component {
         apellidos:nextProps.user.apellidos?nextProps.user.apellidos:'',
         image:nextProps.user.image?nextProps.user.image:''
       });
+      $('#inputSubject').val(nextProps.user.role);
       console.log(this.state);
     }
 
@@ -85,8 +86,7 @@ class Profile extends React.Component {
       }
       this.setState({formErrors: fieldValidationErrors,
                       emailValid: emailValid,
-                      passwordValid: passwordValid
-                    }, this.validateForm);
+                      passwordValid: passwordValid}, this.validateForm);
     }
     
     validateForm() {
@@ -105,9 +105,9 @@ class Profile extends React.Component {
           return (
             <div>
               <div className="grid-main">
-              <div className="Contact">
-              <ListErrors/>
-               <form id="contact_form" name="contact_form" className="form-contact">
+                <div className="Contact">
+                <ListErrors/>
+                  <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
                       <div><FormErrors formErrors={this.state.formErrors} /></div>
                       <img src={this.state.image} alt=""/>
@@ -149,8 +149,8 @@ class Profile extends React.Component {
                         <div className="contact_item" disabled={!this.state.formValid} >
                           <Link to="/" className="btn-search" onClick={this.handleSubmit} >Actualiza tu perfile</Link>
                         </div>
-              </form>
-              </div>
+                  </form>
+                </div>
               </div>
             </div>
           );

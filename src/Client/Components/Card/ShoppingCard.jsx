@@ -19,10 +19,30 @@ const mapDispatchToProps = dispatch =>{
 
 const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 
+	function handleviewsmall(){
+		$(".mas").on("click", function(){
+			padre = $(this).parent();
+			texto = padre.data("texto");
+			$(padre)
+					.html(texto)
+					.css({
+							height: "5rem"
+					});
+		});
+	}
+
   function handleviewtext(){
-    var caracteresAMostrar = 300;
-		var contenido = $("#comentario").html();
- 		console.log( $("#comentario").html());
+		var texto, padre;
+		$(".contenido").each(function(){
+				texto = $(this).html();
+				this.setAttribute("data-texto", texto);
+				if ($(this).html().length > 75){
+						$(this)
+								.html(texto.substr(0, 75) + "...")
+								.append($("<label className = 'mas' onClick={handleviewsmall()}>Leer más</label>"));
+				}
+		});
+		
 		/*if (contenido.length > caracteresAMostrar) {
 			var resumen = contenido.substr(0, caracteresAMostrar);
 			var todo = contenido.substr(caracteresAMostrar, contenido.length - caracteresAMostrar);
@@ -55,13 +75,15 @@ const ShoppingCard = ({cart,RemoveFromcard,BuyProduct}) => {
 									<div className="col-sm-2 hidden-xs"><img src={item.image == undefined ?"http://placehold.it/100x100":item.image } width="100px" height="185px" alt="..." className="img-responsive"/></div>
 									<div className="col-sm-10">
 										<h4 className="nomargin">{ item.title }</h4>
-										<span id="comentario" onChange={this.handleviewtext}><p>{item.description}<br/></p></span>
+										<div className = "contenido" onLoad={handleviewtext()}>
+											{item.description}
+										</div>
 									</div>
 								</div>
 							</td>
 							<td data-th="Price">{item.price}€</td>
 							<td data-th="Quantity">
-								<input type="number" className="form-control text-center" value="1"/>
+								<input type="number" className="form-control text-center" defaultValue="1"/>
 							</td>
 							<td data-th="Subtotal" className="text-center">{item.price}</td>
 							<td className="actions" data-th="">

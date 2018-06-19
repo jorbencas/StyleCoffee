@@ -35,6 +35,7 @@ const mapStateToProps = state => {
 
     componentWillReceiveProps(nextProps){
       console.log(nextProps.detail[0]);
+
       this.setState({
         id:nextProps.detail[0].id?nextProps.detail[0].id:0,
         name:nextProps.detail[0].name?nextProps.detail[0].name:'', 
@@ -43,8 +44,13 @@ const mapStateToProps = state => {
         kind:nextProps.detail[0].kind?nextProps.detail[0].kind:{},
         stock:nextProps.detail[0].stock?nextProps.detail[0].stock:0
         });
+        nextProps.detail[0].kind.forEach(element => {
+          console.log("Genero: "+ element);
+          if (element === $('.genere').value) {
+            $('.genere').checked
+          }
+        });
         console.log(this.state);
-        debugger;
     }
 
     handleInputChange(event) {

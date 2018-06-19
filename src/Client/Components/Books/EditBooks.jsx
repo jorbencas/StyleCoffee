@@ -65,6 +65,14 @@ const mapStateToProps = state => {
         stock:nextProps.detail[0].stock?nextProps.detail[0].stock:0,
         encuadernation:nextProps.detail[0].encuadernation?nextProps.detail[0].encuadernation:''
         });
+        nextProps.detail[0].genere.forEach(element => {
+          console.log("Genero: "+ element);
+          console.log( $('.genere').html());
+          if (element === $('.genere').val()) {
+            console.log($('.genere').value);
+            $('.genere').checked
+          }
+        });
         console.log(this.state);
     }
 
@@ -166,6 +174,9 @@ const mapStateToProps = state => {
 
                           <input type='checkbox' name="genere" className="genere" id="novela_negra" value="novela_negra" onChange={this.handleInputChange}/>	
 					                <label className="terminos" htmlFor="genero">Novela Negra</label>
+
+                           <input type='checkbox' name="genere" className="genere" id="romantica" value="romantica" onChange={this.handleInputChange}/>	
+					                <label className="terminos" htmlFor="genero">Romantica</label>
 
                           <input type='checkbox' name="genere" className="genere" id="drama" value="drama" onChange={this.handleInputChange} />	
 					                <label className="terminos" htmlFor="genero">Drama</label>
