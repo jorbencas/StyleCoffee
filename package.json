@@ -6,11 +6,12 @@
   "scripts": {
     "test": "jest --config jest/config.json",
     "start": " nodemon --exec babel-node ./src/Server/app.js --production",
+    "stop": "node ./src/Server/stop.js",
     "build:html": "babel-node ./webpack/tools/buildHTML.js",
     "clean-dist": "npm run remove-dist && mkdir dist",
     "remove-dist": "node_modules/.bin/rimraf ./dist",
     "prebuild": " npm-run-all clean-dist build:html",
-    "build": " babel-node ./webpack/tools/build.js --development",
+    "build": " babel-node ./webpack/tools/build.js NODE_ENV: --development",
     "postbuild": "node ./src/Server/app.js"
   },
   "repository": {
@@ -75,6 +76,7 @@
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "slug": "0.9.1",
+    "socket.io-client": "^2.1.1",
     "stripe": "^5.4.0",
     "style-loader": "^0.21.0",
     "toastr": "^2.1.4",
