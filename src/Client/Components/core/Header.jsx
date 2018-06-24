@@ -41,7 +41,6 @@ const mapStateToProps = (state) => {
       componentDidMount(){
         $('.rdb1').removeClass('btn-default').addClass('btn-primary');
         setCookie('kindsearch','true',12);
-        setCookie('modal','false',12); 
     }
 
     handleInputChange(event) {

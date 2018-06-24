@@ -1,5 +1,4 @@
 import React from "react";
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux';
 import { Route, Switch } from "react-router-dom";
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
@@ -27,7 +26,6 @@ import EditModal from './common/EditModal';
 import store from '../Store';
 import NotFound from './errors/NotFound';
 
-const isModal = getCookie('modal');
 const token = localStorage.getItem('token');
 const user = store.getState().loginReducer.user;
 
@@ -39,7 +37,6 @@ if (user.lenght > 0 && token) {
 
 export class App extends React.Component{  
 render() {
-  console.log(getCookie('modal'));
   return (
     <Provider store={store}>
      <Router history={browserHistory}>
@@ -72,7 +69,6 @@ render() {
     </Router>
   </Provider>
   )};
-
 };
 
-export default App ;
+export default App;

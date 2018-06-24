@@ -34,7 +34,7 @@ if (!isProduction) {
 }
 
 if(isProduction){
-  mongoose.connect(process.env.MONGODB_URI, (err, res) => {
+  mongoose.connect('mongodb://<jorbencas>:<Karanlik123?>@ds161610.mlab.com:61610/stylecoffee', (err, res) => {
     if (err) throw err
     console.log('Conectado a la Base de datos styleCoffee'.cyan)
   });

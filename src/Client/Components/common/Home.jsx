@@ -24,6 +24,7 @@ const colors = ['aqua','red','yellow','green'];
 class Home extends React.Component {
     constructor(props){
         super(props);
+        console.log(props);
         this.state = {
             listbooks:[],
             autoplay: true,
@@ -45,7 +46,7 @@ class Home extends React.Component {
     componentWillMount(){
         this.props.loadListBooks();
     }
-
+    
     componentWillReceiveProps(nextProps){
         console.log(nextProps);
         this.setState({
@@ -72,22 +73,22 @@ class Home extends React.Component {
     handlecarouselcontrols(){
       return(
         <div className="btn-group">
-                  <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this._changeIcon} >
-                    <i className="fa fa-exchange"></i>
-                  </button>
-                  <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.slidePrev} >
-                    <i className="fa fa-angle-left"></i>
-                  </button>
-                  <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.slideNext}>
-                   <i className="fa fa-angle-right"></i>
-                  </button>
-                  <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.goToSlide}>
-                    <i className="fa fa-fast-forward"></i>
-                  </ button>
-                  <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.autoplay}>
-                    {this.state.autoplay ? <i className="fa fa-pause"></i> : <i className="fa fa-play"></i>}
-                  </button>
-                </div>
+          <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this._changeIcon} >
+            <i className="fa fa-exchange"></i>
+          </button>
+          <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.slidePrev} >
+            <i className="fa fa-angle-left"></i>
+          </button>
+          <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.slideNext}>
+            <i className="fa fa-angle-right"></i>
+          </button>
+          <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.goToSlide}>
+            <i className="fa fa-fast-forward"></i>
+          </ button>
+          <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.autoplay}>
+            {this.state.autoplay ? <i className="fa fa-pause"></i> : <i className="fa fa-play"></i>}
+          </button>
+        </div>
       )
     }
     onSelect(active, direction){
@@ -148,7 +149,7 @@ class Home extends React.Component {
             <div className="row" style={{margin:0}}>
               <div className="col-md-12" style={{padding:0}}>
                 <React_Bootstrap_Carousel animation={true} autoplay={this.state.autoplay} slideshowSpeed={5000} leftIcon={this.state.leftIcon} rightIcon={this.state.rightIcon} onSelect={this.onSelect} ref={r => (this.slider = r)} version={4} >
-                  {this.state.listbooks === []?'Hola':element}
+                  {this.state.listbooks === []?'':element}
                 </React_Bootstrap_Carousel>
               </div>
               <div className="col-md-12 text-center" style={{ marginTop: 5 }}>

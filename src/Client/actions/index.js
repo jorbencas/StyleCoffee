@@ -156,6 +156,7 @@ export function login(user){
     return axios.post('http://localhost:3001/api/users/login',{user})
     .then(response => {dispatch({type:"AUTH_USER",user:response.data.user});
         localStorage.setItem('token',response.data.user.token);
+        console.log(response.data.user);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       })
     .catch(error => {console.log(error.response.data.errors.error); authError(error.response.data.errors.error),
@@ -189,6 +190,9 @@ export function SingUp(user){
 
 export function updateprofile(user){
   let token = localStorage.getItem('token');
+  console.log(token);
+  console.log(user);
+  debugger;
   return(dispatch)=>{
     return axios.put('http://localhost:3001/api/user',{user},{headers: { Authorization: 'Token ' + token} }
     ).then(

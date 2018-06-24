@@ -21,43 +21,52 @@ class ShoppingCard extends React.Component{
 		super(props);
 
 		this.state = ({
-			cart:[]
+			cart:props.cart.cart?props.cart.cart:[]
 		});
 
 		this.handleviewtext = this.handleviewtext.bind(this);
 		this.saveproductscardtobuy = this.saveproductscardtobuy.bind(this);
 	}
-/*
+
 	componentDidMount(){
 		this.handleviewtext();
-	}*/
-
+	}
+/*
 	componentWillReceiveProps(nextProps){
 		console.log('Hola Mundo')
 		console.log(nextProps.cart);
-		this.state({
+		this.setState({
 			cart:nextProps.cart.cart
-		})
-	}
+		});
+		console.log(this.state);
+	}*/
 
    handleviewtext(){
 		var texto, padre;
 		$(".contenido").each(function(){
 				texto = $(this).html();
 				this.setAttribute("data-texto", texto);
-				if ($(this).html().length > 75){
-						$(this).html(texto.substr(0, 75) + "...").append(`<label class="mas">Leer más</label>`);
+				if ($(this).html().length > 375){
+						$(this).html(texto.substr(0, 375) + "... ").append(`<label class="mas">Leer más</label>`);
+						$('.mas').css({color:'#007bff'});
+						$('.mas').hover().css({cursor:'pointer'});
 				}
 		});
 		$(".mas").on("click", function(){
 			padre = $(this).parent();
 			texto = padre.data("texto");
-			$(padre)
-					.html(texto)
-					.css({
-							height: "5rem"
-					});
+			$(padre).html(texto + " ").append('<label class="menos">Leer menos</label>')
+			$('.menos').css({color:'#007bff'});
+			$('.menos').hover().css({cursor:'pointer'});
 		});
+
+		$('.menos').on("click",() =>{
+			padre = $(this).parent();
+			texto = padre.data("texto");
+			if ($(this).html().length > 375){
+				$(this).html(texto.substr(0, 375) + "... ").append(`<label class="mas">Leer más</label>`);
+		}
+		})
 	}
 	
    saveproductscardtobuy(){
@@ -82,10 +91,10 @@ class ShoppingCard extends React.Component{
 						<tr key={i}>
 							<td data-th="Product">
 								<div className="row">
-									<div className="col-sm-2 hidden-xs"><img src={item.image == undefined ?"http://placehold.it/100x100":item.image } width="100px" height="185px" alt="..." className="img-responsive"/></div>
+									<div className="col-sm-2 hidden-xs"><img src={item.image == undefined ?"http://placehold.it/100x185":item.image } width="100px" height="185px" alt="..." className="img-responsive"/></div>
 									<div className="col-sm-10">
 										<h4 className="nomargin">{ item.title }</h4>
-										<div className = "contenido">
+										<div className = "contenido" onClick={this.handleviewtext}>
 											{item.description}
 										</div>
 									</div>
@@ -117,7 +126,7 @@ class ShoppingCard extends React.Component{
 						</tr>
 					</thead>
           <tbody>
-            { this.state.cart == undefined ? cart: <tr><td>El carrito esta vacio!!</td></tr>}
+            { this.state.cart == undefined ? <tr rowSpan='5'><td>El carrito esta vacio!!</td></tr>:cart}
 					</tbody>
 					<tfoot>
 						<tr className="visible-xs">
