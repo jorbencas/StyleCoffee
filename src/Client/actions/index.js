@@ -1,6 +1,5 @@
 import axios from 'axios';
 import toastr from 'toastr';
-import { setCookie } from '../lib/utils';
 import _ from 'underscore';
 let item = [];
 let Item = [];
@@ -206,6 +205,14 @@ export function updateprofile(user){
   }
 }
 
+export function loadusers(){
+  return (dispatch) => {
+    return axios.get(`http://localhost:3001/api/users`,{headers: { Authorization: 'Token ' + token}})
+      .then(res => {
+        dispatch({type:"LOAD_USERS",users:res.data});
+      });
+  }
+}
  /**CRUD */
 
 export function createbook(book){

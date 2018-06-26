@@ -9,6 +9,8 @@ import '../../dist/css/react-datepicker.min.css';
 import '../../dist/lib/bootstrap.min.js';
 import '../../dist/lib/jquery.min.js';
 import '../../dist/lib/toastr.min.js';
+import '../../dist/lib/bootstrap-toggle.min.js';
+import '../../dist/css/bootstrap-toggle.min.css';
 
  $(document).ready(function(){
     reactDOM.render(<App/>, document.getElementById('body'));

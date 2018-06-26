@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormErrors } from '../../lib/FormErrors';
+import { hashcode } from '../../lib/utils';
 import { updateprofile } from '../../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -47,6 +48,7 @@ class Profile extends React.Component {
     componentDidMount(){
       $('#inputSubject').val(this.state.role);
     }
+    /*
     componentWillReceiveProps(nextProps){
       console.log(nextProps);
       this.setState({
@@ -60,7 +62,7 @@ class Profile extends React.Component {
       });
       $('#inputSubject').val(nextProps.user.role);
       console.log(this.state);
-    }
+    }*/
 
     handleInputChange(event) {
       const target = event.target;
@@ -68,6 +70,15 @@ class Profile extends React.Component {
       const name = target.name;
 
       this.setState({[name]: value}, () => { this.validateField(name, value) });
+      /*
+      if (this.state.id === 0) {
+        let newid = hashcode(this.state.email + this.state.role + this.state.username);
+        if(newid !== 0){
+          this.setState({id: newid});
+          console.log(this.state);
+        } 
+      }*/
+
       console.log(this.state);
   }
 
@@ -131,7 +142,7 @@ class Profile extends React.Component {
                           <label htmlFor="password">Password</label><br/>
                           <input type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} />
                         </div>
-                        <div className={}>
+                        <div className={'contact_item '}>
                           <label htmlFor="date_birthday">Fecha de nacimiento</label>
                           <input type=" date" id="datepicker" name="date_birthday" placeholder="Date Birthday" onChange={this.handleInputChange} value={this.state.date_birthday}  />
                         </div>

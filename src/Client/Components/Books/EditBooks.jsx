@@ -5,10 +5,9 @@ import {createbook, editbook} from '../../actions/index';
 import { bindActionCreators } from 'redux';
 import ListErrors from '../errors/errors';
 import { FormErrors } from '../../lib/FormErrors';
-import {hashcode} from '../../lib/utils';
 import Modal from 'react-bootstrap4-modal';
 import EditModal from '../common/EditModal';
-import { getCookie, setCookie } from '../../lib/utils.js';
+import { hashcode } from '../../lib/utils.js';
 import ReactDOM  from 'react-dom';
 
 const mapStateToProps = state => {
@@ -67,19 +66,30 @@ const mapStateToProps = state => {
         });
         nextProps.detail[0].genere.forEach(element => {
           console.log("Genero: "+ element);
-          console.log( $('.genere').html());
-          if (element === $('.genere').val()) {
-            console.log($('.genere').value);
-            $('.genere').checked
-          }
+          console.log( $('.genere').val());
+          $('input:checkbox').each((index) =>{
+            console.log(index + ": " + $( this ).html());
+            if (element == $( this ).val()) {
+              $('.genere').checked
+            }
+          });
         });
+      
         console.log(this.state);
     }
 
     handleInputChange(event) {
       const target = event.target;
-      const value = target.type === 'checkbox' ? target.value : target.value;
+      const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
+
+      if(value === true) {
+        console.log('True');
+        $('#toggle-trigger').bootstrapToggle('ON');
+    }else if (value === false) {
+      console.log('False');
+        $('#toggle-trigger').bootstrapToggle('OFF');
+    }
 
       console.log(name);
 
@@ -112,10 +122,11 @@ const mapStateToProps = state => {
       });       
     }
 
+    componentDidMount(){
+      $('#toggle-trigger').bootstrapToggle('ON');
+    }
 
     editableimg(){
-      setCookie('modal',true,12); 
-      console.log(getCookie('modal'));
       ReactDOM.render(<EditModal/>,document.getElementById('modal'));
     }
 
@@ -169,17 +180,29 @@ const mapStateToProps = state => {
                           <input type="number" className="form-control" name="price" id="price" onChange={this.handleInputChange} required/>
                         </div>
                         <div>
-                          <input type='checkbox' name="genere" className="genere" id="accion" value="accion" onChange={this.handleInputChange}/>	
-					                <label className="terminos" htmlFor="genero">Acción</label>
-
-                          <input type='checkbox' name="genere" className="genere" id="novela_negra" value="novela_negra" onChange={this.handleInputChange}/>	
+                        <label className="switch">
+                            <input type="checkbox" id="accion" value="accion" name="genere" className="genere" onChange={this.handleInputChange} />
+                            <span className="slider round"></span></label>
+                            <label className="terminos" htmlFor="genero">Acción</label>
+<br/>
+                          <label className="switch">
+                            <input type="checkbox" onChange={this.handleInputChange} name="genere" className="genere" id="novela_negra" value="novela_negra" />
+                            <span className="slider round"></span></label>
 					                <label className="terminos" htmlFor="genero">Novela Negra</label>
-
-                           <input type='checkbox' name="genere" className="genere" id="romantica" value="romantica" onChange={this.handleInputChange}/>	
+<br/>
+                          <label className="switch">
+                            <input type="checkbox" onChange={this.handleInputChange} name="genere" className="genere" id="romantica" value="romantica" />
+                            <span className="slider round"></span></label>
 					                <label className="terminos" htmlFor="genero">Romantica</label>
-
-                          <input type='checkbox' name="genere" className="genere" id="drama" value="drama" onChange={this.handleInputChange} />	
+<br/>
+                          <label className="switch">
+                            <input type="checkbox" onChange={this.handleInputChange} name="genere" className="genere" id="drama" value="drama" />
+                            <span className="slider round"></span></label>
 					                <label className="terminos" htmlFor="genero">Drama</label>
+
+                          <br/>
+                          <br/>
+                          <br/>
                         </div>
                         <div className={`contact_item`}>
                           <label htmlFor="stock" >stock</label>

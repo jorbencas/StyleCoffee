@@ -39,8 +39,8 @@ class BooksListPage extends React.Component {
         if( this.props.user === 'admin'){
           return(
             <section className="text-center">
-              <Link className="btn btn-primary" to='/createbooks'><i class="fa fa-plus"></i></Link>&nbsp;&nbsp;&nbsp;
-              <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletebooks()}}><i class="fa fa-trash-o"></i></Link>
+              <Link className="btn btn-primary" to='/createbooks'><i className="fa fa-plus"></i></Link>&nbsp;&nbsp;&nbsp;
+              <Link className="btn btn-danger" to='/BooksList' onClick={() => {this.props.deletebooks()}}><i className="fa fa-trash-o"></i></Link>
               <br/><br/>
             </section>
           );
@@ -52,7 +52,7 @@ class BooksListPage extends React.Component {
           return(
             <section>
               <Link className="btn btn-success" to={'/editebook/'+item.id}  onClick={() => { this.props.booksdetail(item.id)}} ><i className="fa fa-pencil"></i></Link>&nbsp;&nbsp;&nbsp;
-              <Link className="btn btn-danger" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} ><i class="fa fa-trash-o"></i></Link>
+              <Link className="btn btn-danger" to={'/BooksList'}  onClick={() => { this.props.deletebook(item.id)}} ><i className="fa fa-trash-o"></i></Link>
             </section>
           )
         }else if(this.props.user === 'user'){

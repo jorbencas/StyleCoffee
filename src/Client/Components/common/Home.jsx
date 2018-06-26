@@ -52,7 +52,6 @@ class Home extends React.Component {
         this.setState({
             listbooks:nextProps.books
         });
-        console.log('Hola');
         console.log(this.state);
     }
 

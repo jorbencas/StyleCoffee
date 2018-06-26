@@ -3,7 +3,6 @@ import { Route, Switch } from "react-router-dom";
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
-import { getCookie } from "../lib/utils";
 //Components
 import Home from './common/Home';
 import Contact from './common/Contact';

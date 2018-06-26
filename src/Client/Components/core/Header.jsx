@@ -1,25 +1,27 @@
 import React from 'react';
 import { Link } from "react-router";
 import { getCookie, setCookie } from '../../lib/utils.js';
-import { logout, listreserves, categoriesbook, categoriescoffee, profile } from '../../actions/index';
+import { logout, listreserves, categoriesbook, categoriescoffee, profile, loadusers } from '../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (state) => {
     return { authenticated: state.loginReducer.authenticated,
-            username: state.SingUpReducer.user.username }
+            username: state.SingUpReducer.user.username,
+            role:state.loginReducer.user.role }
   };
   
   const mapDispatchToProps = (dispatch) =>{
-    return bindActionCreators({profile, logout,listreserves, categoriesbook, categoriescoffee}, dispatch);
+    return bindActionCreators({profile, logout,listreserves, categoriesbook, categoriescoffee, loadusers}, dispatch);
   }
   
   class Header extends React.Component {
-      constructor({props, username, authenticated}){
+      constructor({props, role, username, authenticated}){
           super(props);  
-          
+
           this.state = {
-            authenticated:'',
+            role:'',
+            authenticated:false,
             username:'',
             subject:'',
             path:'/books/',
@@ -32,12 +34,15 @@ const mapStateToProps = (state) => {
       }    
   
       componentWillReceiveProps(nextProps){
-        this.setState({
-          authenticated: nextProps.authenticated?nextProps.authenticated:'',
-          username:nextProps.username?nextProps.username:''
+        console.log(nextProps);
+          this.setState({
+            role:nextProps.role?nextProps.role:'',
+            authenticated:nextProps.authenticated?nextProps.authenticated:'',
+            username:nextProps.username?nextProps.username:''
           });
+          console.log(this.state);
       }
-  
+      
       componentDidMount(){
         $('.rdb1').removeClass('btn-default').addClass('btn-primary');
         setCookie('kindsearch','true',12);
@@ -45,14 +50,24 @@ const mapStateToProps = (state) => {
 
     handleInputChange(event) {
         const target = event.target;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
        
-        this.setState({
-            subject: value
-        });
-        console.log(this.state);
+        if(value === true) {
+            $('.grid-header, #footer').css({ background:'#78828D' });
+            $('.listado-item a, h5 span, #footer div div div h3, #footer li a').css({color:'#EDEFF1'});
+            $('#toggle-trigger').bootstrapToggle('ON')
+        }else{
+            $('.grid-header, #footer').css({ background:'#EDEFF1'});
+            $('.listado-item a, h5 span, #footer div div div h3, #footer li a').css({color:'#78828D'});
+            $('.slider').css({paddingLeft:'5%'});
+            $('#toggle-trigger').bootstrapToggle('OFF')
+        }
 
+        if ( target.type === 'text') this.setState({ subject: value });
+
+        console.log(this.state);
+        
     }
 
     handleClick(event){
@@ -126,6 +141,11 @@ const mapStateToProps = (state) => {
                             <span> StyleCoffee</span> </h5>
                         </Link>
                         </div>
+                        {
+                            this.state.role == 'admin'? <label className="switch">
+                            <input type="checkbox" onChange={this.handleInputChange} defaultChecked />
+                            <span className="slider round"></span></label>:''
+                        }
                         <nav id="menu" role="menu" title="menu">
                             {this.menulogin()}
                             {this.props.children}
