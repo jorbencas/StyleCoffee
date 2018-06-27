@@ -5,11 +5,10 @@ var User = mongoose.model('User');
 var auth = require('../auth');
 
 
-router.get('/users',auth.required, function(req, res, next){
-  res.send('Hola Users');
+router.get('/users',auth.optional, function(req, res, next){
   User.find().then(function(user){
     if(!user){ return res.sendStatus(401); }
-
+    console.log(user);
     return res.json({user: user});
   }).catch();
 });

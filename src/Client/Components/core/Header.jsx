@@ -106,7 +106,7 @@ const mapStateToProps = (state) => {
               <ul className="nav">
                 <li className="listado-item" title="Haz click para acceder a la lista de cafes"><Link to="/CoffeeList"><i className="fa fa-coffee"></i>Cafes</Link></li>
                 <li className="listado-item" title="Haz click para acceder a la lista de libros"><Link to="/BooksList"><i className="fa fa-book"></i>Libros</Link></li>
-                <li className="listado-item" title="Haz click sobre este boton para saber mas sobre StyleCoffee"><Link to="/abouteus"><i className="fa fa-users">AbouteUs</i></Link></li>
+                <li className="listado-item" title="Haz click sobre este boton para saber mas sobre StyleCoffee"><Link to="/users" onClick={() => {this.props.loadusers();}} ><i className="fa fa-users">Usuarios</i></Link></li>
                 <li className="listado-item" title="con este boton podres ver tu perfil de usuario"><Link to="/profile" onClick={() => {this.props.profile()}}><i className="fa fa-user"></i>{ this.state.username}</Link></li>
                 <li className="listado-item" title="Para salir de la sesión"><Link to="/" onClick={ () => {this.props.logout();}}> <i className='fa fa-sign-out'></i>Logout</Link></li>
                 <li className="listado-item" title="Al hacer clic aqui podras ver tu carrito"><Link to='/card'><i className="fa fa-cart-arrow-down"></i>carrito</Link></li>

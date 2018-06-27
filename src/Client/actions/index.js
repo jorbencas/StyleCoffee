@@ -206,8 +206,10 @@ export function updateprofile(user){
 }
 
 export function loadusers(){
+  let token = localStorage.getItem('token');
+  console.log(token);
   return (dispatch) => {
-    return axios.get(`http://localhost:3001/api/users`,{headers: { Authorization: 'Token ' + token}})
+    return axios.get(`http://localhost:3001/api/users`/*,{headers: { Authorization: 'Token ' + token}}*/)
       .then(res => {
         dispatch({type:"LOAD_USERS",users:res.data});
       });

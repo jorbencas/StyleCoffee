@@ -73,7 +73,6 @@ class ReserveBook extends React.Component {
         console.log(this.state);             
         return (
             <div className="container-fluid main-content">
-                <div className="">
                 <h1 className="form-group">Reserva un libro</h1>
                     <form id="contact_form" name="contact_form" className="form-contact">                       
                         <div className={`form-group`}>
@@ -104,7 +103,6 @@ class ReserveBook extends React.Component {
                             <input className="btn btn-primary" type="submit" name="submit" id="submit" value="Enviar" onClick={this.handleSubmit}/>
                         </div>
                     </form>
-                </div> 
             </div>
         );
     }

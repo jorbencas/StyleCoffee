@@ -24,6 +24,7 @@ import ListReserve from './Reserves/ListResrve';
 import EditModal from './common/EditModal';
 import store from '../Store';
 import NotFound from './errors/NotFound';
+import ManageUsers from './auth/Users';
 
 const token = localStorage.getItem('token');
 const user = store.getState().loginReducer.user;
@@ -63,6 +64,7 @@ render() {
             <Route path='/editebook/:id' component={Managebooks}/>
             <Route path='/editecoffee/:id' component={managecoffees}/>
             <Route path='/error' component={NotFound}/>
+            <Route path='/users' component={ManageUsers}/>
           </Switch>
         </Route>
     </Router>

@@ -72,10 +72,10 @@ class Home extends React.Component {
     handlecarouselcontrols(){
       return(
         <div className="btn-group">
-          <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this._changeIcon} >
+          <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this._changeIcon}>
             <i className="fa fa-exchange"></i>
           </button>
-          <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.slidePrev} >
+          <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.slidePrev}>
             <i className="fa fa-angle-left"></i>
           </button>
           <button type="button" style={{borderRadius:'20px', marginRight:'2%'}} className="btn btn-default" onClick={this.slideNext}>
@@ -109,7 +109,7 @@ class Home extends React.Component {
        
         if (this.state.leftIcon && this.state.rightIcon) {
           this.setState({
-            leftIcon: <i className="fa fa-arrow-circle-left" ></i> ,
+            leftIcon: <i className="fa fa-arrow-circle-left" ></i>,
             rightIcon: <i className="fa fa-arrow-circle-right" ></i>
           });
         } else {
@@ -156,7 +156,7 @@ class Home extends React.Component {
               </div>
             </div>
           </div>
-          
+
             <div className="container">
               <h1>Tenga el placer de probar toda clase de cafés</h1>
               <ul className="nav nav-tabs nav-center">

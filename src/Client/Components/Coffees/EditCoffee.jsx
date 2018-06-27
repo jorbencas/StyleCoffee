@@ -34,7 +34,7 @@ const mapStateToProps = state => {
     }    
 
     componentWillReceiveProps(nextProps){
-      console.log(nextProps.detail[0]);
+      console.log(nextProps.detail[0].kind);
 
       this.setState({
         id:nextProps.detail[0].id?nextProps.detail[0].id:0,
@@ -44,19 +44,30 @@ const mapStateToProps = state => {
         kind:nextProps.detail[0].kind?nextProps.detail[0].kind:{},
         stock:nextProps.detail[0].stock?nextProps.detail[0].stock:0
         });
-        nextProps.detail[0].kind.forEach(element => {
-          console.log("Genero: "+ element);
-          if (element === $('.genere').value) {
-            $('.genere').checked
-          }
+        /*
+        nextProps.detail[0].kind.forEach(elemento => {
+          $('.genere').each(( index, element) =>{
+            if (elemento == element.value) {
+              $('#' + element.id).attr('checked',true);
+              $('#toggle-trigger').bootstrapToggle('ON');
+            }
+          });
         });
-        console.log(this.state);
+        console.log(this.state);*/
     }
 
     handleInputChange(event) {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
+
+      if(value === true) {
+        console.log('True');
+        $('#toggle-trigger').bootstrapToggle('ON');
+      }else if (value === false) {
+        console.log('False');
+        $('#toggle-trigger').bootstrapToggle('OFF');
+      }
 
       console.log(name);
 
@@ -112,14 +123,41 @@ const mapStateToProps = state => {
                           <input type="number" name="price" id="price" onChange={this.handleInputChange}  value={this.state.price} required/>
                         </div>
                         <div>
+                        <label className="switch">
+                            <input type="checkbox" id="accion" value="accion" name="genere" className="genere" onChange={this.handleInputChange} />
+                            <span className="slider round"></span></label>
+                            <label className="terminos" htmlFor="genero">Acción</label>
+
                           <input type='checkbox' name="genere" className="genere" id="accion" value="accion" onChange={this.handleInputChange}/>	
 					                <label className="terminos" htmlFor="genero">Acción</label>
+
+                          <br/>
+
+                          <label className="switch">
+                            <input type="checkbox" id="accion" value="accion" name="genere" className="genere" onChange={this.handleInputChange} />
+                            <span className="slider round"></span></label>
+                            <label className="terminos" htmlFor="genero">Acción</label>
 
                           <input type='checkbox' name="genere" className="genere" id="novela_negra" value="novela_negra" onChange={this.handleInputChange}/>	
 					                <label className="terminos" htmlFor="genero">Novela Negra</label>
 
+                          <br/>
+
+                          <label className="switch">
+                            <input type="checkbox" id="accion" value="accion" name="genere" className="genere" onChange={this.handleInputChange} />
+                            <span className="slider round"></span></label>
+                            <label className="terminos" htmlFor="genero">Acción</label>
+
                           <input type='checkbox' name="genere" className="genere" id="drama" value="drama" onChange={this.handleInputChange} />	
 					                <label className="terminos" htmlFor="genero">Drama</label>
+
+
+                          <br/>
+                          <br/>
+                          <br/>
+                          <br/>
+                          <br/>
+
                         </div>
                         <div className={`form-group`}>
                           <label htmlFor="stock" >stock</label>
