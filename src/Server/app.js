@@ -46,32 +46,18 @@ if(isProduction){
   mongoose.set('debug', true);
 }
 
+require('./models/reserves');
 require('./models/books');
 require('./models/coffee');
 require('./models/User');
 require('./config/passport');
-require('./models/reserves');
+
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(require('./routes'));
 
-/// error handlers
-/*
-if (!isProduction) {
-  app.use(function(err, req, res, next) {
-    console.log(err.stack);
-
-    res.status(err.status || 500);
-
-    res.json({'errors': {
-      message: err.message,
-      error: err
-    }});
-  });
-}
-*/
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {

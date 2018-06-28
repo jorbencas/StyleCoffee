@@ -118,10 +118,15 @@ export function RemoveFromcard(cart){
 
 export function reserve(reserve){
   let token = localStorage.getItem('token');
+  console.log(token);
+  debugger;
   return (dispatch) => {
     return axios.put('http://localhost:3001/api/reserve/', {reserve},{headers: { Authorization: 'Token ' + token}})
     .then(
       (res)=>{ dispatch({ type:"EDIT_PRODUCT",list:res.data});
+    })
+    .catch(error => {console.log(error.response.data.errors.error); authError(error.response.data.errors.error),
+      toastr.error(error.response.data.errors.error,'Error')
     });
   }
 }
@@ -136,6 +141,7 @@ export function listreserves() {
     .then(res => {
       dispatch({type:"RESERVE_PRODUCT",list:res.data});
     })
+
   }
 }
 
