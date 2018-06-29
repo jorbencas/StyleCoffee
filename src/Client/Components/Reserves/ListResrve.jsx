@@ -25,20 +25,19 @@ const  ListReserve = ({ reserves, removereserve}) => {
               <img src={item.image} width="140px" height="215px" alt="./assets/photos/libro.png"/>
             </article>
             <article className="bookinfo">
-              <p>{ item.title }</p>
               <p>{item.datestart}</p>
               <p>{item.dateend}</p>
-              <h2>{item.price}€</h2>
             </article>
-            <Link  to='/listreserve' className="btn-search" onClick={()=>{removereserve(item)}}>Eliminar</Link>
+            <Link to='/listreserve' className="btn-search" onClick={()=>{removereserve(item)}}>Eliminar</Link>
           </section> 
         })
 
     }
-
+    console.log(reserves);
+    
         return(
             <div className="grid-main">
-                { reserves === undefined ?'No hay reservas':render()}
+                { reserves == undefined ?'No hay reservas':render()}
             </div>
         );
     
