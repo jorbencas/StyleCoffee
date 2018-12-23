@@ -34,7 +34,7 @@ if (!isProduction) {
 }
 
 if(isProduction){
-  mongoose.connect(process.env.MONGODB_URI, (err, res) => {
+  mongoose.connect('mongodb://<jorbencas>:<Karanlik123?>@ds161610.mlab.com:61610/stylecoffee', (err, res) => {
     if (err) throw err
     console.log('Conectado a la Base de datos styleCoffee'.cyan)
   });
@@ -46,32 +46,18 @@ if(isProduction){
   mongoose.set('debug', true);
 }
 
+require('./models/reserves');
 require('./models/books');
 require('./models/coffee');
 require('./models/User');
 require('./config/passport');
-require('./models/reserves');
+
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(require('./routes'));
 
-/// error handlers
-/*
-if (!isProduction) {
-  app.use(function(err, req, res, next) {
-    console.log(err.stack);
-
-    res.status(err.status || 500);
-
-    res.json({'errors': {
-      message: err.message,
-      error: err
-    }});
-  });
-}
-*/
 // production error handler
 // no stacktraces leaked to user
 app.use(function(err, req, res, next) {

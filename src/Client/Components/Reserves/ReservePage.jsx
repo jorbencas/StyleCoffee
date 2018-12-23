@@ -20,11 +20,11 @@ class ReserveBook extends React.Component {
         super(props);
         this.state = {
             id:0,
-            title:'',
+            title:props.detail.title ? props.detail.title:'',
             dni:'',
             email:'',
             tlf:'',
-            isbn:'',
+            isbn:props.detail.isbn?props.detail.isbn:0,
             timestart:'',
             timeend:'',
             datestart:'',
@@ -38,6 +38,7 @@ class ReserveBook extends React.Component {
         console.log(nextProps);
         this.setState({
             title:nextProps.detail[0].title?nextProps.detail[0].title:'',
+            isbn:nextProps.detail[0].isbn?nextProps.detail[0].isbn:''
         });
         console.log(this.state);
     }
@@ -46,7 +47,7 @@ class ReserveBook extends React.Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        console.log(this.props.detail.title);
+
         if (this.state.id === 0) {
             let newid = hashcode(this.state.title + this.state.dni);
             if(newid !== 0){
@@ -63,17 +64,13 @@ class ReserveBook extends React.Component {
 
   handleSubmit(event) {
         event.preventDefault();
-        console.log(this.props);
-        debugger;
         this.props.reserve(this.state);
     }
 
 
-    render() {  
-        console.log(this.state);             
+    render() {          
         return (
             <div className="container-fluid main-content">
-                <div className="">
                 <h1 className="form-group">Reserva un libro</h1>
                     <form id="contact_form" name="contact_form" className="form-contact">                       
                         <div className={`form-group`}>
@@ -86,25 +83,24 @@ class ReserveBook extends React.Component {
                         </div>
                         <div className={`form-group`}>
                             <label htmlFor="timestart">Hora inicial de la reserva</label><br/>
-                            <input required type="timestart" id="timestart" name="timestart" placeholder="Ha quiera quiere hacer su reserva ? *" onChange={this.handleInputChange} required/>
+                            <input required type="time" id="timestart" name="timestart" placeholder="Ha quiera quiere hacer su reserva ? *" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`form-group `}>
                             <label htmlFor="timeend">Hora final de la reserva</label><br/>
-                            <input required type="timeend" id="timeend" name="timeend" placeholder="reservar el libro hasta la hora *" onChange={this.handleInputChange} required/>
+                            <input required type="time" id="timeend" name="timeend" placeholder="reservar el libro hasta la hora *" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`form-group`}>
                             <label htmlFor="datestart">fecha inicial de la reserva</label><br/>
-                            <input required type="datestart" id="datestart" name="datestart" placeholder="Fecha de inicio de la reserva *" onChange={this.handleInputChange} required/>
+                            <input required type="date" id="datestart" name="datestart" placeholder="Fecha de inicio de la reserva *" onChange={this.handleInputChange} required/>
                         </div>
                         <div className={`form-group`}>
                             <label htmlFor="dateend">fecha final de la reserva</label><br/>
-                            <input required type="dateend" id="dateend" name="dateend" placeholder="Fecha final de la reserva*" onChange={this.handleInputChange} required/>
+                            <input required type="date" id="dateend" name="dateend" placeholder="Fecha final de la reserva*" onChange={this.handleInputChange} required/>
                         </div>
                         <div className="form-group">
                             <input className="btn btn-primary" type="submit" name="submit" id="submit" value="Enviar" onClick={this.handleSubmit}/>
                         </div>
                     </form>
-                </div> 
             </div>
         );
     }

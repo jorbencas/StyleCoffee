@@ -28,7 +28,8 @@ const rootReducer = combineReducers({
   ProfileReducer:AuthReducers,
   printerrors:printerrors,
   SingUpReducer:AuthReducers,
-  ReserveReducers:ReserveReducers
+  ReserveReducers:ReserveReducers,
+  UsersReducers:AuthReducers
 });
 
 export default rootReducer;

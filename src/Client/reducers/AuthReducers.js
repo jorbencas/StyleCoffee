@@ -1,10 +1,14 @@
  const initialState = {
+    users:{users:[]},
     user:{user: [],authenticated:false},
     profile:{profile:[]}
   };
   
 export const AuthReducers = (state = initialState,action) => {
   switch(action.type){
+    case 'LOAD_USERS':
+      return action.users
+      break;
     case'SINGUP_USER':
       return [ ...state.user,{authenticated: true, user: action.user}][0]
       break;
@@ -12,8 +16,6 @@ export const AuthReducers = (state = initialState,action) => {
       return [ ...state.user,{authenticated: true, user: action.user}][0];
       break;
     case'LOGOUT_USER':
-    console.log('dentro');
-    debugger;
       return [ ...state.user,{authenticated: false}][0];
       break;
     case'PROFILE_USER':

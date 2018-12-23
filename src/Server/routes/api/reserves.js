@@ -19,92 +19,40 @@ router.get('/:id', function(req, res, next) {
   }).catch(next);
 });
 
-router.put('/',auth.required, function(req,res,next){
-  console.log('Saveing Reserves' + req.body.reserve.id);
-  console.log(req.body.reserve)
+router.put('/',auth.optional, function(req,res,next){
+  console.log('Saveing Reserves ' + req.body.reserve.id);
   var reserves = new Reserves();
-  
-  if(typeof req.body.reserve.id !== undefined){
+
     reserves.id = req.body.reserve.id;
-  }else{
-    reserves.id = 0;
-  }
-
-  if(typeof req.body.reserve.dni !== undefined){
     reserves.dni = req.body.reserve.dni;
-  }else{
-    reserves.dni = '';
-  }
-
-  if(typeof req.body.reserve.title !== undefined){
     reserves.title = req.body.reserve.title;
-  }else{
-    reserves.title = '';
-  }
-
-  if(typeof req.body.reserve.timestart !== undefined){
     reserves.timestart = req.body.reserve.timestart;
-  }else{
-    reserves.timestart = '';
-  }
-  
-  if(typeof req.body.reserve.timeend !== undefined){
     reserves.timeend = req.body.reserve.timeend;
-  }else{
-    reserves.timeend = '';
-  }
-
-  if(typeof req.body.reserve.datestart !== undefined){
     reserves.datestart = req.body.reserve.datestart;
-  }else{
-    reserves.datestart = '';
-  }
-
-  
-
-  if(typeof req.body.reserve.tlf !== undefined){
     reserves.tlf = req.body.reserve.tlf
-  }else{
-    reserves.tlf = '';
-  }
-
-  if(typeof req.body.reserve.email !== undefined){
     reserves.email = req.body.reserve.email
-  }else{
-    reserves.email = '';
-  }
-
-  if(typeof req.body.reserve.isbn !== undefined){
     reserves.isbn = req.body.reserve.isbn;
-  }else{
-    reserves.isbn = '';    
-  }
+    reserves.dateend = req.body.reserve.dateend
 
-  if(typeof req.body.reserve.dateend !== undefined){
-    reserves.dateend=req.body.reserve.dateend
-  }else{
-    reserves.dateend = '';    
-  }
-  
   reserves.save((err, reserveStored) => {
-    if(err) res.status(500).send(`Ha ocurrido un error al registrar el libro en la base de datos. $(err)`);
+    console.log(reserveStored);
+    if(err) res.status(500).json({errors: {error:`Ha ocurrido un error al registrar el libro en la base de datos.` + err}});
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
       const msg = {
         to: 'jorbencas@gmail.com',
-        from: "jorbencas@gmail.com",
+        from:  req.body.reserve.email,
         subject: 'Reserva realizada',
         text: 'and easy to do anywhere, even with Node.js',
         html: `<strong>Estimado cliente. <br> Gracias por confiar en nosotros, su pedido ha sido de realizado, puede pasar a recoguer lo cuando quieras </strong>`,
         };
-        sgMail.send(msg, function(error, info) {
-            if (error) {
-              res.status('401').json({err: info});
+        sgMail.send(msg, function(err, info) {
+            if (err) {
+              res.status('401').json({errors: {error: info}});
             } else {
               res.status('200').json({success: true})
               res.redirect('http://localhost:3001')
             }
           })
-    //res.status(200).send(reserveStored);
   });
 });
 
