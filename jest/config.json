@@ -1,8 +1,0 @@
-{
-  "setupTestFrameworkScriptFile": "./jest/setup",
-  "verbose": true,
-  "rootDir": "../",
-  "snapshotSerializers": [
-    "enzyme-to-json/serializer"
-  ]
-}
