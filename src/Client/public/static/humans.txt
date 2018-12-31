@@ -1,0 +1,15 @@
+/* TEAM */
+Administrador: Jorge Bneyto Castelló.                          
+Site: jorbencas@gmail.com, enlace a formulario de contacto,...        
+Twitter: @jorbencas.                     
+Location: Ontinyent, Valencia, Espanya.			
+							
+/* THANKS */						
+Name: Menbres del tribunal
+                     
+/* SITE */                       
+Last update: 2018/05/28                        
+Standards: HTML5, CSS3,..            
+Components: React , Redux, Jest, Enzyme, jQuery, etc.                       
+Software: VisualStudio code.
+   
