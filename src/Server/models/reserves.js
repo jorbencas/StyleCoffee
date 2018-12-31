@@ -12,8 +12,8 @@ var ReservaSchema = new mongoose.Schema({
   telf:Number,
   dni:String,
   isbn:String,
-  timestart:Number,
-  timeend:Number,
+  timestart:String,
+  timeend:String,
   datestart:String,
   dateend:String,
 }, {timestamps: true});

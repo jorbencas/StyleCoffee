@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { FormErrors } from '../../lib/FormErrors';
+import { hashcode } from '../../lib/utils';
 import { updateprofile } from '../../actions';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import ListErrors from '../errors/errors';
+import DatePicker from 'react-datepicker';
 
 const mapStateToProps = state => {
   console.log(state);
@@ -19,19 +21,19 @@ const mapDispatchToProps = dispatch => {
 
 
 class Profile extends React.Component {
-    constructor({props,user}){
+    constructor(props){
         super(props); 
+        console.log(props);
         this.state = { 
             id: 0,               
-            username:'',
-            email:'',
-            dni:'',
-            date_birthday:'',
-            name:'',
-            apellidos:'',
-            image:'',
-            token:'',
-            role:'',
+            username:props.user.username?props.user.username:'',
+            email:props.user.email?props.user.email:'',
+            dni:props.user.dni?props.user.dni:'',
+            date_birthday:props.user.date_birthday?props.user.date_birthday:'',
+            name:props.user.name?props.user.name:'',
+            apellidos:props.user.apellidos?props.user.apellidos:'',
+            image:props.user.image?props.user.image:'',
+            role:props.user.role?props.user.role:'',
             formErrors: {username:'',email: '', password: ''},
             emailValid: false,
             formValid: false
@@ -43,6 +45,10 @@ class Profile extends React.Component {
           this.validateForm = this.validateForm.bind(this);
     }    
 
+    componentDidMount(){
+      $('#inputSubject').val(this.state.role);
+    }
+    /*
     componentWillReceiveProps(nextProps){
       console.log(nextProps);
       this.setState({
@@ -54,8 +60,9 @@ class Profile extends React.Component {
         apellidos:nextProps.user.apellidos?nextProps.user.apellidos:'',
         image:nextProps.user.image?nextProps.user.image:''
       });
+      $('#inputSubject').val(nextProps.user.role);
       console.log(this.state);
-    }
+    }*/
 
     handleInputChange(event) {
       const target = event.target;
@@ -63,6 +70,15 @@ class Profile extends React.Component {
       const name = target.name;
 
       this.setState({[name]: value}, () => { this.validateField(name, value) });
+      /*
+      if (this.state.id === 0) {
+        let newid = hashcode(this.state.email + this.state.role + this.state.username);
+        if(newid !== 0){
+          this.setState({id: newid});
+          console.log(this.state);
+        } 
+      }*/
+
       console.log(this.state);
   }
 
@@ -85,8 +101,7 @@ class Profile extends React.Component {
       }
       this.setState({formErrors: fieldValidationErrors,
                       emailValid: emailValid,
-                      passwordValid: passwordValid
-                    }, this.validateForm);
+                      passwordValid: passwordValid}, this.validateForm);
     }
     
     validateForm() {
@@ -105,39 +120,39 @@ class Profile extends React.Component {
           return (
             <div>
               <div className="grid-main">
-              <div className="Contact">
-              <ListErrors/>
-               <form id="contact_form" name="contact_form" className="form-contact">
+                <div className="Contact">
+                <ListErrors/>
+                  <form id="contact_form" name="contact_form" className="form-contact">
                       <h1 id="heading">Registrar se</h1>
                       <div><FormErrors formErrors={this.state.formErrors} /></div>
-                      <img src={this.state.image} alt=""/>
+                      <img src={this.state.image !== '' ?this.state.image:'https://static.productionready.io/images/smiley-cyrus.jpg'} alt=""/>
                         <div className="contact_item">
-                          <label htmlFor="username">name</label><br/>
-                          <input type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.username} required/>
+                          <label htmlFor="username">Username</label><br/>
+                          <input type="text" id="username" name="username" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.username} />
                         </div>
                         <div>
-                          <label htmlFor="dni"></label>
-                          <input type="text" id="dni" name="dni" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.dni} required/>
+                          <label htmlFor="dni">DNI:</label>
+                          <input type="text" id="dni" name="dni" placeholder="Nombre *" onChange={this.handleInputChange} value={this.state.dni} />
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.email)}`}>
                           <label htmlFor="email">Email</label><br/>
-                          <input type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} value={this.state.email}required/>
+                          <input type="email" id="email" name="email" placeholder="Email *" onChange={this.handleInputChange} value={this.state.email}/>
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
                           <label htmlFor="password">Password</label><br/>
-                          <input type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} required/>
+                          <input type="password" id="password" name="password" placeholder="Password *" onChange={this.handleInputChange} />
                         </div>
-                        <div>
+                        <div className={'contact_item '}>
                           <label htmlFor="date_birthday">Fecha de nacimiento</label>
-                          <input type="date" id="date_birthday" name="date_birthday" placeholder="date_birthday" onChange={this.handleInputChange} required/>
+                          <input type=" date" id="datepicker" name="date_birthday" placeholder="Date Birthday" onChange={this.handleInputChange} value={this.state.date_birthday}  />
                         </div>
                         <div>
                           <label htmlFor="name">Nombre</label>
-                          <input type="text" name="name" id="name" onChange={this.handleInputChange} required/>
+                          <input type="text" name="name" id="name" onChange={this.handleInputChange} value={this.state.name}/>
                         </div>
                         <div className={`contact_item  ${this.errorClass(this.state.formErrors.password)}`}>
                           <label htmlFor="apellidos" htmlFor="apellidos">Apellidos</label>
-                          <input type="text" name="apellidos" id="apellidos" onChange={this.handleInputChange} required/>
+                          <input type="text" name="apellidos" id="apellidos" onChange={this.handleInputChange} value={this.state.apellidos}/>
                         </div>
                         <div className="dropdown">
                             <label className="inputSubject" htmlFor="inputSubject">Elegidos</label><br/>
@@ -147,10 +162,10 @@ class Profile extends React.Component {
                             </select>
                         </div> <br/><br/><br/>
                         <div className="contact_item" disabled={!this.state.formValid} >
-                          <Link to="/" className="btn-search" onClick={this.handleSubmit} >Actualiza tu perfile</Link>
+                          <Link to="/" className="btn btn-primary" onClick={this.handleSubmit} >Actualiza tu perfile</Link>
                         </div>
-              </form>
-              </div>
+                  </form>
+                </div>
               </div>
             </div>
           );

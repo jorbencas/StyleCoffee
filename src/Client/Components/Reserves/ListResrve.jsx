@@ -5,6 +5,7 @@ import { bindActionCreators } from 'redux'
 import { Link } from "react-router";
 
 const mapStateToProps = state => {
+  console.log(state.ReserveReducers.reserves);
     return {
       reserves:state.ReserveReducers.reserves
     };

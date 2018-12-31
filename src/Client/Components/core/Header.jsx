@@ -1,25 +1,27 @@
 import React from 'react';
 import { Link } from "react-router";
 import { getCookie, setCookie } from '../../lib/utils.js';
-import { logout, listreserves, categoriesbook, categoriescoffee, profile } from '../../actions/index';
+import { logout, listreserves, categoriesbook, categoriescoffee, profile, loadusers } from '../../actions/index';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 const mapStateToProps = (state) => {
     return { authenticated: state.loginReducer.authenticated,
-            username: state.SingUpReducer.user.username }
+            username: state.SingUpReducer.user.username,
+            role:state.loginReducer.user.role }
   };
   
   const mapDispatchToProps = (dispatch) =>{
-    return bindActionCreators({profile, logout,listreserves, categoriesbook, categoriescoffee}, dispatch);
+    return bindActionCreators({profile, logout,listreserves, categoriesbook, categoriescoffee, loadusers}, dispatch);
   }
   
   class Header extends React.Component {
-      constructor({props, username, authenticated}){
+      constructor({props, role, username, authenticated}){
           super(props);  
-          
+
           this.state = {
-            authenticated:'',
+            role:'',
+            authenticated:false,
             username:'',
             subject:'',
             path:'/books/',
@@ -32,28 +34,40 @@ const mapStateToProps = (state) => {
       }    
   
       componentWillReceiveProps(nextProps){
-        this.setState({
-          authenticated: nextProps.authenticated?nextProps.authenticated:'',
-          username:nextProps.username?nextProps.username:''
+        console.log(nextProps);
+          this.setState({
+            role:nextProps.role?nextProps.role:'',
+            authenticated:nextProps.authenticated?nextProps.authenticated:'',
+            username:nextProps.username?nextProps.username:''
           });
+          console.log(this.state);
       }
-  
+      
       componentDidMount(){
         $('.rdb1').removeClass('btn-default').addClass('btn-primary');
         setCookie('kindsearch','true',12);
-        setCookie('modal','false',12); 
     }
 
     handleInputChange(event) {
         const target = event.target;
-        const value = target.value;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
        
-        this.setState({
-            subject: value
-        });
-        console.log(this.state);
+        if(value === true) {
+            $('.grid-header, #footer').css({ background:'#78828D' });
+            $('.listado-item a, h5 span, #footer div div div h3, #footer li a').css({color:'#EDEFF1'});
+            $('#toggle-trigger').bootstrapToggle('ON')
+        }else{
+            $('.grid-header, #footer').css({ background:'#EDEFF1'});
+            $('.listado-item a, h5 span, #footer div div div h3, #footer li a').css({color:'#78828D'});
+            $('.slider').css({paddingLeft:'5%'});
+            $('#toggle-trigger').bootstrapToggle('OFF')
+        }
 
+        if ( target.type === 'text') this.setState({ subject: value });
+
+        console.log(this.state);
+        
     }
 
     handleClick(event){
@@ -92,8 +106,8 @@ const mapStateToProps = (state) => {
               <ul className="nav">
                 <li className="listado-item" title="Haz click para acceder a la lista de cafes"><Link to="/CoffeeList"><i className="fa fa-coffee"></i>Cafes</Link></li>
                 <li className="listado-item" title="Haz click para acceder a la lista de libros"><Link to="/BooksList"><i className="fa fa-book"></i>Libros</Link></li>
-                <li className="listado-item" title="Haz click sobre este boton para saber mas sobre StyleCoffee"><Link to="/abouteus"><i className="fa fa-users">AbouteUs</i></Link></li>
-                <li className="listado-item" title="con este boton podres ver tu perfil de usuario"><Link to="/profile" onClick={() => {this.props.profile();}}><i className="fa fa-user"></i>{ this.state.username}</Link></li>
+                <li className="listado-item" title="Haz click sobre este boton para saber mas sobre StyleCoffee"><Link to="/users" onClick={() => {this.props.loadusers();}} ><i className="fa fa-users">Usuarios</i></Link></li>
+                <li className="listado-item" title="con este boton podres ver tu perfil de usuario"><Link to="/profile" onClick={() => {this.props.profile()}}><i className="fa fa-user"></i>{ this.state.username}</Link></li>
                 <li className="listado-item" title="Para salir de la sesión"><Link to="/" onClick={ () => {this.props.logout();}}> <i className='fa fa-sign-out'></i>Logout</Link></li>
                 <li className="listado-item" title="Al hacer clic aqui podras ver tu carrito"><Link to='/card'><i className="fa fa-cart-arrow-down"></i>carrito</Link></li>
                 <li className="listado-item" title="Para ver todas tus reservas"><Link to='/listreserve' onClick={() => {this.props.listreserves();}}><i className="fa fa-bookmark"></i>Reserva tus libros</Link></li>
@@ -127,6 +141,11 @@ const mapStateToProps = (state) => {
                             <span> StyleCoffee</span> </h5>
                         </Link>
                         </div>
+                        {
+                            this.state.role == 'admin'? <label className="switch">
+                            <input type="checkbox" onChange={this.handleInputChange} defaultChecked />
+                            <span className="slider round"></span></label>:''
+                        }
                         <nav id="menu" role="menu" title="menu">
                             {this.menulogin()}
                             {this.props.children}

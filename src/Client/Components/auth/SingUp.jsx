@@ -45,13 +45,6 @@ class singup extends React.Component {
   
       this.setState({[name]: value}, () => { this.validateField(name, value) });
 
-
-      let newid = hashcode(this.state.username + this.state.email + this.state.password);
-      if(newid !== 0){
-        this.setState({id: newid});
-        console.log(this.state);
-      }
-
   }
 
     validateField(fieldName, value) {
@@ -86,6 +79,12 @@ class singup extends React.Component {
     }
 
     handleSubmit(event){
+      let newid = hashcode(this.state.username + this.state.email + this.state.password);
+      if(newid !== 0){
+        this.setState({id: newid});
+        console.log(this.state);
+      }
+      
       this.props.SingUp(this.state)
     }
 

@@ -1,6 +1,5 @@
 import axios from 'axios';
 import toastr from 'toastr';
-import { setCookie } from '../lib/utils';
 import _ from 'underscore';
 let item = [];
 let Item = [];
@@ -119,10 +118,15 @@ export function RemoveFromcard(cart){
 
 export function reserve(reserve){
   let token = localStorage.getItem('token');
+  console.log(token);
+  debugger;
   return (dispatch) => {
     return axios.put('http://localhost:3001/api/reserve/', {reserve},{headers: { Authorization: 'Token ' + token}})
     .then(
       (res)=>{ dispatch({ type:"EDIT_PRODUCT",list:res.data});
+    })
+    .catch(error => {console.log(error.response.data.errors.error); authError(error.response.data.errors.error),
+      toastr.error(error.response.data.errors.error,'Error')
     });
   }
 }
@@ -137,6 +141,7 @@ export function listreserves() {
     .then(res => {
       dispatch({type:"RESERVE_PRODUCT",list:res.data});
     })
+
   }
 }
 
@@ -156,6 +161,7 @@ export function login(user){
     return axios.post('http://localhost:3001/api/users/login',{user})
     .then(response => {dispatch({type:"AUTH_USER",user:response.data.user});
         localStorage.setItem('token',response.data.user.token);
+        console.log(response.data.user);
         toastr.success('Hola ' +response.data.user.username + 'te has registrado correctamente','Bienvenido');
       })
     .catch(error => {console.log(error.response.data.errors.error); authError(error.response.data.errors.error),
@@ -189,6 +195,9 @@ export function SingUp(user){
 
 export function updateprofile(user){
   let token = localStorage.getItem('token');
+  console.log(token);
+  console.log(user);
+  debugger;
   return(dispatch)=>{
     return axios.put('http://localhost:3001/api/user',{user},{headers: { Authorization: 'Token ' + token} }
     ).then(
@@ -202,6 +211,16 @@ export function updateprofile(user){
   }
 }
 
+export function loadusers(){
+  let token = localStorage.getItem('token');
+  console.log(token);
+  return (dispatch) => {
+    return axios.get(`http://localhost:3001/api/users`/*,{headers: { Authorization: 'Token ' + token}}*/)
+      .then(res => {
+        dispatch({type:"LOAD_USERS",users:res.data});
+      });
+  }
+}
  /**CRUD */
 
 export function createbook(book){
